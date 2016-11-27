@@ -3,11 +3,11 @@ var prop = {
   server_port: "6969",
   iso_version: '1987', //1987 or 1993
   encode: {
-    use_defualt_encode: true,     //if true, will ignore below encode configuration, generally encode based on iso8583 field defenition
+    use_defualt_encode: false,     //if true, will ignore below encode configuration, generally encode based on iso8583 field defenition
     header_encode: 'NUMTOHEX',                        //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
-    mti_encode: 'NUMTOHEX',                           //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
+    mti_encode: 'NUMTOHEXASC',                           //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
     bitmap_encode: 'BITOHEX',                         //  NONE, BITOHEX, BITOHEXTOHEXASC
-    field_num_encode: 'NUMTOHEX',                     //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
+    field_num_encode: 'NUMTOHEXASC',                     //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
     field_alphanum_encode: 'CHARTOHEXASC',       //  NONE, CHARTOHEXASC
     var_len_field_headr_encode: 'NUMTOHEX'            //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
   },

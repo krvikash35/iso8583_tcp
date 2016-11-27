@@ -28,17 +28,18 @@ function encode_msg_per_iso8583(iso8583_msg, encoding_frmt, iso8583_field_def) {
 }
 
 function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_field_def) {
-    var result;
+    var result, field_def, field_type, field_lentype;
     var field_encode_format;
-    if (encoding_frmt.use_defualt_encode == false) {
+    field_def = iso8583_field_def[field_no].split(",");
+     field_type = field_def[0].trim();
+     field_lentype = field_def[2].trim();
+    if (!encoding_frmt.use_defualt_encode) {
         if (field_no == 0) {
             field_encode_format = encoding_frmt.mti_encode;
         } else if (field_no == 1) {
             field_encode_format = encoding_frmt.bitmap_encode;
         } else {
-            field_def = iso8583_field_def[field_no].split(",");
-            field_type = field_def[0].trim();
-            field_lentype = field_def[2].trim();
+
             if (field_lentype == 'FIXED') {
                 if (field_type = 'N' || field_type == 'XN') {
                     field_encode_format = encoding_frmt.field_num_encode;
@@ -50,27 +51,28 @@ function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_f
             }
         }
     }
+    console.log("encoding  field: field_no: %s field_value: %s field_encode_format: %s, field_type: %s field_lentype:%s",field_no,field_value,field_encode_format, field_type, field_lentype);
     switch (field_encode_format) {
         case "NONE":
-            return encode_NONE(Fields_Value);
+            return encode_NONE(field_value);
             break;
         case "NUMTOHEX":
-            return encode_HEX(Fields_Value);
+            return encode_HEX(field_value);
             break;
         case "CHARTOHEXASC":
-            return encode_HEXASCI(Fields_Value);
+            return encode_HEXASCI(field_value);
             break;
         case "NUMTOHEXASC":
-            return encode_HEXASCI(Fields_Value);
+            return encode_HEXASCI(field_value);
             break;
         case "NUMTOHEXTOHEXASC":
-            return encode_HEXASCI(encode_HEX(Fields_Value));
+            return encode_HEXASCI(encode_HEX(field_value));
             break;
         case "BITOHEX":
-            return encode_BITOHEX(Fields_Value);
+            return encode_BITOHEX(field_value);
             break;
         case "BITOHEXTOHEXASC":
-            return encode_HEXASCI(encode_BITOHEX(Fields_Value));
+            return encode_HEXASCI(encode_BITOHEX(field_value));
             break;
         default:
     }
@@ -202,8 +204,7 @@ function encode_NONE(data) {
 
 function encode_HEX(data) {
     var result;
-    if (typeof data != 'number')
-        throw new Error("can not encode \"" + data + "\" to HEX");
+    data = parseInt(data);
     result = data.toString(16);
     return result;
 }
