@@ -8,58 +8,115 @@ var alib = {
     encode_NONE: encode_NONE,
     encode_HEX: encode_HEX,
     encode_BI: encode_BI,
-    encode_ASCIHEX: encode_ASCIHEX,
+    encode_HEXASCI: encode_HEXASCI,
     encode_ASCIBI: encode_ASCIBI,
     encode_BITOHEX: encode_BITOHEX,
     validate_and_pad_field: validate_and_pad_field,
     gen_bitmap_and_init: gen_bitmap_and_init,
-    pad_field_per_iso8583: pad_field_per_iso8583
+    pad_field_per_iso8583: pad_field_per_iso8583,
+    encode_msg_per_iso8583: encode_msg_per_iso8583
 }
 
 module.exports = alib;
 
-function pad_field_per_iso8583(iso8583_msg){
-  var field_padded;
-    for( var i=0; i<iso8583_msg.field_no_present.length; i++ ){
-      field_padded =validate_and_pad_field( iso8583_msg.field_no_present[i], iso8583_msg.iso8583_msg_req_origated[i])
-      iso8583_msg.iso8583_msg_req_paded[i] = field_padded;
+function encode_msg_per_iso8583(iso8583_msg, encoding_frmt, iso8583_field_def) {
+    var field_encoded;
+    for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
+        field_encoded = encode_field_per_config(iso8583_msg.field_no_present[i], iso8583_msg.iso8583_msg_req_paded[i], encoding_frmt, iso8583_field_def);
+        iso8583_msg.iso8583_msg_req_encoded[i] = field_encoded;
     }
 }
 
-function gen_bitmap_and_init(field_data, iso8583_msg){
-  var result = "";
-  var isSecBitPresent = false;
-  var index = 2;
+function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_field_def) {
+    var result;
+    var field_encode_format;
+    if (encoding_frmt.use_defualt_encode == false) {
+        if (field_no == 0) {
+            field_encode_format = encoding_frmt.mti_encode;
+        } else if (field_no == 1) {
+            field_encode_format = encoding_frmt.bitmap_encode;
+        } else {
+            field_def = iso8583_field_def[field_no].split(",");
+            field_type = field_def[0].trim();
+            field_lentype = field_def[2].trim();
+            if (field_lentype == 'FIXED') {
+                if (field_type = 'N' || field_type == 'XN') {
+                    field_encode_format = encoding_frmt.field_num_encode;
+                } else {
+                    field_encode_format = encoding_frmt.field_alphanum_encode;
+                }
+            } else {
 
-
-
-  if( prop.iso_version == '1987'){
-    for( var i=2; i<=128; i++){
-      if ( field_data["f"+i] ){
-        iso8583_msg.iso8583_msg_req_origated[index] = field_data["f"+i];
-        iso8583_msg.field_no_present[index] = i;
-        index=index+1;
-        if ( i >= 65 ){
-          isSecBitPresent = true;
+            }
         }
-        result = result + "1";
-      }else {
-        result = result + "0";
-      }
     }
-    if ( isSecBitPresent ){
-      result = "1" + result;
+    switch (field_encode_format) {
+        case "NONE":
+            return encode_NONE(Fields_Value);
+            break;
+        case "NUMTOHEX":
+            return encode_HEX(Fields_Value);
+            break;
+        case "CHARTOHEXASC":
+            return encode_HEXASCI(Fields_Value);
+            break;
+        case "NUMTOHEXASC":
+            return encode_HEXASCI(Fields_Value);
+            break;
+        case "NUMTOHEXTOHEXASC":
+            return encode_HEXASCI(encode_HEX(Fields_Value));
+            break;
+        case "BITOHEX":
+            return encode_BITOHEX(Fields_Value);
+            break;
+        case "BITOHEXTOHEXASC":
+            return encode_HEXASCI(encode_BITOHEX(Fields_Value));
+            break;
+        default:
     }
-    else {
-      result = "0" + result.substr(0, 63)
-    }
-  }
-  iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
-  iso8583_msg.field_no_present[0] = 0;
-  iso8583_msg.iso8583_msg_req_origated[1] = result;
-  iso8583_msg.field_no_present[1] = 1;
+}
 
-  return result;
+function pad_field_per_iso8583(iso8583_msg) {
+    var field_padded;
+    for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
+        field_padded = validate_and_pad_field(iso8583_msg.field_no_present[i], iso8583_msg.iso8583_msg_req_origated[i])
+        iso8583_msg.iso8583_msg_req_paded[i] = field_padded;
+    }
+}
+
+function gen_bitmap_and_init(field_data, iso8583_msg) {
+    var result = "";
+    var isSecBitPresent = false;
+    var index = 2;
+
+
+
+    if (prop.iso_version == '1987') {
+        for (var i = 2; i <= 128; i++) {
+            if (field_data["f" + i]) {
+                iso8583_msg.iso8583_msg_req_origated[index] = field_data["f" + i];
+                iso8583_msg.field_no_present[index] = i;
+                index = index + 1;
+                if (i >= 65) {
+                    isSecBitPresent = true;
+                }
+                result = result + "1";
+            } else {
+                result = result + "0";
+            }
+        }
+        if (isSecBitPresent) {
+            result = "1" + result;
+        } else {
+            result = "0" + result.substr(0, 63)
+        }
+    }
+    iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
+    iso8583_msg.field_no_present[0] = 0;
+    iso8583_msg.iso8583_msg_req_origated[1] = result;
+    iso8583_msg.field_no_present[1] = 1;
+
+    return result;
 }
 
 function validate_and_pad_field(field_no, field_val) {
@@ -68,8 +125,8 @@ function validate_and_pad_field(field_no, field_val) {
     var field_maxlen = "";
     var field_lentype = "";
     var result = null;
-    if ( field_no == 1 ){
-      return field_val;
+    if (field_no == 1) {
+        return field_val;
     }
 
     if (prop.iso_version == '1987') {
@@ -159,10 +216,10 @@ function encode_BI(data) {
     return result;
 }
 
-function encode_ASCIHEX(data) {
+function encode_HEXASCI(data) {
     var result = "";
     if (typeof data != 'string')
-        throw new Error("can not encode \"" + data + "\" to encode_ASCIHEX");
+        throw new Error("can not encode \"" + data + "\" to encode_HEXASCI");
     for (var i = 0; i < data.length; i++) {
         var ascicode = data.charCodeAt(i);
         result = result + ascicode.toString(16);

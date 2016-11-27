@@ -4,12 +4,12 @@ var prop = {
   iso_version: '1987', //1987 or 1993
   encode: {
     use_defualt_encode: true,     //if true, will ignore below encode configuration, generally encode based on iso8583 field defenition
-    header_encode: 'HEX',          //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
-    mti_encode: 'ASCHEX',             //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
-    bitmap_encode: 'HEX',             //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
-    field_num_encode: 'HEX',        //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
-    field_alphanum_encode: 'ASCHEX',        //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
-    var_len_field_headr_encode: 'HEX' //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
+    header_encode: 'NUMTOHEX',                        //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
+    mti_encode: 'NUMTOHEX',                           //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
+    bitmap_encode: 'BITOHEX',                         //  NONE, BITOHEX, BITOHEXTOHEXASC
+    field_num_encode: 'NUMTOHEX',                     //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
+    field_alphanum_encode: 'CHARTOHEXASC',       //  NONE, CHARTOHEXASC
+    var_len_field_headr_encode: 'NUMTOHEX'            //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
   },
   include_header_for_msglen:  false //true, false
 }
