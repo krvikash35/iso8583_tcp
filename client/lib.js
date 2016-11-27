@@ -12,17 +12,33 @@ var alib = {
     encode_ASCIBI: encode_ASCIBI,
     encode_BITOHEX: encode_BITOHEX,
     validate_and_pad_field: validate_and_pad_field,
-    gen_bitmap: gen_bitmap
+    gen_bitmap_and_init: gen_bitmap_and_init,
+    pad_field_per_iso8583: pad_field_per_iso8583
 }
 
 module.exports = alib;
 
-function gen_bitmap(field_data){
+function pad_field_per_iso8583(iso8583_msg){
+  var field_padded;
+    for( var i=0; i<iso8583_msg.field_no_present.length; i++ ){
+      field_padded =validate_and_pad_field( iso8583_msg.field_no_present[i], iso8583_msg.iso8583_msg_req_origated[i])
+      iso8583_msg.iso8583_msg_req_paded[i] = field_padded;
+    }
+}
+
+function gen_bitmap_and_init(field_data, iso8583_msg){
   var result = "";
   var isSecBitPresent = false;
+  var index = 2;
+
+
+
   if( prop.iso_version == '1987'){
     for( var i=2; i<=128; i++){
       if ( field_data["f"+i] ){
+        iso8583_msg.iso8583_msg_req_origated[index] = field_data["f"+i];
+        iso8583_msg.field_no_present[index] = i;
+        index=index+1;
         if ( i >= 65 ){
           isSecBitPresent = true;
         }
@@ -38,6 +54,11 @@ function gen_bitmap(field_data){
       result = "0" + result.substr(0, 63)
     }
   }
+  iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
+  iso8583_msg.field_no_present[0] = 0;
+  iso8583_msg.iso8583_msg_req_origated[1] = result;
+  iso8583_msg.field_no_present[1] = 1;
+
   return result;
 }
 
@@ -47,6 +68,10 @@ function validate_and_pad_field(field_no, field_val) {
     var field_maxlen = "";
     var field_lentype = "";
     var result = null;
+    if ( field_no == 1 ){
+      return field_val;
+    }
+
     if (prop.iso_version == '1987') {
         field_def = fconfig.iso8583_1993_fields[field_no]
     } else if (prop.iso_version == '1993') {
