@@ -15,7 +15,9 @@ function connect_and_send(data) {
         client.write(data);
     });
     client.on('data', function(data) {
-        console.log('DATA: ' + data);
+      var buffer_data = Buffer.from(data);
+      var buff_len = buffer_data.length;
+      console.log("################ START SERVER RESPONSE ##################\nBINARY DATA: %s\nRECEIVED BYTES:%d\nSTRING DATA: %s\n################ END SERVER RESPONSE ##################",data,buff_len,buffer_data.toString('ascii'));
         client.destroy();
     });
     client.on('close', function() {

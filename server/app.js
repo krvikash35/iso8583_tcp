@@ -14,10 +14,20 @@ net.createServer(function(sock) {
 
     // Add a 'data' event handler to this instance of socket
     sock.on('data', function(data) {
+      var buffer_data = Buffer.from(data);
+      console.log("BYTE RECEVIED: %d",buffer_data.length);
+      console.log("readInt8(0): ", buffer_data.readInt8(0));
+      console.log("readInt8(1): ", buffer_data.readInt8(1));
+      console.log("readInt16BE(0): ", buffer_data.readInt16BE(0));
+      console.log("readInt16LE(0): ", buffer_data.readInt16LE(0));
+      var concated = ""
+      for(var i=0; i<buffer_data.length; i++){
+        concated = concated + " : " +buffer_data[i].toString()
+      }
+      console.log(concated);
+      console.log(buffer_data.toString('ascii'));
 
-        console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        // Write the data back to the socket, the client will receive it as data from the server
-        sock.write('You said "' + data + '"');
+        sock.write(data);
 
     });
 

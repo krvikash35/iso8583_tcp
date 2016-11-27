@@ -167,7 +167,7 @@ function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_f
 
 function cal_and_add_header(iso8583_msg) {
   var msglen = 0;
-  var headlen = 2;
+  var headlen = prop.header_len;
   var totallen = 0;
   for(var i=0; i<iso8583_msg.field_no_present.length; i++){
     msglen = msglen + iso8583_msg.iso8583_msg_req_encoded[i].length;
@@ -178,6 +178,11 @@ function cal_and_add_header(iso8583_msg) {
     }else {
       totallen = msglen;
     }
+    var msg_buffer = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen);
+    var headBuffer = Buffer.alloc(headlen);
+    var totallen_hex = convlib.decitohex(totallen);
+    headBuffer.write(totallen_hex,0,2,'hex');
+    iso8583_msg.iso8583_msg_req_final = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
   }else {
     iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)
     totallen = 0;
