@@ -1,5 +1,10 @@
-var a = "59";
-console.log( a.toString().length );
-
-// throw new Error(" hello %d",a)
-"{0}{1}".format("{1}", "{0}")
+(function(){
+    var oldLog = console.log;
+    console.log = function (message) {
+        // DO MESSAGE HERE.
+        oldLog(message);
+        oldLog.apply(console, arguments);
+    };
+    var phone = 123
+    oldLog("hello %d ",phone)
+})();

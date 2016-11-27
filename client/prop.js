@@ -3,10 +3,13 @@ var prop = {
   server_port: "6969",
   iso_version: '1987', //1987 or 1993
   encode: {
-    header_encode: 'ASC',          //  NONE, HEX, BI, ASCHEX, ASCBI
-    mti_encode: 'HEX',             //  NONE, HEX, BI, ASCHEX, ASCBI
-    bitmap_encode: '',             //  NONE, HEX, BI, ASCHEX, ASCBI
-    other_fiedl_encode: ''         //  NONE, HEX, BI, ASCHEX, ASCBI
+    use_defualt_encode: true,     //if true, will ignore below encode configuration, generally encode based on iso8583 field defenition
+    header_encode: 'HEX',          //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
+    mti_encode: 'ASCHEX',             //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
+    bitmap_encode: 'HEX',             //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
+    field_num_encode: 'HEX',        //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
+    field_alphanum_encode: 'ASCHEX',        //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
+    var_len_field_headr_encode: 'HEX' //  NONE, HEX, BI, ASCHEX, ASCBI, HEXASC
   },
   include_header_for_msglen:  false //true, false
 }
