@@ -11,7 +11,7 @@ var prop = {
     field_alphanum_encode: 'CHARTOHEXASC',       //  NONE, CHARTOHEXASC
     var_len_field_headr_encode: 'NUMTOHEX'            //  NONE, NUMTOHEX, NUMTOHEXTOHEXASC, NUMTOHEXASC
   },
-  include_header_for_msglen:  false //true, false
+  include_header_for_msglen:  true //true, false
 }
 
 module.exports = prop;

@@ -14,10 +14,50 @@ var alib = {
     validate_and_pad_field: validate_and_pad_field,
     gen_bitmap_and_init: gen_bitmap_and_init,
     pad_field_per_iso8583: pad_field_per_iso8583,
-    encode_msg_per_iso8583: encode_msg_per_iso8583
+    encode_msg_per_iso8583: encode_msg_per_iso8583,
+    cal_and_add_header: cal_and_add_header
 }
 
 module.exports = alib;
+
+function cal_and_add_header(iso8583_msg) {
+    var result = "";
+    var result_len = "";
+    for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
+        result = result + iso8583_msg.iso8583_msg_req_encoded[i]
+    }
+    if (prop.include_header_for_msglen) {
+        result_len = result.length;
+        switch (prop.encode.header_encode) {
+            case "NONE":
+                result_len = encode_NONE(result_len);
+                break;
+            case "NUMTOHEX":
+                result_len = encode_HEX(result_len);
+                break;
+            case "CHARTOHEXASC":
+                result_len = encode_HEXASCI(result_len);
+                break;
+            case "NUMTOHEXASC":
+                result_len = encode_HEXASCI(result_len);
+                break;
+            case "NUMTOHEXTOHEXASC":
+                result_len = encode_HEXASCI(encode_HEX(result_len));
+                break;
+            case "BITOHEX":
+                result_len = encode_BITOHEX(result_len);
+                break;
+            case "BITOHEXTOHEXASC":
+                result_len = encode_HEXASCI(encode_BITOHEX(result_len));
+                break;
+            default:
+        }
+        iso8583_msg.iso8583_msg_req_final = result_len + result;
+    } else {
+        iso8583_msg.iso8583_msg_req_final = result;
+    }
+}
+
 
 function encode_msg_per_iso8583(iso8583_msg, encoding_frmt, iso8583_field_def) {
     var field_encoded;
@@ -31,8 +71,8 @@ function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_f
     var result, field_def, field_type, field_lentype;
     var field_encode_format;
     field_def = iso8583_field_def[field_no].split(",");
-     field_type = field_def[0].trim();
-     field_lentype = field_def[2].trim();
+    field_type = field_def[0].trim();
+    field_lentype = field_def[2].trim();
     if (!encoding_frmt.use_defualt_encode) {
         if (field_no == 0) {
             field_encode_format = encoding_frmt.mti_encode;
@@ -51,7 +91,7 @@ function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_f
             }
         }
     }
-    console.log("encoding  field: field_no: %s field_value: %s field_encode_format: %s, field_type: %s field_lentype:%s",field_no,field_value,field_encode_format, field_type, field_lentype);
+    console.log("encoding  field: field_no: %s field_value: %s field_encode_format: %s, field_type: %s field_lentype:%s", field_no, field_value, field_encode_format, field_type, field_lentype);
     switch (field_encode_format) {
         case "NONE":
             return encode_NONE(field_value);
@@ -218,9 +258,9 @@ function encode_BI(data) {
 }
 
 function encode_HEXASCI(data) {
+  // console.log(data);
     var result = "";
-    if (typeof data != 'string')
-        throw new Error("can not encode \"" + data + "\" to encode_HEXASCI");
+    data = data.toString()
     for (var i = 0; i < data.length; i++) {
         var ascicode = data.charCodeAt(i);
         result = result + ascicode.toString(16);
