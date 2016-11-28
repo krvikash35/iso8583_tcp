@@ -2,9 +2,10 @@ var prop = require('../prop');
 var convlib = require('./convert')
 var fconfig = require('../data/field_config');
 var enclib = require('./encode');
+var fldlib = require('./field')
 
 var packlib = {
-    gen_bitmap_and_init: gen_bitmap_and_init,
+    init_and_gen_bitmap: init_and_gen_bitmap,
     pad_field_per_iso8583: pad_field_per_iso8583,
     encode_msg_per_iso8583: encode_msg_per_iso8583,
     cal_and_add_header: cal_and_add_header
@@ -12,11 +13,12 @@ var packlib = {
 module.exports = packlib;
 
 
-function gen_bitmap_and_init(field_data, iso8583_msg) {
+function init_and_gen_bitmap(iso8583_msg) {
     var result = "";
+    var field_data = fldlib.get_fld_data()
     var isSecBitPresent = false;
     var index = 2;
-    if (prop.iso_version == '1987' || prop.iso_version == '1993' ) {
+    if (prop.iso_version == '1987' || prop.iso_version == '1993') {
         for (var i = 2; i <= 128; i++) {
             if (field_data["f" + i]) {
                 iso8583_msg.iso8583_msg_req_origated[index] = field_data["f" + i];
@@ -40,94 +42,38 @@ function gen_bitmap_and_init(field_data, iso8583_msg) {
     iso8583_msg.field_no_present[0] = 0;
     iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
     iso8583_msg.field_no_present[1] = 1;
-
-    return result;
+    return 0;
 }
 
-function pad_field_per_iso8583(iso8583_msg) {
+function pad_field_per_iso8583(msg) {
     var field_padded;
-    for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
-        field_padded = validate_and_pad_field(iso8583_msg.field_no_present[i], iso8583_msg.iso8583_msg_req_origated[i])
-        iso8583_msg.iso8583_msg_req_paded[i] = field_padded;
+    var fldpre = msg.field_no_present
+
+    for (var i = 0; i <fldpre.length; i++) {
+      var fn = fldpre[i]
+      var fv = msg.iso8583_msg_req_origated[i]
+      var fcl = msg.iso8583_msg_req_origated[i].length
+      var fml = fldlib.get_fld_len_max(fn);
+      var ft =  fldlib.get_fld_type(fn);
+      var flt = fldlib.get_fld_len_type(fn);
+      console.log("ValidateAndPadd FieldNo: %s FieldValue: %s FieldType: %s FieldMaxLength: %s, FieldLenType: %s",fn,fv,ft,fml,flt);
+        if ( fcl > fml ){
+          console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s",fn,fv,fcl,fml);
+          process.exit();
+        }
+        console.log(fml-fcl);
+        if( fldlib.get_fld_is_num_type ){
+          msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,'0',fml-fcl,false);
+        }else {
+          msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,' ',fml-fcl,true);
+        }
+
     }
 }
 
-function validate_and_pad_field(field_no, field_val) {
-    var field_def = "";
-    var field_type = "";
-    var field_maxlen = "";
-    var field_lentype = "";
-    var result = null;
-    if (field_no == 1) {
-        return field_val;
-    }
-
-    if (prop.iso_version == '1987') {
-        field_def = fconfig.iso8583_1987_fields[field_no]
-    } else if (prop.iso_version == '1993') {
-        field_def = fconfig.iso8583_1993_fields[field_no]
-    }
-    field_def = field_def.split(",");
-    field_type = field_def[0].trim()
-    field_maxlen = field_def[1].trim()
-    field_lentype = field_def[2].trim()
-
-    field_val_str = field_val.toString();
-    field_curr_len = field_val_str.length;
-    console.log("validate_and_pad_field: field_no: %s field_val: %s field_type: %s field_curr_len: %s, field_maxlen: %s field_lentype: %s", field_no, field_val, field_type, field_curr_len, field_maxlen, field_lentype);
-    if (field_curr_len > field_maxlen) {
-        console.log(" FieldNo: %d with value: %s and current length: %d crossed allowed max length: %d  \n%s", field_no, field_val, field_curr_len, field_maxlen, new Error().stack);
-        process.exit(1);
-    }
-    switch (field_lentype) {
-        case "FIXED":
-            //if field_type numeric padd with zeroes to left, if other than numeric padd with space to right till max allowed length
-            if (field_type == 'N' || field_type == 'XN') {
-                var paddchar = ""
-                for (var i = 0; i < field_maxlen - field_curr_len; i++) {
-                    paddchar = paddchar + "0";
-                }
-                result = paddchar + field_val_str;
-            } else {
-                var paddchar = ""
-                for (var i = 0; i < field_maxlen - field_curr_len; i++) {
-                    paddchar = paddchar + " ";
-                }
-                result = field_val_str + paddchar;
-            }
-            break;
-        case "LLVAR":
-            llvar_header = field_val_str.length
-            if (llvar_header.toString().length == 1) {
-                llvar_header = "0" + llvar_header;
-            }
-            result = llvar_header + field_val_str;
-            break;
-        case "LLLVAR":
-            llvar_header = field_val_str.length
-            if (llvar_header.toString().length == 1)
-                llvar_header = "00" + llvar_header;
-            if (llvar_header.toString().length == 2)
-                llvar_header = "0" + llvar_header;
-            result = llvar_header + field_val_str;
-            break;
-        case "LLLLVAR":
-            llvar_header = field_val_str.length
-            if (llvar_header.toString().length == 1)
-                llvar_header = "000" + llvar_header;
-            if (llvar_header.toString().length == 2)
-                llvar_header = "00" + llvar_header;
-            if (llvar_header.toString().length == 3)
-                llvar_header = "0" + llvar_header;
-            result = llvar_header + field_val_str;
-            break;
-
-        default:
 
 
-    }
-    return result;
-}
+
 
 function encode_msg_per_iso8583(iso8583_msg, encoding_frmt, iso8583_field_def) {
     var field_encoded;
@@ -157,7 +103,14 @@ function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_f
                     field_encode_format = encoding_frmt.field_alphanum_encode;
                 }
             } else {
-
+              if (field_type = 'N' || field_type == 'XN') {
+                  field_encode_format = encoding_frmt.field_num_encode;
+              } else {
+                  field_encode_format = encoding_frmt.field_alphanum_encode;
+              }
+              var fieldlen_encode_format = prop.encode.var_len_field_headr_encode;
+                console.log("encoding  field: field_no: %s field_value: %s field_encode_format: %s, field_type: %s field_lentype:%s", field_no, field_value, field_encode_format, field_type, field_lentype);
+                return enclib.encode_llvarfield(field_value, field_type, field_lentype, field_encode_format, fieldlen_encode_format);
             }
         }
     }
