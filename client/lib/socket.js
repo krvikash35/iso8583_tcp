@@ -1,5 +1,6 @@
 var net = require('net');
 var prop = require('../prop');
+var unpacklib = require('./unpack');
 
 var soclib = {
   connect_and_send: connect_and_send
@@ -15,10 +16,14 @@ function connect_and_send(data) {
         client.write(data);
     });
     client.on('data', function(data) {
-      var buffer_data = Buffer.from(data);
-      var buff_len = buffer_data.length;
-      console.log("################ START SERVER RESPONSE ##################\nBINARY DATA: %s\nRECEIVED BYTES:%d\nSTRING DATA: %s\n################ END SERVER RESPONSE ##################",data,buff_len,buffer_data.toString('ascii'));
-        client.destroy();
+      var buff_data ={
+        data: Buffer.from(data),
+        ptr: 0
+      }
+      console.log("################ RESPONSE FROM SERVER ################");
+      unpacklib.parse_header(buff_data);
+      process.exit()
+
     });
     client.on('close', function() {
         console.log('Connection closed');
