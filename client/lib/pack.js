@@ -166,27 +166,41 @@ function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_f
 }
 
 function cal_and_add_header(iso8583_msg) {
-  var msglen = 0;
-  var headlen = prop.header_len;
-  var totallen = 0;
-  for(var i=0; i<iso8583_msg.field_no_present.length; i++){
-    msglen = msglen + iso8583_msg.iso8583_msg_req_encoded[i].length;
-  }
-  if(prop.include_header ){
-    if (prop.include_header_for_msglen_cal){
-      totallen = headlen + msglen;
-    }else {
-      totallen = msglen;
+    var msglen = 0;
+    var headlen = prop.header_len;
+    var totallen = 0;
+    for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
+        msglen = msglen + iso8583_msg.iso8583_msg_req_encoded[i].length;
     }
-    var msg_buffer = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen);
-    var headBuffer = Buffer.alloc(headlen);
-    var totallen_hex = convlib.decitohex(totallen);
-    headBuffer.write(totallen_hex,0,2,'hex');
-    iso8583_msg.iso8583_msg_req_final = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
-  }else {
-    iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)
-    totallen = 0;
-  }
-  console.log("HEADER BYTE LENGTH: %d\nMESSAGE BYTE LENGTH: %d\nVALUE PUT IN HEADER: %d\n", headlen,msglen,totallen);
+    if (prop.include_header) {
+        if (prop.include_header_for_msglen_cal) {
+            totallen = headlen + msglen;
+        } else {
+            totallen = msglen;
+        }
+        var msg_buffer = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen);
+        var headBuffer = Buffer.alloc(headlen);
+        var totallen_hex = convlib.decitohex(totallen);
+        totallen_hex = "0x" + totallen_hex;
+        switch (prop.header_len) {
+            case 1:
+                headBuffer.writeInt8(totallen_hex)
+                break;
+            case 2:
+                headBuffer.writeInt16BE(totallen_hex)
+                break;
+            case 4:
+                headBuffer.writeInt32BE(totallen_hex)
+                break;
+            default:
+
+        }
+        headBuffer.write(totallen_hex, 1, 1, 'hex');
+        iso8583_msg.iso8583_msg_req_final = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
+    } else {
+        iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)
+        totallen = 0;
+    }
+    console.log("HEADER BYTE LENGTH: %d\nMESSAGE BYTE LENGTH: %d\nVALUE PUT IN HEADER: %d\n", headlen, msglen, totallen);
 
 }
