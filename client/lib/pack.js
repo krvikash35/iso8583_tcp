@@ -16,7 +16,7 @@ function gen_bitmap_and_init(field_data, iso8583_msg) {
     var result = "";
     var isSecBitPresent = false;
     var index = 2;
-    if (prop.iso_version == '1987') {
+    if (prop.iso_version == '1987' || prop.iso_version == '1993' ) {
         for (var i = 2; i <= 128; i++) {
             if (field_data["f" + i]) {
                 iso8583_msg.iso8583_msg_req_origated[index] = field_data["f" + i];
@@ -181,6 +181,7 @@ function cal_and_add_header(iso8583_msg) {
         var msg_buffer = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen);
         var headBuffer = Buffer.alloc(headlen);
         var totallen_hex = convlib.decitohex(totallen);
+        console.log(totallen_hex);
         totallen_hex = "0x" + totallen_hex;
         switch (prop.header_len) {
             case 1:
