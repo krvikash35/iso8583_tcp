@@ -3,7 +3,7 @@ var prop = {
   server_port: "16902",      //6969 16902
   iso_version: '1987', //1987 or 1993
   encode: {
-    use_defualt_encode: false,     //if true, will ignore below encode configuration, generally encode based on iso8583 field defenition
+    use_defualt_encode: false,      // dont change to true, as of now no implementation
     header_encode: 'ascii',         //  ascii, utf8, base64, binary, hex
     mti_encode: 'ascii',
     bitmap_encode: 'hex',
