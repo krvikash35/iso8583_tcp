@@ -12,8 +12,8 @@ var prop = {
     var_len_field_headr_encode: 'ascii'
   },
   include_header:  true, //true, false
-  include_header_for_msglen_cal: false,
-  header_len: 2
+  include_header_for_msglen_cal: true,
+  header_len: 4
 }
 
 module.exports = prop;

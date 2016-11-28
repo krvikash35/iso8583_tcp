@@ -187,6 +187,6 @@ function cal_and_add_header(iso8583_msg) {
     iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)
     totallen = 0;
   }
-  console.log("HEADER BYTE LENGTH: %d\nMESSAGE BYTE LENGTH: %d\nTOTAL BYTE LENGTH HEADER: %d\n", headlen,msglen,totallen);
+  console.log("HEADER BYTE LENGTH: %d\nMESSAGE BYTE LENGTH: %d\nVALUE PUT IN HEADER: %d\n", headlen,msglen,totallen);
 
 }
