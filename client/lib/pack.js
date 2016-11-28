@@ -63,9 +63,9 @@ function validate_and_pad_field(field_no, field_val) {
     }
 
     if (prop.iso_version == '1987') {
-        field_def = fconfig.iso8583_1993_fields[field_no]
-    } else if (prop.iso_version == '1993') {
         field_def = fconfig.iso8583_1987_fields[field_no]
+    } else if (prop.iso_version == '1993') {
+        field_def = fconfig.iso8583_1993_fields[field_no]
     }
     field_def = field_def.split(",");
     field_type = field_def[0].trim()

@@ -148,7 +148,7 @@ var iso8583_1987_fields = [
 /*  12 */ "N  ,  6,FIXED  ", // Time, Local Txn
 /*  13 */ "N  ,  4,FIXED  ", // Date, Local Txn
 /*  14 */ "N  ,  4,FIXED  ", // Date, Expiration
-/*  15 */ "N  ,  6,FIXED  ", // Date, Settlement
+/*  15 */ "N  ,  4,FIXED  ", // Date, Settlement
 /*  16 */ "N  ,  4,FIXED  ", // Date, Conversion
 /*  17 */ "N  ,  4,FIXED  ", // Date, Capture
 /*  18 */ "N  ,  4,FIXED  ", // Merchant Type
