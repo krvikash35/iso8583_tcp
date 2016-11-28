@@ -1,6 +1,6 @@
 var prop = {
-  server_host: 'localhost',
-  server_port: "6969",
+  server_host: '10.66.118.36', //localhost:6969, 10.66.118.36:16902, bl4u1225
+  server_port: "16902",      //6969 16902
   iso_version: '1987', //1987 or 1993
   encode: {
     use_defualt_encode: false,     //if true, will ignore below encode configuration, generally encode based on iso8583 field defenition
