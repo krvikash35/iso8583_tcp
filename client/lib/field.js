@@ -36,7 +36,7 @@ function get_fld_len_type(fno){
 }
 
 function get_fld_is_num_type(fno){
-  if( get_fld_type[fno] =='N' || get_fld_type[fno] =='XN'){
+  if( get_fld_type(fno) =='N' || get_fld_type(fno) =='XN'){
     return true
   }else {
     return false;
@@ -46,23 +46,20 @@ function get_fld_is_num_type(fno){
 
 function set_fld_padchar(data, char, no_char, isatright){
   // console.log(char);
+
   if(no_char == 0){
     return data
   }
   var result = ""
-  var char = char.toString();
   for( var i=0; i<no_char; i++ ){
-    // char = char.concat(char)
-    // console.log(char);
+    result = result+char
   }
   if(isatright){
-    // result = data.toString().concat(char)
+    result = data.toString().concat(result)
   }else {
-    // result = char.concat(data.toString());
+    result = result.concat(data.toString());
   }
-  // console.log(char);
-  // console.log(result);
-  // return result;
+  return result;
 }
 
 

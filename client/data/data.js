@@ -5,7 +5,9 @@
 fvalues = {
   f0: '0200',
   f2: '12345',
-  f3: '30'
+  f3: '30',
+  f33: '123',
+  f37: 'abc'
 }
 
 module.exports = fvalues;

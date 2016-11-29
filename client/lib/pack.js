@@ -38,6 +38,10 @@ function init_and_gen_bitmap(iso8583_msg) {
             result = "0" + result.substr(0, 63)
         }
     }
+    if ( !field_data["f0"] ){
+      console.log("FIELD 0: MTI not present");
+      process.exit()
+    }
     iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
     iso8583_msg.field_no_present[0] = 0;
     iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
@@ -61,11 +65,16 @@ function pad_field_per_iso8583(msg) {
           console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s",fn,fv,fcl,fml);
           process.exit();
         }
-        console.log(fml-fcl);
-        if( fldlib.get_fld_is_num_type ){
-          msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,'0',fml-fcl,false);
-        }else {
-          msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,' ',fml-fcl,true);
+        if(flt=='FIXED'){
+          if( fldlib.get_fld_is_num_type(fn)){
+            console.log("FieldNo: %s is of NUMBERTYPE and will pe left padded with CHAR '%s'",fn,'0');
+            msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,'0',fml-fcl,false);
+          }else {
+            console.log("FieldNo: %s is of NON-NUMBERTYPE and will pe right padded with CHAR '%s'",fn,' ');
+            msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,' ',fml-fcl,true);
+          }
+        }else{
+            msg.iso8583_msg_req_paded[i] = fv;
         }
 
     }
