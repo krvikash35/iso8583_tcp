@@ -45,6 +45,7 @@ function init_and_gen_bitmap(iso8583_msg) {
     iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
     iso8583_msg.field_no_present[0] = 0;
     iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
+    // iso8583_msg.iso8583_msg_req_origated[1] = result;
     iso8583_msg.field_no_present[1] = 1;
     return 0;
 }
@@ -84,48 +85,29 @@ function pad_field_per_iso8583(msg) {
 
 
 
-function encode_msg_per_iso8583(iso8583_msg, encoding_frmt, iso8583_field_def) {
+function encode_msg_per_iso8583(iso8583_msg) {
     var field_encoded;
+    var fv, fn, ft, flt, flm, flhe;
     for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
-        field_encoded = encode_field_per_config(iso8583_msg.field_no_present[i], iso8583_msg.iso8583_msg_req_paded[i], encoding_frmt, iso8583_field_def);
+        fv = iso8583_msg.iso8583_msg_req_paded[i];
+        fn = iso8583_msg.field_no_present[i]
+        flm = fldlib.get_fld_len_max(fn);
+        ft =  fldlib.get_fld_type(fn);
+        flt = fldlib.get_fld_len_type(fn);
+        fenc = fldlib.get_encode_format(fn);
+        fhenc = fldlib.get_encode_format(fn,"llvar");
+        if(flt == 'FIXED'){
+          console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s ",fn,fv,flm,ft,flt,fenc);
+        }else {
+          console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s LLVAREncFrmt: %s",fn,fv,flm,ft,flt,fenc,fhenc);
+        }
+        field_encoded = enclib.encode_field(fv,fenc,flt,flm,fhenc);
         iso8583_msg.iso8583_msg_req_encoded[i] = field_encoded;
     }
 }
 
-function encode_field_per_config(field_no, field_value, encoding_frmt, iso8583_field_def) {
-    var result, field_def, field_type, field_lentype;
-    var field_encode_format;
-    field_def = iso8583_field_def[field_no].split(",");
-    field_type = field_def[0].trim();
-    field_lentype = field_def[2].trim();
-    if (!encoding_frmt.use_defualt_encode) {
-        if (field_no == 0) {
-            field_encode_format = encoding_frmt.mti_encode;
-        } else if (field_no == 1) {
-            field_encode_format = encoding_frmt.bitmap_encode;
-        } else {
 
-            if (field_lentype == 'FIXED') {
-                if (field_type = 'N' || field_type == 'XN') {
-                    field_encode_format = encoding_frmt.field_num_encode;
-                } else {
-                    field_encode_format = encoding_frmt.field_alphanum_encode;
-                }
-            } else {
-              if (field_type = 'N' || field_type == 'XN') {
-                  field_encode_format = encoding_frmt.field_num_encode;
-              } else {
-                  field_encode_format = encoding_frmt.field_alphanum_encode;
-              }
-              var fieldlen_encode_format = prop.encode.var_len_field_headr_encode;
-                console.log("encoding  field: field_no: %s field_value: %s field_encode_format: %s, field_type: %s field_lentype:%s", field_no, field_value, field_encode_format, field_type, field_lentype);
-                return enclib.encode_llvarfield(field_value, field_type, field_lentype, field_encode_format, fieldlen_encode_format);
-            }
-        }
-    }
-    console.log("encoding  field: field_no: %s field_value: %s field_encode_format: %s, field_type: %s field_lentype:%s", field_no, field_value, field_encode_format, field_type, field_lentype);
-    return enclib.encode(field_value, field_encode_format)
-}
+
 
 function cal_and_add_header(iso8583_msg) {
     var msglen = 0;

@@ -1,6 +1,7 @@
 var fconfig = require('../data/field_config')
 var prop = require('../prop')
 var convlib = require('./convert')
+var fldlib = require('./field')
 
 
 var unpacklib = {
@@ -33,19 +34,133 @@ function parse_header(buff_data) {
 
 function parse_field(buff_data, bitmap) {
     var field_len = null;
-    var field_no = null;
+    var fn = null;
     var field_value = null;
+    var ft = null;
     for (var i = 1; i < bitmap.length; i++) {
-        field_no = i + 1
+        fn = i + 1
         if (bitmap.toString().charAt(i) == 1) {
-            field_len = get_fiedl_size(field_no);
-            field_value = buff_data.data.toString(prop.encode.field_alphanum_encode, buff_data.ptr, buff_data.ptr + field_len);
-            buff_data.ptr = buff_data.ptr + field_len;
-            console.log("Field%s: %s  POINTER: %s", field_no, field_value, buff_data.ptr);
+            field_len = get_field_size(fn);
+            ft = fldlib.get_fld_len_type(fn)
+            switch (ft) {
+                case 'FIXED':
+                    var fdet = getFieldDetForDecoding(fn)
+                    field_value = buff_data.data.toString(fdet.fenc, buff_data.ptr, buff_data.ptr + fdet.flen);
+                    buff_data.ptr = buff_data.ptr + fdet.flen;
+                    console.log("Field%s: %s   POINTER: %s", fn, field_value, buff_data.ptr);
+                    break;
+                case 'LLVAR':
+                    var fdet = getFieldDetForDecoding(fn, 'h')
+                    field_value = buff_data.data.toString(fdet.fenc, buff_data.ptr, buff_data.ptr + fdet.flen);
+                    buff_data.ptr = buff_data.ptr + fdet.flen;
+                    var fhval = parseInt(field_value)
+                    fdet = getFieldDetForDecoding(fn, 'f')
+                    fdet.flen = fhval
+                    field_value = buff_data.data.toString(fdet.fenc, buff_data.ptr, buff_data.ptr + fdet.flen);
+                    buff_data.ptr = buff_data.ptr + fdet.flen;
+                    console.log("Field%s(%s): %s   POINTER: %s", fn, fhval,field_value, buff_data.ptr);
+                    break;
+                case 'LLLVAR':
+                    var fdet = getFieldDetForDecoding(fn, 'h')
+                    field_value = buff_data.data.toString(fdet.fenc, buff_data.ptr, buff_data.ptr + fdet.flen);
+                    buff_data.ptr = buff_data.ptr + fdet.flen;
+                    var fhval = parseInt(field_value)
+                    fdet = getFieldDetForDecoding(fn, 'f')
+                    fdet.flen = fhval
+                    field_value = buff_data.data.toString(fdet.fenc, buff_data.ptr, buff_data.ptr + fdet.flen);
+                    buff_data.ptr = buff_data.ptr + fdet.flen;
+                    console.log("Field%s(%s): %s      POINTER: %s", fn, fhval,field_value, buff_data.ptr);
+                    break;
+                default:
+
+            }
+
         }
 
     }
 }
+
+function getFieldDetForDecoding(fn, vardet) {
+    var fdet = {
+        flen: null,
+        fenc: null
+    }
+    var flen_asc = get_field_size(fn)
+    var flen_hex = parseInt(flen_asc) / 2;
+    var fenc = fldlib.get_encode_format(fn);
+    var fhenc = fldlib.get_encode_format(fn, "llvar");
+    var flt = fldlib.get_fld_len_type(fn);
+    if (flt == 'FIXED') {
+        if (fenc == 'ascii') {
+            fdet.flen = parseInt(flen_asc)
+            fdet.fenc = 'ascii'
+            return fdet;
+        }
+        if (fenc == 'hex') {
+            fdet.flen = parseInt(flen_hex)
+            fdet.fenc = 'hex'
+            return fdet;
+        }
+    }
+
+
+    if (flt == 'LLVAR') {
+        if (vardet == 'h') {
+            if (fhenc == 'ascii') {
+                fdet.flen = 2
+                fdet.fenc = 'ascii'
+                return fdet;
+            }
+            if (fhenc == 'hex') {
+                fdet.flen = 1
+                fdet.fenc = 'hex'
+                return fdet;
+            }
+        } else {
+            if (fenc == 'ascii') {
+                fdet.flen = null
+                fdet.fenc = 'ascii'
+                return fdet;
+            }
+            if (fenc == 'hex') {
+                fdet.flen = null
+                fdet.fenc = 'hex'
+                return fdet;
+            }
+        }
+    }
+
+
+    if (flt == 'LLLVAR') {
+        if (vardet == 'h') {
+            if (fhenc == 'ascii') {
+                fdet.flen = 3
+                fdet.fenc = 'ascii'
+                return fdet;
+            }
+            if (fhenc == 'hex') {
+                fdet.flen = 2
+                fdet.fenc = 'hex'
+                return fdet;
+            }
+        } else {
+            if (fenc == 'ascii') {
+                fdet.flen = null
+                fdet.fenc = 'ascii'
+                return fdet;
+            }
+            if (fenc == 'hex') {
+                fdet.flen = null
+                fdet.fenc = 'hex'
+                return fdet;
+            }
+        }
+
+    }
+}
+
+
+
 
 
 function parse_mti_bitmap(buff_data) {
@@ -54,7 +169,7 @@ function parse_mti_bitmap(buff_data) {
         bitmap_sec_bin = "",
         bitmap_hex = "",
         bitmap_sec_hex = "";
-    var mti_len = get_fiedl_size(0);
+    var mti_len = get_field_size(0);
     var mti_val = buff_data.data.toString(prop.encode.mti_encode, buff_data.ptr, buff_data.ptr + mti_len)
     buff_data.ptr = buff_data.ptr + mti_len;
     console.log("MTI FIELD0: %s POINTER: %s", mti_val, buff_data.ptr);
@@ -74,7 +189,7 @@ function parse_mti_bitmap(buff_data) {
 }
 
 
-function get_fiedl_size(field_no) {
+function get_field_size(field_no) {
     var field_size = null;
     if (prop.iso_version == '1987') {
         field_size = fconfig.iso8583_1987_fields[field_no].split(",")[1].trim();

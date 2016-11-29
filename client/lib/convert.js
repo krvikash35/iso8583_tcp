@@ -11,6 +11,9 @@ function decitohex(data) {
     var result;
     data = parseInt(data);
     result = data.toString(16);
+    if( (result.length % 2) != 0 ){
+      result = "0" + result;
+    }
     return result;
 }
 function decitobi(data) {
@@ -19,7 +22,10 @@ function decitobi(data) {
     return result;
 }
 function bitohex(data) {
-    var result = "";
+  var result="";
+    if( (data.length%4) != 0 ){
+      throw new Error('bitohex: invalid binary, lenght must be of multiple of 4')
+    }
     for (var i = 0; i < data.length; i += 4) {
         var fourbits = data.substr(i, 4);
         result = result + parseInt(fourbits, 2).toString(16).toUpperCase();

@@ -18,7 +18,8 @@ var fldlib = {
   get_fld_is_num_type: get_fld_is_num_type,
   set_fld_padchar: set_fld_padchar,
   get_fld_def: get_fld_def,
-  get_fld_data: get_fld_data
+  get_fld_data: get_fld_data,
+  get_encode_format: get_encode_format
 }
 
 module.exports = fldlib;
@@ -70,4 +71,28 @@ function get_fld_def(){
 
 function get_fld_data(){
   return require("../data/data");
+}
+
+
+function get_encode_format(fn, fhenc){
+  if(fn==0){
+    return prop.encode.mti_encode;
+  }
+  if(fn==1){
+    return prop.encode.bitmap_encode;
+  }
+  if(fhenc=='llvar'){
+    if ( prop.encode.var_len_field_headr_encode == 'perfieldtype'){
+      if( fldlib.get_fld_is_num_type(fn) ){
+        return prop.encode.field_num_encode;
+      }else {
+        return prop.encode.field_alphanum_encode;
+      }
+    }
+  }
+  if( fldlib.get_fld_is_num_type(fn) ){
+    return prop.encode.field_num_encode;
+  }else {
+    return prop.encode.field_alphanum_encode;
+  }
 }
