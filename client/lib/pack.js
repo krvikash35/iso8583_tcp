@@ -62,7 +62,7 @@ function pad_field_per_iso8583(msg) {
       var ft =  fldlib.get_fld_type(fn);
       var flt = fldlib.get_fld_len_type(fn);
       console.log("ValidateAndPadd FieldNo: %s FieldValue: %s FieldType: %s FieldMaxLength: %s, FieldLenType: %s",fn,fv,ft,fml,flt);
-        if ( fcl > fml ){
+        if ( fcl > fml && flt!= 'CONTVAR' ){
           console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s",fn,fv,fcl,fml);
           process.exit();
         }

@@ -54,16 +54,16 @@ function hextobi(data){
     "7": "0110",
     "8": "1000",
     "9": "1001",
-    "A": "1010",
-    "B": "1011",
-    "C": "1100",
-    "D": "1101",
-    "E": "1110",
-    "F": "1111"
+    "a": "1010",
+    "b": "1011",
+    "c": "1100",
+    "d": "1101",
+    "e": "1110",
+    "f": "1111"
   }
 
   for(var i=0; i<data.length; i++){
-    result = result + hextobi[parseInt(data.toString().charAt(i))]
+    result = result + hextobi[data.toString().charAt(i)]
   }
 
 return result;
