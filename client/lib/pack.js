@@ -75,15 +75,14 @@ function pad_field_per_iso8583(msg) {
         var flt = fldlib.get_fld_len_type(fn);
         loglib.print_debug_msg("ValidateAndPadd FieldNo: "+fn+" FieldValue: "+fv+ " FieldType: "+ft+" FieldMaxLength: "+fml+" FieldLenType: "+flt);
         if (fcl > fml && flt != 'CONTVAR') {
-            console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s", fn, fv, fcl, fml);
-            process.exit();
+            loglib.print_err_msg("Field_No: "+fn+" with value: "+fv+" and current_len: "+fcl+" crossed max allowed length: "+fml);
         }
         if (flt == 'FIXED') {
             if (fldlib.get_fld_is_num_type(fn)) {
-                console.log("FieldNo: %s is of NUMBERTYPE and will pe left padded with CHAR '%s'", fn, '0');
+                loglib.print_debug_msg("FieldNo: "+fn+" is of NUMBERTYPE and will pe left padded with CHAR "+"'0'");
                 msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv, '0', fml - fcl, false);
             } else {
-                console.log("FieldNo: %s is of NON-NUMBERTYPE and will pe right padded with CHAR '%s'", fn, ' ');
+                loglib.print_debug_msg("FieldNo: "+fn+" is of NON-NUMBERTYPE and will pe right padded with CHAR "+"' '");
                 msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv, ' ', fml - fcl, true);
             }
         } else {
