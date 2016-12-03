@@ -102,85 +102,68 @@ function encode_msg_per_iso8583(iso8583_msg) {
         ft = fldlib.get_fld_type(fn);
         flt = fldlib.get_fld_len_type(fn);
         fenc = fldlib.get_encode_format(fn);
-        console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s ", fn, fv, flm, ft, flt, fenc);
+        loglib.print_debug_msg("encode_msg_per_iso8583: FieldNo: "+fn+" FieldVal: "+fv+" FieldMaxLen: "+flm+" FieldType: "+ft+"FieldLenType: "+flt+" FieldEncFrmt: "+fenc);
         field_encoded = enclib.encode_field(fv, fenc, flt, flm);
         iso8583_msg.iso8583_msg_req_encoded[i] = field_encoded;
     }
 }
 
 function cal_and_add_header(iso8583_msg) {
+  loglib.print_debug_msg('entered cal_and_add_header')
     var msglen = 0;
     var headlen = prop.header_len;
+    iso8583_msg.iso8583_msg_req_final.header_len=headlen;
+    iso8583_msg.iso8583_msg_req_final.include_header=prop.include_header;
+    iso8583_msg.iso8583_msg_req_final.header_enc=prop.encode.header_encode
     var totallen = 0;
+    var msg_buffer_list = []
+    loglib.print_debug_msg('calculating msg length')
     for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
-        msglen = msglen + iso8583_msg.iso8583_msg_req_encoded[i].length;
+        msglen = msglen + iso8583_msg.iso8583_msg_req_encoded[i].field_whole_buffer.length;
+        msg_buffer_list[i] = iso8583_msg.iso8583_msg_req_encoded[i].field_whole_buffer;
     }
+    loglib.print_debug_msg('msglen is '+msglen)
+    loglib.print_debug_msg('calculating header value');
+    loglib.print_debug_msg('include msg length for header value calculation: '+prop.include_header_for_msglen_cal)
     if (prop.include_header) {
+
         if (prop.include_header_for_msglen_cal) {
             totallen = headlen + msglen;
         } else {
             totallen = msglen;
         }
+        loglib.print_debug_msg('msg length: '+ msglen + ' header length: '+ headlen + ' header value: '+totallen)
         var totallen_str = totallen.toString()
-        var msg_buffer = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen);
+        var msg_buffer = Buffer.concat(msg_buffer_list, msglen);
         var headBuffer = Buffer.alloc(headlen);
         switch (prop.encode.header_encode) {
             case "hex":
-                if (totallen_str.length > headlen * 2) {
-                    console.log("given value %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
-                    process.exit();
-                }
-                if (totallen_str.length != headlen * 2) {
-                    var pad_char_no = headlen * 2 - totallen_str.length;
-                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
-                }
-                headBuffer.write(totallen_str, 0, headlen, 'hex');
+                var fdet = enclib.getFieldDetForEncoding(totallen_str, 'hex', headlen)
+                headBuffer.write(fdet.fv, 0, headlen, 'hex');
                 break;
             case "ascii":
-                if (totallen_str.length > headlen) {
-                    console.log("given value %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
-                    process.exit();
-                }
-                if (totallen_str.length != headlen) {
-                    var pad_char_no = headlen - totallen_str.length;
-                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
-                }
-                headBuffer.write(totallen_str, 0, headlen, 'ascii');
+                var fdet = enclib.getFieldDetForEncoding(totallen_str, 'ascii', headlen)
+                headBuffer.write(fdet.fv, 0, headlen, 'ascii');
                 break;
             case "chexehex":
-                totallen_str = convlib.decitohex(totallen_str);
-                if (totallen_str.length > headlen * 2) {
-                    console.log("given value after decitohex conversion %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
-                    process.exit();
-                }
-                if (totallen_str.length != headlen * 2) {
-                    var pad_char_no = headlen * 2 - totallen_str.length;
-                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
-                }
-                headBuffer.write(totallen_str, 0, headlen, 'hex');
+                var fdet = enclib.getFieldDetForEncoding(totallen_str, 'chexehex', headlen)
+                headBuffer.write(fdet.fv, 0, headlen, 'hex');
                 break;
             case "chexeascii":
-                totallen_str = convlib.decitohex(totallen_str);
-                if (totallen_str.length > headlen) {
-                    console.log("given value after decitohex conversion %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
-                    process.exit();
-                }
-                if (totallen_str.length != headlen) {
-                    var pad_char_no = headlen - totallen_str.length;
-                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
-                }
-                headBuffer.write(totallen_str, 0, headlen, 'ascii');
+                var fdet = enclib.getFieldDetForEncoding(totallen_str, 'chexeascii', headlen)
+                headBuffer.write(fdet.fv, 0, headlen, 'ascii');
                 break;
             default:
-                console.log("invalid header encoding");
-                process.exit();
+                loglib.print_err_msg('invalid header encoding: '+prop.encode.header_encode)
         }
-        console.log("header encoding: header_length: %s decimal_value: %s encoding_format: %s encoding_value: %s", headlen, totallen, prop.encode.header_encode, totallen_str);
-        iso8583_msg.iso8583_msg_req_final = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
+        iso8583_msg.iso8583_msg_req_final.final_buffer = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
     } else {
-        iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)
+        iso8583_msg.iso8583_msg_req_final.final_buffer = Buffer.concat(msg_buffer_list, msglen)
         totallen = 0;
+        loglib.print_debug_msg('msg length: '+ msglen + ' header length: '+ headlen + ' header value: '+totallen)
     }
-    console.log("HEADER BYTE LENGTH: %d\nMESSAGE BYTE LENGTH: %d\nVALUE PUT IN HEADER: %d\n", headlen, msglen, totallen);
 
+    iso8583_msg.iso8583_msg_req_final.header_value=totallen;
+
+    loglib.print_debug_msg('exiting from cal_and_add_header')
 }

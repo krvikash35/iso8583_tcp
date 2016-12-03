@@ -5,7 +5,8 @@ var loglib = require('./loglib')
 var enclib = {
     encode: encode,
     encode_llvarfield: encode_llvarfield,
-    encode_field: encode_field
+    encode_field: encode_field,
+    getFieldDetForEncoding: getFieldDetForEncoding
 }
 module.exports = enclib;
 
@@ -135,6 +136,10 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
         case "LLVAR":
             var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
             var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
+            field_buffer_ret.field_body_buffer = fieldBuffer;
+            field_buffer_ret.field_body_len = fieldBuffer.length;
+            field_buffer_ret.field_enc = fdet.fenc;
+            field_buffer_ret.field_value = fdet.fv;
             var field_head_val_str = fieldBuffer.length.toString();
             var field_head_val_num = fieldBuffer.length;
             if (field_head_val_num < 1 || field_head_val_num > 99) {
@@ -143,21 +148,18 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
             fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 2)
             var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
             var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
-
             field_buffer_ret.field_head_buffer = field_head_buffer;
             field_buffer_ret.field_head_len = field_head_buffer.length;
-            field_buffer_ret.field_body_buffer = fieldBuffer;
-            field_buffer_ret.field_body_len = fieldBuffer.length;
             field_buffer_ret.field_whole_buffer = buf;
-            field_buffer_ret.field_enc = fdet.fenc;
-            field_buffer_ret.field_value = fdet.fv;
-
-
             loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "LLLVAR":
         var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
         var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
+        field_buffer_ret.field_enc = fdet.fenc;
+        field_buffer_ret.field_value = fdet.fv;
+        field_buffer_ret.field_body_buffer = fieldBuffer;
+        field_buffer_ret.field_body_len = fieldBuffer.length;
         var field_head_val_str = fieldBuffer.length.toString();
         var field_head_val_num = fieldBuffer.length;
         if (field_head_val_num < 1 || field_head_val_num > 999) {
@@ -166,15 +168,9 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
         fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 3)
         var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
         var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
-
         field_buffer_ret.field_head_buffer = field_head_buffer;
         field_buffer_ret.field_head_len = field_head_buffer.length;
-        field_buffer_ret.field_body_buffer = fieldBuffer;
-        field_buffer_ret.field_body_len = fieldBuffer.length;
         field_buffer_ret.field_whole_buffer = buf;
-        field_buffer_ret.field_enc = fdet.fenc;
-        field_buffer_ret.field_value = fdet.fv;
-
         loglib.print_debug_msg('wrote: ', field_buffer_ret);
         break;        default:
     }

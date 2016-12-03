@@ -3,15 +3,15 @@ var prop = {
   server_port: "17902",      //6969 16902
   iso_version: '1987', //1987 or 1993
   encode: {
-    header_encode: 'ascii',         //  hex, ascii, chexehex, chexeascii
+    header_encode: 'hex',         //  hex, ascii, chexehex, chexeascii
     mti_encode: 'ascii',            //  hex, ascii, chexehex, chexeascii
     bitmap_encode: 'hex',           //  hex, ascii
     field_encode: 'ascii'           //  ascii
   },
-  include_header:  true, //true, false
+  include_header:  false, //true, false
   include_header_for_msglen_cal: true,
   header_len: 4,
-  enable_debug: true
+  enable_debug: false
 }
 
 module.exports = prop;

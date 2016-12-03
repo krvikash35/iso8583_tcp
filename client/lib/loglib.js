@@ -5,11 +5,55 @@ var prop = require('../prop')
 var loglib = {
   print_org_msg: print_org_msg,
   print_padded_msg: print_padded_msg,
+  print_encoded_msg: print_encoded_msg,
   print_debug_msg: print_debug_msg,
-  print_err_msg: print_err_msg
+  print_err_msg: print_err_msg,
+  print_final_msg: print_final_msg
 }
 
 module.exports = loglib;
+
+function print_final_msg(iso8583_msg){
+  var totallen = iso8583_msg.iso8583_msg_req_final.final_buffer.length;
+  var mhl = iso8583_msg.iso8583_msg_req_final.header_len;
+  var mhv = iso8583_msg.iso8583_msg_req_final.header_value;
+  var mbl = totallen - mhl;
+  var isheadincl = iso8583_msg.iso8583_msg_req_final.include_header;
+  var headenc = iso8583_msg.iso8583_msg_req_final.header_enc;
+  var final_buffer = iso8583_msg.iso8583_msg_req_final.final_buffer;
+
+  console.log('\n\n######################## START HEADER DETAILS ##########################');
+  console.log('HEAD_INCLUDE','HEAD_VAL', 'HEAD_ENCODE', 'HEAD_LEN', 'MESSAGE_LEN');
+  console.log( pad(isheadincl,12),pad(mhv,8), pad(headenc,11), pad(mhl,8),pad(mbl,11) );
+  console.log('######################## END HEADER DETAILS ##########################\n\n');
+
+  console.log('\n\n######################## START FINAL MESSAGE ##########################');
+  console.log( final_buffer );
+  console.log('######################## END FINAL MESSAGE ##########################\n\n');
+}
+function print_encoded_msg(iso8583_msg){
+  var msg = iso8583_msg.iso8583_msg_req_encoded;
+  var flds = iso8583_msg.field_no_present;
+  var fn = null;
+  var fv = null;
+  var flt = null;
+  var fml = null;
+  var fdes = null;
+  console.log('\n\n######################## START ENCODED MESSAGE ##########################');
+  console.log('FNO', 'ENCODE','FHL', 'FVL', 'WHOLE BUFFER');
+  for(var i=0; i<msg.length; i++){
+    fn = flds[i];
+    fhl = msg[i].field_head_len;
+    fbl = msg[i].field_body_len;
+    fenc = msg[i].field_enc;
+    fval = msg[i].field_value;
+    fwb = msg[i].field_whole_buffer;
+    fhb = msg[i].field_head_buffer;
+    fbb = msg[i].field_body_buffer;
+    console.log(pad(fn,3), pad(fenc,6), pad(fhl,3), pad(fbl,3), fwb);
+  }
+  console.log('######################## END ENCODED MESSAGE ##########################\n\n');
+}
 
 function print_padded_msg(iso8583_msg){
   var msg = iso8583_msg.iso8583_msg_req_paded;
