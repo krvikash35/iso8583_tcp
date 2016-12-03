@@ -54,10 +54,10 @@ function init_and_gen_bitmap(iso8583_msg) {
         } else {
             result = "0" + result.substr(0, 63)
         }
-        loglib.print_debug_msg('generated final bitmap: ' + result)
+        loglib.print_debug_msg('generated final bitmap')
     }
-    //iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
-    iso8583_msg.iso8583_msg_req_origated[1] = result;
+    iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
+    //iso8583_msg.iso8583_msg_req_origated[1] = result;
     iso8583_msg.field_no_present[1] = 1;
     loglib.print_debug_msg('exiting from init_and_gen_bitmap')
 }
@@ -73,7 +73,7 @@ function pad_field_per_iso8583(msg) {
         var fml = fldlib.get_fld_len_max(fn);
         var ft = fldlib.get_fld_type(fn);
         var flt = fldlib.get_fld_len_type(fn);
-        console.log("ValidateAndPadd FieldNo: %s FieldValue: %s FieldType: %s FieldMaxLength: %s, FieldLenType: %s", fn, fv, ft, fml, flt);
+        loglib.print_debug_msg("ValidateAndPadd FieldNo: "+fn+" FieldValue: "+fv+ " FieldType: "+ft+" FieldMaxLength: "+fml+" FieldLenType: "+flt);
         if (fcl > fml && flt != 'CONTVAR') {
             console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s", fn, fv, fcl, fml);
             process.exit();

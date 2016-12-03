@@ -3,7 +3,7 @@ function pad(data, max, rorl, char){
   var datastr = data.toString();
   var datalen = datastr.length;
   if(datalen > max){
-    return datastr.substring(0,max-1);
+    return datastr.substring(0,max);
   }
   if(!char){
     char = ' ';

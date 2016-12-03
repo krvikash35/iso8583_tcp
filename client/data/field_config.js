@@ -7,7 +7,7 @@ var iso8583_1987_fields = {
     },
     f1: {
         'type': 'B',
-        'maxlen': 128,
+        'maxlen': 16,
         'lentype': 'CONTVAR',
         'desc': 'Bitmap'
     },
