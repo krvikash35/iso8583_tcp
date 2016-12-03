@@ -13,7 +13,8 @@ var prop = {
   },
   include_header:  true, //true, false
   include_header_for_msglen_cal: true,
-  header_len: 4
+  header_len: 4,
+  enable_debug: true
 }
 
 module.exports = prop;

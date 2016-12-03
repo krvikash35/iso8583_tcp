@@ -2,7 +2,8 @@ var prop = require('../prop');
 var convlib = require('./convert')
 var fconfig = require('../data/field_config');
 var enclib = require('./encode');
-var fldlib = require('./field')
+var fldlib = require('./field');
+var loglib = require('./loglib')
 
 var packlib = {
     init_and_gen_bitmap: init_and_gen_bitmap,
@@ -14,17 +15,32 @@ module.exports = packlib;
 
 
 function init_and_gen_bitmap(iso8583_msg) {
+    loglib.print_debug_msg('entered init_and_gen_bitmap');
     var result = "";
-    var field_data = fldlib.get_fld_data()
+    loglib.print_debug_msg('Going to get field data')
+    var field_data = fldlib.get_fld_data();
+    loglib.print_debug_msg('Got below field data: ', field_data);
+    loglib.print_debug_msg('checking for presence of mti');
+    if (!field_data["f0"]) {
+        loglib.print_err_msg('MTI at field 0 not present')
+    } else {
+        loglib.print_debug_msg('found mti')
+    }
+    iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
+    iso8583_msg.field_no_present[0] = 0;
+
     var isSecBitPresent = false;
     var index = 2;
+    loglib.print_debug_msg('Going to iterate over to check presence of field and generate bitmap')
     if (prop.iso_version == '1987' || prop.iso_version == '1993') {
         for (var i = 2; i <= 128; i++) {
             if (field_data["f" + i]) {
+                loglib.print_debug_msg('field no ' + i + ' found')
                 iso8583_msg.iso8583_msg_req_origated[index] = field_data["f" + i];
                 iso8583_msg.field_no_present[index] = i;
                 index = index + 1;
                 if (i >= 65) {
+                    loglib.print_debug_msg('secondory bit to be present')
                     isSecBitPresent = true;
                 }
                 result = result + "1";
@@ -32,22 +48,18 @@ function init_and_gen_bitmap(iso8583_msg) {
                 result = result + "0";
             }
         }
+        loglib.print_debug_msg('generating final bitmap ')
         if (isSecBitPresent) {
             result = "1" + result;
         } else {
             result = "0" + result.substr(0, 63)
         }
+        loglib.print_debug_msg('generated final bitmap: ' + result)
     }
-    if (!field_data["f0"]) {
-        console.log("FIELD 0: MTI not present");
-        process.exit()
-    }
-    iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
-    iso8583_msg.field_no_present[0] = 0;
-    iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
-    // iso8583_msg.iso8583_msg_req_origated[1] = result;
+    //iso8583_msg.iso8583_msg_req_origated[1] = convlib.bitohex(result);
+    iso8583_msg.iso8583_msg_req_origated[1] = result;
     iso8583_msg.field_no_present[1] = 1;
-    return 0;
+    loglib.print_debug_msg('exiting from init_and_gen_bitmap')
 }
 
 function pad_field_per_iso8583(msg) {
@@ -81,10 +93,6 @@ function pad_field_per_iso8583(msg) {
     }
 }
 
-
-
-
-
 function encode_msg_per_iso8583(iso8583_msg) {
     var field_encoded;
     var fv, fn, ft, flt, flm, flhe;
@@ -105,9 +113,6 @@ function encode_msg_per_iso8583(iso8583_msg) {
         iso8583_msg.iso8583_msg_req_encoded[i] = field_encoded;
     }
 }
-
-
-
 
 function cal_and_add_header(iso8583_msg) {
     var msglen = 0;
@@ -150,7 +155,7 @@ function cal_and_add_header(iso8583_msg) {
                 break;
             case "chexehex":
                 totallen_str = convlib.decitohex(totallen_str);
-                if (totallen_str.length > headlen*2) {
+                if (totallen_str.length > headlen * 2) {
                     console.log("given value after decitohex conversion %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
                     process.exit();
                 }
@@ -176,7 +181,7 @@ function cal_and_add_header(iso8583_msg) {
                 console.log("invalid header encoding");
                 process.exit();
         }
-        console.log("header encoding: header_length: %s decimal_value: %s encoding_format: %s encoding_value: %s",headlen,totallen, prop.encode.header_encode, totallen_str);
+        console.log("header encoding: header_length: %s decimal_value: %s encoding_format: %s encoding_value: %s", headlen, totallen, prop.encode.header_encode, totallen_str);
         iso8583_msg.iso8583_msg_req_final = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
     } else {
         iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)

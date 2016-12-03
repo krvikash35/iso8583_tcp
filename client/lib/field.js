@@ -2,6 +2,7 @@ var prop = require('../prop');
 var fconfig = require('../data/field_config');
 var field_def = ""
 
+
 if( prop.iso_version == "1987"){
   field_def = fconfig.iso8583_1987_fields;
 }else if (prop.iso_version == "1993"){
@@ -15,6 +16,7 @@ var fldlib = {
   get_fld_type: get_fld_type,
   get_fld_len_type: get_fld_len_type,
   get_fld_len_max: get_fld_len_max,
+  get_fld_desc: get_fld_desc,
   get_fld_is_num_type: get_fld_is_num_type,
   set_fld_padchar: set_fld_padchar,
   get_fld_def: get_fld_def,
@@ -23,17 +25,42 @@ var fldlib = {
 }
 
 module.exports = fldlib;
+var loglib = require('./loglib')
 
 function get_fld_type(fno){
-  return field_def[fno].split(",")[0].trim()
+  var key = 'f'+fno;
+  if ( field_def.hasOwnProperty(key) ){
+    return field_def[key].type
+  }else {
+    loglib.print_err_msg('Field No: '+ fno + ' is not defined in spec file')
+  }
 }
 
 function get_fld_len_max(fno){
-  return field_def[fno].split(",")[1].trim()
+  var key = 'f'+fno;
+  if ( field_def.hasOwnProperty(key) ){
+    return field_def[key].maxlen
+  }else {
+    loglib.print_err_msg('Field No: '+ fno + ' is not defined in spec file')
+  }
 }
 
 function get_fld_len_type(fno){
-  return field_def[fno].split(",")[2].trim()
+  var key = 'f'+fno;
+  if ( field_def.hasOwnProperty(key) ){
+    return field_def[key].lentype
+  }else {
+    loglib.print_err_msg('Field No: '+ fno + ' is not defined in spec file')
+  }
+}
+
+function get_fld_desc(fno){
+  var key = 'f'+fno;
+  if ( field_def.hasOwnProperty(key) ){
+    return field_def[key].desc
+  }else {
+    loglib.print_err_msg('Field No: '+ fno + ' is not defined in spec file')
+  }
 }
 
 function get_fld_is_num_type(fno){
@@ -46,8 +73,6 @@ function get_fld_is_num_type(fno){
 
 
 function set_fld_padchar(data, char, no_char, isatright){
-  // console.log(char);
-
   if(no_char == 0){
     return data
   }
