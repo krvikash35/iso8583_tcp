@@ -154,7 +154,7 @@ var iso8583_1987_fields = [
 /*  19 */ "N  ,  3,FIXED  ", // Country Code, Acquiring Inst
 /*  20 */ "N  ,  3,FIXED  ", // Country Code, Primary Account Number
 /*  21 */ "N  ,  3,FIXED  ", // Country Code, Forwarding Inst
-/*  22 */ "N  ,  3,FIXED  ", // Point of Service Entry Mode
+/*  22 */ "N  ,  4,FIXED  ", // Point of Service Entry Mode
 /*  23 */ "N  ,  3,FIXED  ", // Application PAN number
 /*  24 */ "N  ,  3,FIXED  ", // Network International Identifier
 /*  25 */ "N  ,  2,FIXED  ", // Point of Service Condition Code
@@ -186,7 +186,7 @@ var iso8583_1987_fields = [
 /*  51 */ "AN ,  3,FIXED  ", // Currency Code, Cardholder Billing
 /*  52 */ "B  ,  8,FIXED  ", // Personal Id Number (PIN) Data
 /*  53 */ "N  , 16,FIXED  ", // Security Related Control Information
-/*  54 */ "ANS,120,LLLVAR ", // Amounts, Additional
+/*  54 */ "ANS,120,LLVAR ", // Amounts, Additional
 /*  55 */ "ANS,999,LLLVAR ", // Reserved for ISO use
 /*  56 */ "ANS,999,LLLVAR ", // Reserved for ISO use
 /*  57 */ "ANS,999,LLLVAR ", // Reserved for National use

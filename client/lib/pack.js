@@ -38,9 +38,9 @@ function init_and_gen_bitmap(iso8583_msg) {
             result = "0" + result.substr(0, 63)
         }
     }
-    if ( !field_data["f0"] ){
-      console.log("FIELD 0: MTI not present");
-      process.exit()
+    if (!field_data["f0"]) {
+        console.log("FIELD 0: MTI not present");
+        process.exit()
     }
     iso8583_msg.iso8583_msg_req_origated[0] = field_data["f0"];
     iso8583_msg.field_no_present[0] = 0;
@@ -54,27 +54,27 @@ function pad_field_per_iso8583(msg) {
     var field_padded;
     var fldpre = msg.field_no_present
 
-    for (var i = 0; i <fldpre.length; i++) {
-      var fn = fldpre[i]
-      var fv = msg.iso8583_msg_req_origated[i]
-      var fcl = msg.iso8583_msg_req_origated[i].length
-      var fml = fldlib.get_fld_len_max(fn);
-      var ft =  fldlib.get_fld_type(fn);
-      var flt = fldlib.get_fld_len_type(fn);
-      console.log("ValidateAndPadd FieldNo: %s FieldValue: %s FieldType: %s FieldMaxLength: %s, FieldLenType: %s",fn,fv,ft,fml,flt);
-        if ( fcl > fml && flt!= 'CONTVAR' ){
-          console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s",fn,fv,fcl,fml);
-          process.exit();
+    for (var i = 0; i < fldpre.length; i++) {
+        var fn = fldpre[i]
+        var fv = msg.iso8583_msg_req_origated[i]
+        var fcl = msg.iso8583_msg_req_origated[i].length
+        var fml = fldlib.get_fld_len_max(fn);
+        var ft = fldlib.get_fld_type(fn);
+        var flt = fldlib.get_fld_len_type(fn);
+        console.log("ValidateAndPadd FieldNo: %s FieldValue: %s FieldType: %s FieldMaxLength: %s, FieldLenType: %s", fn, fv, ft, fml, flt);
+        if (fcl > fml && flt != 'CONTVAR') {
+            console.log("Field_No: %s with value: %s and current_len: %s crossed max allowed length: %s", fn, fv, fcl, fml);
+            process.exit();
         }
-        if(flt=='FIXED'){
-          if( fldlib.get_fld_is_num_type(fn)){
-            console.log("FieldNo: %s is of NUMBERTYPE and will pe left padded with CHAR '%s'",fn,'0');
-            msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,'0',fml-fcl,false);
-          }else {
-            console.log("FieldNo: %s is of NON-NUMBERTYPE and will pe right padded with CHAR '%s'",fn,' ');
-            msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv,' ',fml-fcl,true);
-          }
-        }else{
+        if (flt == 'FIXED') {
+            if (fldlib.get_fld_is_num_type(fn)) {
+                console.log("FieldNo: %s is of NUMBERTYPE and will pe left padded with CHAR '%s'", fn, '0');
+                msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv, '0', fml - fcl, false);
+            } else {
+                console.log("FieldNo: %s is of NON-NUMBERTYPE and will pe right padded with CHAR '%s'", fn, ' ');
+                msg.iso8583_msg_req_paded[i] = fldlib.set_fld_padchar(fv, ' ', fml - fcl, true);
+            }
+        } else {
             msg.iso8583_msg_req_paded[i] = fv;
         }
 
@@ -92,16 +92,16 @@ function encode_msg_per_iso8583(iso8583_msg) {
         fv = iso8583_msg.iso8583_msg_req_paded[i];
         fn = iso8583_msg.field_no_present[i]
         flm = fldlib.get_fld_len_max(fn);
-        ft =  fldlib.get_fld_type(fn);
+        ft = fldlib.get_fld_type(fn);
         flt = fldlib.get_fld_len_type(fn);
         fenc = fldlib.get_encode_format(fn);
-        fhenc = fldlib.get_encode_format(fn,"llvar");
-        if(flt == 'FIXED'){
-          console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s ",fn,fv,flm,ft,flt,fenc);
-        }else {
-          console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s LLVAREncFrmt: %s",fn,fv,flm,ft,flt,fenc,fhenc);
+        fhenc = fldlib.get_encode_format(fn, "llvar");
+        if (flt == 'FIXED') {
+            console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s ", fn, fv, flm, ft, flt, fenc);
+        } else {
+            console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s LLVAREncFrmt: %s", fn, fv, flm, ft, flt, fenc, fhenc);
         }
-        field_encoded = enclib.encode_field(fv,fenc,flt,flm,fhenc);
+        field_encoded = enclib.encode_field(fv, fenc, flt, flm, fhenc);
         iso8583_msg.iso8583_msg_req_encoded[i] = field_encoded;
     }
 }
@@ -122,25 +122,61 @@ function cal_and_add_header(iso8583_msg) {
         } else {
             totallen = msglen;
         }
+        var totallen_str = totallen.toString()
         var msg_buffer = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen);
         var headBuffer = Buffer.alloc(headlen);
-        var totallen_hex = convlib.decitohex(totallen);
-        console.log(totallen_hex);
-        totallen_hex = "0x" + totallen_hex;
-        switch (prop.header_len) {
-            case 1:
-                headBuffer.writeInt8(totallen_hex)
+        switch (prop.encode.header_encode) {
+            case "hex":
+                if (totallen_str.length > headlen * 2) {
+                    console.log("given value %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
+                    process.exit();
+                }
+                if (totallen_str.length != headlen * 2) {
+                    var pad_char_no = headlen * 2 - totallen_str.length;
+                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
+                }
+                headBuffer.write(totallen_str, 0, headlen, 'hex');
                 break;
-            case 2:
-                headBuffer.writeInt16BE(totallen_hex)
+            case "ascii":
+                if (totallen_str.length > headlen) {
+                    console.log("given value %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
+                    process.exit();
+                }
+                if (totallen_str.length != headlen) {
+                    var pad_char_no = headlen - totallen_str.length;
+                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
+                }
+                headBuffer.write(totallen_str, 0, headlen, 'ascii');
                 break;
-            case 4:
-                headBuffer.writeInt32BE(totallen_hex)
+            case "chexehex":
+                totallen_str = convlib.decitohex(totallen_str);
+                if (totallen_str.length > headlen*2) {
+                    console.log("given value after decitohex conversion %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
+                    process.exit();
+                }
+                if (totallen_str.length != headlen * 2) {
+                    var pad_char_no = headlen * 2 - totallen_str.length;
+                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
+                }
+                headBuffer.write(totallen_str, 0, headlen, 'hex');
+                break;
+            case "chexeascii":
+                totallen_str = convlib.decitohex(totallen_str);
+                if (totallen_str.length > headlen) {
+                    console.log("given value after decitohex conversion %s is not possible to write in %s byte header with encoding: %s", totallen_str, headlen, prop.encode.header_encode);
+                    process.exit();
+                }
+                if (totallen_str.length != headlen) {
+                    var pad_char_no = headlen - totallen_str.length;
+                    totallen_str = fldlib.set_fld_padchar(totallen_str, '0', pad_char_no, false);
+                }
+                headBuffer.write(totallen_str, 0, headlen, 'ascii');
                 break;
             default:
-
+                console.log("invalid header encoding");
+                process.exit();
         }
-        headBuffer.write(totallen_hex, 1, 1, 'hex');
+        console.log("header encoding: header_length: %s decimal_value: %s encoding_format: %s encoding_value: %s",headlen,totallen, prop.encode.header_encode, totallen_str);
         iso8583_msg.iso8583_msg_req_final = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
     } else {
         iso8583_msg.iso8583_msg_req_final = Buffer.concat(iso8583_msg.iso8583_msg_req_encoded, msglen)
