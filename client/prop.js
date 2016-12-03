@@ -1,6 +1,6 @@
 var prop = {
-  server_host: '10.66.118.36', //localhost:6969, 10.66.118.36:17902(mnmr),   10.66.118.51:7021(chlk)
-  server_port: "17902",      //6969 16902
+  server_host: 'localhost', //localhost:6969, 10.66.118.36:17902(mnmr),   10.66.118.51:7021(chlk)
+  server_port: "6969",      //6969 16902
   iso_version: '1987', //1987 or 1993
   encode: {
     header_encode: 'hex',         //  hex, ascii, chexehex, chexeascii

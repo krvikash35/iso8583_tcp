@@ -17,14 +17,20 @@ function print_final_msg(iso8583_msg){
   var totallen = iso8583_msg.iso8583_msg_req_final.final_buffer.length;
   var mhl = iso8583_msg.iso8583_msg_req_final.header_len;
   var mhv = iso8583_msg.iso8583_msg_req_final.header_value;
-  var mbl = totallen - mhl;
+  var mbl  = null;
   var isheadincl = iso8583_msg.iso8583_msg_req_final.include_header;
   var headenc = iso8583_msg.iso8583_msg_req_final.header_enc;
   var final_buffer = iso8583_msg.iso8583_msg_req_final.final_buffer;
+  var isheadincl_formsgcal = prop.include_header_for_msglen_cal
+  if(isheadincl){
+    mbl = totallen - mhl
+  }else {
+    mbl = totallen;
+  }
 
   console.log('\n\n######################## START HEADER DETAILS ##########################');
-  console.log('HEAD_INCLUDE','HEAD_VAL', 'HEAD_ENCODE', 'HEAD_LEN', 'MESSAGE_LEN');
-  console.log( pad(isheadincl,12),pad(mhv,8), pad(headenc,11), pad(mhl,8),pad(mbl,11) );
+  console.log('HEAD_INCLUDE','INHD_MSCAL','HEAD_VAL', 'HEAD_ENCODE', 'HEAD_LEN', 'MESSAGE_LEN');
+  console.log( pad(isheadincl,12),pad(isheadincl_formsgcal,10),pad(mhv,8), pad(headenc,11), pad(mhl,8),pad(mbl,11) );
   console.log('######################## END HEADER DETAILS ##########################\n\n');
 
   console.log('\n\n######################## START FINAL MESSAGE ##########################');

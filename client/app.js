@@ -38,4 +38,4 @@ packlib.cal_and_add_header(iso8583_msg);
 loglib.print_final_msg(iso8583_msg);
 //console.log("################ START FINAL MESSAGE SENDING ##################\n%s\n################ END FINAL MESSAGE SENDING ##################\n\n\n\n",iso8583_msg.iso8583_msg_req_final);
 //
-//socklib.connect_and_send(iso8583_msg.iso8583_msg_req_final);
+socklib.connect_and_send(iso8583_msg.iso8583_msg_req_final.final_buffer);
