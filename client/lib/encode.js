@@ -1,5 +1,6 @@
 var convlib = require('./convert');
 var prop = require('../prop')
+var loglib = require('./loglib')
 
 var enclib = {
     encode: encode,
@@ -8,105 +9,174 @@ var enclib = {
 }
 module.exports = enclib;
 
-function getFieldDetForEncoding(fv, fenc) {
+function getFieldDetForEncoding(fv, fenc, bytelen) {
+    loglib.print_debug_msg('entered getFieldDetForEncoding field_value: ' + fv + ' field_enc: ' + fenc + ' Bytelength: ' + bytelen)
     var fdet = {
         fv: null,
         fenc: null
     }
     if (fenc == 'hex') {
-        if (isNaN(fv)) {
-            throw new Error('getFieldValueForEncoding: given value: ' + fv + ' is not a number')
+        if (iszerolen(fv)) {
+            loglib.print_err_msg('given value can not be encoded in hex as it is of zero length(emptyString)')
         }
-        var fvn = parseInt(fv)
-        var fvs = fv.toString()
-        if ((fvs.length % 2) != 0) {
-            fvs = "0" + fvs;
+        if (!isnum(bytelen)) {
+            loglib.print_err_msg("given byte lenght " + bytelen + " is not number");
         }
-        fdet.fv = fvs;
+        var bl = parseInt(bytelen);
+        var fvl = fv.toString().length;
+        if (fvl > bl * 2) {
+            loglib.print_err_msg('given value: ' + fv + 'is not possible to write in ' + bl + ' byte with encoding ' + fenc);
+        }
+        fdet.fv = pad(fv, bl * 2, 'l', '0');
         fdet.fenc = 'hex';
+        loglib.print_debug_msg('exiting getFieldDetForEncoding with below fdet: ', fdet);
         return fdet;
     }
     if (fenc == 'ascii') {
+        if (iszerolen(fv)) {
+            loglib.print_err_msg('given value can not be encoded in ascii as it is of zero length(emptyString)')
+        }
+        if (!isnum(bytelen)) {
+            loglib.print_err_msg("given byte lenght " + bytelen + " is not number");
+        }
+        var bl = parseInt(bytelen);
+        var fvl = fv.toString().length;
+        if (fvl > bl) {
+            loglib.print_err_msg('given value: ' + fv + 'is not possible to write in ' + bl + ' byte with encoding ' + fenc);
+        }
+        if (isnum(fv)) {
+            fv = pad(fv, bl, 'l', '0');
+        } else {
+            fv = pad(fv, bl, 'r', ' ')
+        }
         fdet.fv = fv;
         fdet.fenc = 'ascii';
+        loglib.print_debug_msg('exiting getFieldDetForEncoding with below fdet: ', fdet);
         return fdet;
     }
     if (fenc == 'chexehex') {
-        if (isNaN(fv)) {
-            throw new Error('getFieldValueForEncoding: given value: ' + fv + ' is not a number')
+        if (iszerolen(fv)) {
+            loglib.print_err_msg('given value can not be encoded in hex as it is of zero length(emptyString)')
         }
+        if (!isnum(bytelen)) {
+            loglib.print_err_msg("given byte lenght " + bytelen + " is not number");
+        }
+
+        if (!isnum(fv)) {
+            loglib.print_err_msg('given value ' + fv + ' can not be converted to hex')
+        }
+        var bl = parseInt(bytelen);
         var fvn = parseInt(fv)
-        var fvs = fv.toString()
         var fvhex = convlib.decitohex(fvn)
-        if ((fvhex.toString().length % 2) != 0) {
-            fvhex = "0" + fvhex;
+        var fvhexl = fvhex.toString().length;
+        if (fvhexl > bl * 2) {
+            console.log("given value " + fv + " after decitohex conversion " + fvhex + " is not possible to write in " + bl + " byte with encoding:" + fenc);
         }
-        fdet.fv = fvhex;
+        fdet.fv = pad(fvhex, bl * 2, 'l', '0');
         fdet.fenc = 'hex';
+        loglib.print_debug_msg('exiting getFieldDetForEncoding with below fdet: ', fdet);
         return fdet;
     }
     if (fenc == 'chexeascii') {
-        if (isNaN(fv)) {
-            throw new Error('getFieldValueForEncoding: given value: ' + fv + ' is not a number')
+        if (iszerolen(fv)) {
+            loglib.print_err_msg('given value can not be encoded in hex as it is of zero length(emptyString)')
         }
+        if (!isnum(bytelen)) {
+            loglib.print_err_msg("given byte lenght " + bytelen + " is not number");
+        }
+
+        if (!isnum(fv)) {
+            loglib.print_err_msg('given value ' + fv + ' can not be converted to hex')
+        }
+        var bl = parseInt(bytelen);
         var fvn = parseInt(fv)
-        var fvs = fv.toString()
         var fvhex = convlib.decitohex(fvn)
-        if ((fvhex.toString().length % 2) != 0) {
-            fvhex = "0" + fvhex;
+        var fvhexl = fvhex.toString().length;
+        if (fvhexl > bl) {
+            console.log("given value " + fv + " after decitohex conversion " + fvhex + " is not possible to write in " + bl + " byte with encoding:" + fenc);
         }
-        fdet.fv = fvhex;
+        fdet.fv = pad(fvhex, bl, 'l', '0');
         fdet.fenc = 'ascii';
+        loglib.print_debug_msg('exiting getFieldDetForEncoding with below fdet: ', fdet);
         return fdet;
     }
 }
 
-function encode_field(field_val, enc_format, field_lentype, field_len_max, field_head_enc_format) {
-    var field_buffer_ret = null;
+function encode_field(field_val, enc_format, field_lentype, field_len_max) {
+    var field_buffer_ret = {
+      field_head_buffer: 0,
+      field_head_len: 0,
+      field_body_buffer: null,
+      field_body_len: null,
+      field_whole_buffer: null,
+      field_enc: null
+    };
     switch (field_lentype) {
         case "FIXED":
-            var fdet = getFieldDetForEncoding(field_val, enc_format)
-            field_buffer_ret = Buffer.from(fdet.fv, fdet.fenc)
+            var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max)
+            var buf = Buffer.from(fdet.fv, fdet.fenc);
+            field_buffer_ret.field_body_buffer = buf;
+            field_buffer_ret.field_body_len = buf.length;
+            field_buffer_ret.field_whole_buffer = buf;
+            field_buffer_ret.field_enc = fdet.fenc;
+            field_buffer_ret.field_value = fdet.fv;
+            loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "CONTVAR":
-            field_buffer_ret = Buffer.from(field_val, enc_format)
+            var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max, field_len_max)
+            buf = Buffer.from(field_val, enc_format);
+            field_buffer_ret.field_body_buffer = buf;
+            field_buffer_ret.field_body_len = buf.length;
+            field_buffer_ret.field_whole_buffer = buf;
+            field_buffer_ret.field_enc = fdet.fenc;
+            field_buffer_ret.field_value = fdet.fv;
+            loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "LLVAR":
-            var fdet = getFieldDetForEncoding(field_val, enc_format)
+            var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
             var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
             var field_head_val_str = fieldBuffer.length.toString();
             var field_head_val_num = fieldBuffer.length;
-            if (field_head_val_num > 0 && field_head_val_num < 99) {
-                if (field_head_val_str.length == 1) {
-                    field_head_val_str = "0" + field_head_val_str;
-                }
-            } else {
-                throw new Error('LLVAR header should be between 0 and 99 but currently is ' + field_head_val_num)
+            if (field_head_val_num < 1 || field_head_val_num > 99) {
+                loglib.print_err_msg('LLVAR header should be between 0 and 99 but currently is ' + field_head_val_num)
             }
-            fdet = getFieldDetForEncoding(field_head_val_str, field_head_enc_format)
+            fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 2)
             var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
-            field_buffer_ret = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length)
+            var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
+
+            field_buffer_ret.field_head_buffer = field_head_buffer;
+            field_buffer_ret.field_head_len = field_head_buffer.length;
+            field_buffer_ret.field_body_buffer = fieldBuffer;
+            field_buffer_ret.field_body_len = fieldBuffer.length;
+            field_buffer_ret.field_whole_buffer = buf;
+            field_buffer_ret.field_enc = fdet.fenc;
+            field_buffer_ret.field_value = fdet.fv;
+
+
+            loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "LLLVAR":
-            var fdet = getFieldDetForEncoding(field_val, enc_format)
-            var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
-            var field_head_val_str = fieldBuffer.length.toString();
-            var field_head_val_num = fieldBuffer.length;
-            if (field_head_val_num > 0 && field_head_val_num < 1000) {
-                if (field_head_val_str.length == 1) {
-                    field_head_val_str = "00" + field_head_val_str;
-                }
-                if (field_head_val_str.length == 2) {
-                    field_head_val_str = "0" + field_head_val_str;
-                }
-            } else {
-                throw new Error('LLLVAR header should be between 0 and 1000 but currently is ' + field_head_val_num)
-            }
-            fdet = getFieldDetForEncoding(field_head_val_str, field_head_enc_format)
-            var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
-            field_buffer_ret = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length+fieldBuffer.length)
-            break;
-        default:
+        var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
+        var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
+        var field_head_val_str = fieldBuffer.length.toString();
+        var field_head_val_num = fieldBuffer.length;
+        if (field_head_val_num < 1 || field_head_val_num > 999) {
+            loglib.print_err_msg('LLLVAR header should be between 0 and 999 but currently is ' + field_head_val_num)
+        }
+        fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 3)
+        var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
+        var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
+
+        field_buffer_ret.field_head_buffer = field_head_buffer;
+        field_buffer_ret.field_head_len = field_head_buffer.length;
+        field_buffer_ret.field_body_buffer = fieldBuffer;
+        field_buffer_ret.field_body_len = fieldBuffer.length;
+        field_buffer_ret.field_whole_buffer = buf;
+        field_buffer_ret.field_enc = fdet.fenc;
+        field_buffer_ret.field_value = fdet.fv;
+
+        loglib.print_debug_msg('wrote: ', field_buffer_ret);
+        break;        default:
     }
     return field_buffer_ret
 }

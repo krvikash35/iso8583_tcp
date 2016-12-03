@@ -102,13 +102,8 @@ function encode_msg_per_iso8583(iso8583_msg) {
         ft = fldlib.get_fld_type(fn);
         flt = fldlib.get_fld_len_type(fn);
         fenc = fldlib.get_encode_format(fn);
-        fhenc = fldlib.get_encode_format(fn, "llvar");
-        if (flt == 'FIXED') {
-            console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s ", fn, fv, flm, ft, flt, fenc);
-        } else {
-            console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s LLVAREncFrmt: %s", fn, fv, flm, ft, flt, fenc, fhenc);
-        }
-        field_encoded = enclib.encode_field(fv, fenc, flt, flm, fhenc);
+        console.log("Encode: FieldNo: %s FieldVal: %s FieldMaxLen: %s FieldType: %s FieldLenType: %s FieldEncFrmt: %s ", fn, fv, flm, ft, flt, fenc);
+        field_encoded = enclib.encode_field(fv, fenc, flt, flm);
         iso8583_msg.iso8583_msg_req_encoded[i] = field_encoded;
     }
 }
