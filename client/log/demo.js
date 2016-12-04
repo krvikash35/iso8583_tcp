@@ -1,4 +1,7 @@
-var a = []
-a.push(1)
-a.push(2)
-console.log(a[0], a[1]);
+var obj1 = require('./demo1')
+console.log(obj1);
+obj1.name = 'kumar'
+console.log(obj1);
+var obj2 = require('./demo1');
+console.log(obj2);
+require('./demo3')

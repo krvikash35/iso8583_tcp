@@ -1,0 +1,32 @@
+{
+  "name": "iso8583_tcp",
+  "version": "1.0.0",
+  "description": "iso8583 implementation in tcpip and http",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krvikash35/iso8583_tcp.git"
+  },
+  "keywords": [
+    "iso8583",
+    "tcpip",
+    "http",
+    "nodejs",
+    "websocket"
+  ],
+  "author": "vikash kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krvikash35/iso8583_tcp/issues"
+  },
+  "homepage": "https://github.com/krvikash35/iso8583_tcp#readme",
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.7.0",
+    "socket.io": "^1.7.1"
+  }
+}
