@@ -3,7 +3,8 @@ var convlib = {
   decitobi: decitobi,
   bitohex: bitohex,
   chartoascidec: chartoascidec,
-  hextobi: hextobi
+  hextobi: hextobi,
+  hextodeci: hextodeci
 }
 module.exports = convlib;
 
@@ -74,4 +75,9 @@ function hextobi(data) {
         result = result + value
     }
     return result;
+}
+
+
+function hextodeci(val){
+  return parseInt(val.toString(),16)
 }

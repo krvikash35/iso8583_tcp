@@ -8,7 +8,8 @@ var loglib = {
   print_encoded_msg: print_encoded_msg,
   print_debug_msg: print_debug_msg,
   print_err_msg: print_err_msg,
-  print_final_msg: print_final_msg
+  print_final_msg: print_final_msg,
+  print_decoded_message: print_decoded_message
 }
 
 module.exports = loglib;
@@ -31,11 +32,13 @@ function print_final_msg(iso8583_msg){
   console.log('\n\n######################## START HEADER DETAILS ##########################');
   console.log('HEAD_INCLUDE','INHD_MSCAL','HEAD_VAL', 'HEAD_ENCODE', 'HEAD_LEN', 'MESSAGE_LEN');
   console.log( pad(isheadincl,12),pad(isheadincl_formsgcal,10),pad(mhv,8), pad(headenc,11), pad(mhl,8),pad(mbl,11) );
-  console.log('######################## END HEADER DETAILS ##########################\n\n');
+  console.log('######################## END HEADER DETAILS ##########################');
 
-  console.log('\n\n######################## START FINAL MESSAGE ##########################');
+  console.log('######################## START FINAL MESSAGE ##########################');
   console.log( final_buffer );
-  console.log('######################## END FINAL MESSAGE ##########################\n\n');
+  console.log('######################## END FINAL MESSAGE ##########################');
+  console.log('Sent Total '+totallen+' Bytes..\n\n');
+
 }
 function print_encoded_msg(iso8583_msg){
   var msg = iso8583_msg.iso8583_msg_req_encoded;
@@ -121,4 +124,43 @@ function print_err_msg(){
   var errst = new Error().stack;
   console.log(errst);
   process.exit()
+}
+
+
+
+
+function print_decoded_message(buff_res){
+  var fprsnt = buff_res.decode.body.fprsnt;
+  var mheadval = buff_res.decode.header.value;
+  var mheadlen = buff_res.decode.header.len;
+  var fheadval = buff_res.decode.body.fheadval;
+  var fbodyval = buff_res.decode.body.fbodyval;
+  var fn = null;
+  var fv = null;
+  var flt = null;
+  var fml = null;
+  var fdes = null;
+
+  console.log('######################## START RESPONSE HEADER DETAILS##########################');
+  if(prop.server.header.include_header){
+    console.log( pad('HEAD_LEN',8), pad('HEAD_VAL',8) );
+    console.log( pad(mheadlen,8), pad(mheadval,8) );
+  }else {
+    console.log('Header is not included: server response is without header');
+  }
+  console.log('######################## END RESPONSE HEADER DETAILS##########################');
+
+  console.log('######################## START RESPONSE MESSAGE DETAILS##########################');
+  console.log( pad('FNO',3), pad('FIELD_DESCRIPTION',34), pad('LENTYPE',7), pad('FHV',3), 'FIELD_VALUE' );
+  for(var i=0; i<fprsnt.length; i++){
+    fn = fprsnt[i];
+    fv = fbodyval[i];
+    fhv = fheadval[i];
+    ft = fldlib.get_fld_type(fn)
+    flt = fldlib.get_fld_len_type(fn);
+    fml = fldlib.get_fld_len_max(fn);
+    fdes = fldlib.get_fld_desc(fn);
+    console.log( pad(fn,3), "(",pad(fdes,30),")", pad(flt,7), pad(fhv,3), fv );
+  }
+  console.log('######################## END RESPONSE MESSAGE DETAILS##########################');
 }

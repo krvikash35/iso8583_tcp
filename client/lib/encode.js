@@ -3,8 +3,6 @@ var prop = require('../prop')
 var loglib = require('./loglib')
 
 var enclib = {
-    encode: encode,
-    encode_llvarfield: encode_llvarfield,
     encode_field: encode_field,
     getFieldDetForEncoding: getFieldDetForEncoding
 }
@@ -124,8 +122,13 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
             loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "CONTVAR":
-            var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max, field_len_max)
-            buf = Buffer.from(field_val, enc_format);
+            if(field_val.toString().length >16){//secondory bit present
+              var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max)
+              buf = Buffer.from(field_val, enc_format);
+            }else {
+              var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max/2)
+              buf = Buffer.from(field_val, enc_format);
+            }
             field_buffer_ret.field_body_buffer = buf;
             field_buffer_ret.field_body_len = buf.length;
             field_buffer_ret.field_whole_buffer = buf;
@@ -175,24 +178,4 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
         break;        default:
     }
     return field_buffer_ret
-}
-
-function encode(data, encode_frmt, field_lentype) {
-    return Buffer.from(data, encode_frmt)
-}
-
-function encode_llvarfield(data, field_type, field_lentype, field_encode_format, fieldlen_encode_format) {
-    var datavalstr = data.toString()
-    var datalen = data.toString().length;
-    var headlen = 0;
-    if (field_lentype == "LLVAR") {
-        headlen = 2;
-    } else if (field_lentype == "LLLVAR") {
-        headlen = 3;
-    }
-    var headvalue = datavalstr.substr(0, headlen);
-    var headvaluehex = convlib.decitohex(headvalue)
-    var headBuffer = Buffer.alloc(headlen, headvaluehex, fieldlen_encode_format)
-    var fieldBuffer = Buffer.alloc(parseInt(headvalue), datavalstr, field_encode_format)
-    return Buffer.concat([headBuffer, fieldBuffer], headBuffer.length + fieldBuffer.length);
 }

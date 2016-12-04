@@ -1,6 +1,7 @@
 var net = require('net');
 var prop = require('../prop');
 var unpacklib = require('./unpack');
+var loglib = require('./loglib');
 
 var soclib = {
   connect_and_send: connect_and_send
@@ -18,11 +19,27 @@ function connect_and_send(data) {
     client.on('data', function(data) {
       var buff_data ={
         data: Buffer.from(data),
-        ptr: 0
+        ptr: 0,
+        decode: {
+          header: {
+            value: 0,
+            len: 0
+          },
+         body: {
+           bitmap: null,
+           fprsnt: [],
+           fheadval: [],
+           fbodyval: []
+         }
+        }
       }
-      console.log("################ RESPONSE FROM SERVER ################");
+      console.log("################ START RESPONSE FROM SERVER ################");
+      console.log('Received Total %s Bytes..',buff_data.data.length);
       unpacklib.parse_header(buff_data);
-      process.exit()
+      unpacklib.parse_mti_bitmap(buff_data);
+      unpacklib.parse_field(buff_data);
+      loglib.print_decoded_message(buff_data);
+      console.log("################ END RESPONSE FROM SERVER ################");
 
     });
     client.on('close', function() {
