@@ -100,9 +100,10 @@ function parse_mti_bitmap(buff_data) {
     if (bitmap_pri_bin.startsWith(1)) {
         loglib.print_debug_msg('secondary bitmap present');
         var bitmap_sec_hex = buff_data.data.toString(prop.encode.bitmap_encode, buff_data.ptr, buff_data.ptr + bitmap_max_len / 2);
+        loglib.print_debug_msg('bitmap_sec_hex: ' + bitmap_sec_hex );
         buff_data.ptr = buff_data.ptr + bitmap_max_len / 2;
         var bitmap_sec_bin = convlib.hextobi(bitmap_sec_hex);
-        loglib.print_debug_msg('bitmap_sec_hex: ' + bitmap_sec_hex + ' bitmap_sec_bin: ' + bitmap_sec_bin);
+        loglib.print_debug_msg(' bitmap_sec_bin: ' + bitmap_sec_bin);
     } else {
         loglib.print_debug_msg('secondory bitmap not present');
     }

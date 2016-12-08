@@ -1,4 +1,4 @@
-var iso8583_1987_fields = {
+var iso8583_1993_fields_malavika = {
     f0: {
         'type': 'N',
         'maxlen': 4,
@@ -25,7 +25,7 @@ var iso8583_1987_fields = {
     },
     f4: {
         'type': 'N',
-        'maxlen': 4,
+        'maxlen': 16,
         'lentype': 'FIXED',
         'desc': 'Amount, Txn'
     },
@@ -67,15 +67,15 @@ var iso8583_1987_fields = {
     },
     f11: {
         'type': 'N',
-        'maxlen': 6,
+        'maxlen': 12,
         'lentype': 'FIXED',
         'desc': 'Systems Trace Audit Number'
     },
     f12: {
         'type': 'N',
-        'maxlen': 6,
+        'maxlen': 14,
         'lentype': 'FIXED',
-        'desc': 'Time, Local Txn hhmmss'
+        'desc': 'Time, Local Txn YYYYMMDDhhmmss'
     },
     f13: {
         'type': 'N',
@@ -103,9 +103,9 @@ var iso8583_1987_fields = {
     },
     f17: {
         'type': 'N',
-        'maxlen': 4,
+        'maxlen': 8,
         'lentype': 'FIXED',
-        'desc': 'Date capture MMDD'
+        'desc': 'Date capture YYYYMMDD'
     },
     f18: {
         'type': 'N',
@@ -205,7 +205,7 @@ var iso8583_1987_fields = {
     },
     f34: {
         'type': 'N',
-        'maxlen': 28,
+        'maxlen': 32,
         'lentype': 'LLVAR',
         'desc': 'Primary account number extended'
     },
@@ -231,11 +231,11 @@ var iso8583_1987_fields = {
         'type': 'AN',
         'maxlen': 6,
         'lentype': 'FIXED',
-        'desc': 'Authorization identification response'
+        'desc': 'Approval Code'
     },
     f39: {
         'type': 'AN',
-        'maxlen': 2,
+        'maxlen': 3,
         'lentype': 'FIXED',
         'desc': 'Response code'
     },
@@ -313,7 +313,7 @@ var iso8583_1987_fields = {
     },
     f52: {
         'type': 'B',
-        'maxlen': 16,
+        'maxlen': 8,
         'lentype': 'FIXED',
         'desc': 'Personal identification number (PIN) data'
     },
@@ -337,9 +337,9 @@ var iso8583_1987_fields = {
     },
     f56: {
         'type': 'ANS',
-        'maxlen': 999,
-        'lentype': 'LLLVAR',
-        'desc': 'Reserved for ISO use'
+        'maxlen': 43,
+        'lentype': 'LLVAR',
+        'desc': 'Original Data Elements'
     },
     f57: {
         'type': 'ANS',
@@ -613,13 +613,13 @@ var iso8583_1987_fields = {
     },
     f102: {
         'type': 'ANS',
-        'maxlen': 28,
+        'maxlen': 38,
         'lentype': 'LLVAR',
         'desc': 'Account identification 1'
     },
     f103: {
         'type': 'ANS',
-        'maxlen': 28,
+        'maxlen': 40,
         'lentype': 'LLVAR',
         'desc': 'Account identification 2'
     },
@@ -738,34 +738,54 @@ var iso8583_1987_fields = {
         'desc': 'Reserved for ISO use'
     },
     f123: {
-        'type': 'ANS',
-        'maxlen': 999,
+        'type': 'AN',
+        'maxlen': 3,
         'lentype': 'LLLVAR',
-        'desc': 'Reserved for ISO use'
+        'desc': 'DCC Id'
     },
     f124: {
-        'type': 'ANS',
-        'maxlen': 999,
-        'lentype': 'LLLVAR',
-        'desc': 'Reserved for ISO use'
+        'type': 'AN',
+        'maxlen': 3,
+        'lentype': 'FIXED',
+        'desc': 'Terminal Type'
     },
     f125: {
         'type': 'ANS',
         'maxlen': 999,
         'lentype': 'LLLVAR',
-        'desc': 'Reserved for ISO use'
+        'desc': 'Reserved Field 1'
     },
     f126: {
         'type': 'ANS',
         'maxlen': 999,
         'lentype': 'LLLVAR',
-        'desc': 'Reserved for ISO use'
+        'desc': 'Reserved Field 1'
     },
     f127: {
         'type': 'ANS',
-        'maxlen': 999,
-        'lentype': 'LLLVAR',
-        'desc': 'Reserved for ISO use'
+        'maxlen': 999999,
+        'lentype': 'LLLLLLVAR',
+        'desc': 'Reserved Field 1',
+        'subfield': {
+            'f1': {
+                'encode': 'chexehex',
+                'length': 8,
+                'lentype': 'CONTVAR',
+                'desc': 'Bitmap'
+            },
+            'f2': {
+                'type': 'ANS',
+                'maxlen': 32,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+            'f3': {
+                'type': 'ANS',
+                'maxlen': 48,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            }
+        }
     },
     f128: {
         'type': 'B',
@@ -775,9 +795,11 @@ var iso8583_1987_fields = {
     }
 }
 
+
+
 var fconfig = {
-    iso8583_1993_fields: iso8583_1987_fields,
-    iso8583_1987_fields: iso8583_1987_fields
+    iso8583_1993_fields: iso8583_1993_fields_malavika,
+    iso8583_1987_fields: iso8583_1993_fields_malavika
 }
 
 module.exports = fconfig;

@@ -35,6 +35,7 @@ function connect_and_send(data) {
       }
       console.log("################ START RESPONSE FROM SERVER ################");
       console.log('Received Total %s Bytes..',buff_data.data.length);
+      console.log(buff_data.data);
       unpacklib.parse_header(buff_data);
       unpacklib.parse_mti_bitmap(buff_data);
       unpacklib.parse_field(buff_data);
