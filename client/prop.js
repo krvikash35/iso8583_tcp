@@ -1,6 +1,6 @@
 var prop = {
-    server_host: '10.66.118.27', //localhost:6969, 10.66.118.36:17902(mnmr),   10.66.118.51:7021(chlk) 10.66.118.27:35502(vasuda)
-    server_port: "35502", //6969 16902
+    server_host: 'localhost', //localhost:6969, 10.66.118.36:17902(mnmr),   10.66.118.51:7021(chlk) 10.66.118.27:35502(vasuda)
+    server_port: "6969", //6969 16902
     iso_version: '1987', //1987 or 1993
     encode: {
         header_encode: 'ascii', //  hex, ascii, chexehex, chexeascii
@@ -11,7 +11,7 @@ var prop = {
     include_header: true, //true, false
     include_header_for_msglen_cal: false,
     header_len: 4,
-    enable_debug: true,
+    enable_debug: false,
     server: {
         encode: {
             header_encode: 'ascii', //  hex, ascii, chexehex, chexeascii

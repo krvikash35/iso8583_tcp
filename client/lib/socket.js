@@ -35,7 +35,24 @@ function connect_and_send(data) {
       }
       console.log("################ START RESPONSE FROM SERVER ################");
       console.log('Received Total %s Bytes..',buff_data.data.length);
-      console.log(buff_data.data);
+
+      console.log("Binary Data...");
+      var data_bin = ''
+      var temp;
+      for(var i=0; i<buff_data.data.length; i++){
+        temp = buff_data.data.toString('hex', i, i+1)
+        data_bin = data_bin + pad(temp, 3, 'r', ' ');
+      }
+      console.log(data_bin);
+      console.log("Ascii Data...");
+      var data_ascii = ''
+      var temp;
+      for(var i=0; i<buff_data.data.length; i++){
+        temp = buff_data.data.toString('ascii', i, i+1)
+        data_ascii = data_ascii + pad(temp, 3, 'r', ' ');
+      }
+      console.log(data_ascii);
+
       unpacklib.parse_header(buff_data);
       unpacklib.parse_mti_bitmap(buff_data);
       unpacklib.parse_field(buff_data);

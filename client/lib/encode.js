@@ -103,12 +103,12 @@ function getFieldDetForEncoding(fv, fenc, bytelen) {
 
 function encode_field(field_val, enc_format, field_lentype, field_len_max) {
     var field_buffer_ret = {
-      field_head_buffer: 0,
-      field_head_len: 0,
-      field_body_buffer: null,
-      field_body_len: null,
-      field_whole_buffer: null,
-      field_enc: null
+        field_head_buffer: 0,
+        field_head_len: 0,
+        field_body_buffer: null,
+        field_body_len: null,
+        field_whole_buffer: null,
+        field_enc: null
     };
     switch (field_lentype) {
         case "FIXED":
@@ -122,12 +122,12 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
             loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "CONTVAR":
-            if(field_val.toString().length >16){//secondory bit present
-              var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max)
-              buf = Buffer.from(field_val, enc_format);
-            }else {
-              var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max/2)
-              buf = Buffer.from(field_val, enc_format);
+            if (field_val.toString().length > 16) { //secondory bit present
+                var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max)
+                buf = Buffer.from(field_val, enc_format);
+            } else {
+                var fdet = getFieldDetForEncoding(field_val, enc_format, field_len_max / 2)
+                buf = Buffer.from(field_val, enc_format);
             }
             field_buffer_ret.field_body_buffer = buf;
             field_buffer_ret.field_body_len = buf.length;
@@ -157,25 +157,46 @@ function encode_field(field_val, enc_format, field_lentype, field_len_max) {
             loglib.print_debug_msg('wrote: ', field_buffer_ret);
             break;
         case "LLLVAR":
-        var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
-        var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
-        field_buffer_ret.field_enc = fdet.fenc;
-        field_buffer_ret.field_value = fdet.fv;
-        field_buffer_ret.field_body_buffer = fieldBuffer;
-        field_buffer_ret.field_body_len = fieldBuffer.length;
-        var field_head_val_str = fieldBuffer.length.toString();
-        var field_head_val_num = fieldBuffer.length;
-        if (field_head_val_num < 1 || field_head_val_num > 999) {
-            loglib.print_err_msg('LLLVAR header should be between 0 and 999 but currently is ' + field_head_val_num)
-        }
-        fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 3)
-        var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
-        var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
-        field_buffer_ret.field_head_buffer = field_head_buffer;
-        field_buffer_ret.field_head_len = field_head_buffer.length;
-        field_buffer_ret.field_whole_buffer = buf;
-        loglib.print_debug_msg('wrote: ', field_buffer_ret);
-        break;        default:
+            var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
+            var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
+            field_buffer_ret.field_enc = fdet.fenc;
+            field_buffer_ret.field_value = fdet.fv;
+            field_buffer_ret.field_body_buffer = fieldBuffer;
+            field_buffer_ret.field_body_len = fieldBuffer.length;
+            var field_head_val_str = fieldBuffer.length.toString();
+            var field_head_val_num = fieldBuffer.length;
+            if (field_head_val_num < 1 || field_head_val_num > 999) {
+                loglib.print_err_msg('LLLVAR header should be between 0 and 999 but currently is ' + field_head_val_num)
+            }
+            fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 3)
+            var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
+            var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
+            field_buffer_ret.field_head_buffer = field_head_buffer;
+            field_buffer_ret.field_head_len = field_head_buffer.length;
+            field_buffer_ret.field_whole_buffer = buf;
+            loglib.print_debug_msg('wrote: ', field_buffer_ret);
+            break;
+        case "LLLLLLVAR":
+            var fdet = getFieldDetForEncoding(field_val, enc_format, field_val.toString().length)
+            var fieldBuffer = Buffer.from(fdet.fv, fdet.fenc)
+            field_buffer_ret.field_enc = fdet.fenc;
+            field_buffer_ret.field_value = fdet.fv;
+            field_buffer_ret.field_body_buffer = fieldBuffer;
+            field_buffer_ret.field_body_len = fieldBuffer.length;
+            var field_head_val_str = fieldBuffer.length.toString();
+            var field_head_val_num = fieldBuffer.length;
+            if (field_head_val_num < 1 || field_head_val_num > 999999) {
+                loglib.print_err_msg('LLLVAR header should be between 0 and 999 but currently is ' + field_head_val_num)
+            }
+            fdet = getFieldDetForEncoding(field_head_val_str, enc_format, 6)
+            var field_head_buffer = Buffer.from(fdet.fv, fdet.fenc)
+            var buf = Buffer.concat([field_head_buffer, fieldBuffer], field_head_buffer.length + fieldBuffer.length);
+            field_buffer_ret.field_head_buffer = field_head_buffer;
+            field_buffer_ret.field_head_len = field_head_buffer.length;
+            field_buffer_ret.field_whole_buffer = buf;
+            loglib.print_debug_msg('wrote: ', field_buffer_ret);
+            break;
+        default:
     }
     return field_buffer_ret
 }

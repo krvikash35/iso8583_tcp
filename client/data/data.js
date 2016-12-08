@@ -18,7 +18,7 @@ fvalues = {
   f103: '             102     RETACHSB1          ',
   f123: 'COR',
   f125: 'this Funds Transfer transaction was posted by FI',
-  f127: '',
+  f127: ' ',
   subfield: {
     f127: {
       f2: 'vikash',

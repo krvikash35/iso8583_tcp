@@ -99,7 +99,7 @@ function get_fld_data(){
 }
 
 
-function get_encode_format(fn, fhenc){
+function get_encode_format(fn){
   if(fn==-1){
     return prop.encode.header_encode;
   }

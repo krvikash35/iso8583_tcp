@@ -1,5 +1,6 @@
 var net = require('net');
 var prop = require('./prop')
+require('../client/lib/global')
 
 var HOST = prop.host;
 var PORT = prop.port;
@@ -16,18 +17,23 @@ net.createServer(function(sock) {
     sock.on('data', function(data) {
       var buffer_data = Buffer.from(data);
       console.log("BYTE RECEVIED: %d",buffer_data.length);
-      console.log("readInt8(0): ", buffer_data.readInt8(0));
-      console.log("readInt8(1): ", buffer_data.readInt8(1));
-      console.log("readInt16BE(0): ", buffer_data.readInt16BE(0));
-      console.log("readInt16LE(0): ", buffer_data.readInt16LE(0));
-      var concated = ""
+      console.log("Binary Data...");
+      var data_bin = ''
+      var temp;
       for(var i=0; i<buffer_data.length; i++){
-        concated = concated + " : " +buffer_data[i].toString()
+        temp = buffer_data.toString('hex', i, i+1)
+        data_bin = data_bin + pad(temp, 3, 'r', ' ');
       }
-      console.log(concated);
-      console.log(buffer_data.toString('ascii'));
-
-        sock.write(data);
+      console.log(data_bin);
+      console.log("Ascii Data...");
+      var data_ascii = ''
+      var temp;
+      for(var i=0; i<buffer_data.length; i++){
+        temp = buffer_data.toString('ascii', i, i+1)
+        data_ascii = data_ascii + pad(temp, 3, 'r', ' ');
+      }
+      console.log(data_ascii);
+      sock.write(data);
 
     });
 

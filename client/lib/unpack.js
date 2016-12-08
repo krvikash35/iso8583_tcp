@@ -100,7 +100,7 @@ function parse_mti_bitmap(buff_data) {
     if (bitmap_pri_bin.startsWith(1)) {
         loglib.print_debug_msg('secondary bitmap present');
         var bitmap_sec_hex = buff_data.data.toString(prop.encode.bitmap_encode, buff_data.ptr, buff_data.ptr + bitmap_max_len / 2);
-        loglib.print_debug_msg('bitmap_sec_hex: ' + bitmap_sec_hex );
+        loglib.print_debug_msg('bitmap_sec_hex: ' + bitmap_sec_hex);
         buff_data.ptr = buff_data.ptr + bitmap_max_len / 2;
         var bitmap_sec_bin = convlib.hextobi(bitmap_sec_hex);
         loglib.print_debug_msg(' bitmap_sec_bin: ' + bitmap_sec_bin);
@@ -118,7 +118,7 @@ function parse_mti_bitmap(buff_data) {
 }
 
 function parse_field(buff_data) {
-  loglib.print_debug_msg('entered parse_field');
+    loglib.print_debug_msg('entered parse_field');
     var bitmap = buff_data.decode.body.bitmap;
     var field_len = null;
     var fn = null;
@@ -131,14 +131,14 @@ function parse_field(buff_data) {
             field_len = parseInt(fldlib.get_fld_len_max(fn));
             flt = fldlib.get_fld_len_type(fn);
             fenc = fldlib.get_encode_format(fn);
-            loglib.print_debug_msg('parsing field no: '+fn+' field_len_type: '+flt+' maxlen: '+field_len+' encoding: '+fenc)
+            loglib.print_debug_msg('parsing field no: ' + fn + ' field_len_type: ' + flt + ' maxlen: ' + field_len + ' encoding: ' + fenc)
             switch (flt) {
                 case 'FIXED':
                     field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + field_len);
                     buff_data.ptr = buff_data.ptr + field_len;
                     buff_data.decode.body.fheadval.push(0);
                     buff_data.decode.body.fbodyval.push(field_value);
-                    loglib.print_debug_msg("Field"+fn+": "+field_value+"   POINTER: "+buff_data.ptr);
+                    loglib.print_debug_msg("Field" + fn + ": " + field_value + "   POINTER: " + buff_data.ptr);
                     break;
                 case 'LLVAR':
                     field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + 2);
@@ -148,17 +148,27 @@ function parse_field(buff_data) {
                     buff_data.ptr = buff_data.ptr + fhval;
                     buff_data.decode.body.fheadval.push(fhval);
                     buff_data.decode.body.fbodyval.push(field_value);
-                    loglib.print_debug_msg("Field"+fn+": "+field_value+" field_header: "+fhval+"   POINTER: "+buff_data.ptr);
+                    loglib.print_debug_msg("Field" + fn + ": " + field_value + " field_header: " + fhval + "   POINTER: " + buff_data.ptr);
                     break;
                 case 'LLLVAR':
-                field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + 3);
-                buff_data.ptr = buff_data.ptr + 3;
-                var fhval = parseInt(field_value);
-                field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + fhval);
-                buff_data.ptr = buff_data.ptr + fhval;
-                buff_data.decode.body.fheadval.push(fhval);
-                buff_data.decode.body.fbodyval.push(field_value);
-                loglib.print_debug_msg("Field"+fn+": "+field_value+" field_header: "+fhval+"   POINTER: "+buff_data.ptr);
+                    field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + 3);
+                    buff_data.ptr = buff_data.ptr + 3;
+                    var fhval = parseInt(field_value);
+                    field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + fhval);
+                    buff_data.ptr = buff_data.ptr + fhval;
+                    buff_data.decode.body.fheadval.push(fhval);
+                    buff_data.decode.body.fbodyval.push(field_value);
+                    loglib.print_debug_msg("Field" + fn + ": " + field_value + " field_header: " + fhval + "   POINTER: " + buff_data.ptr);
+                    break;
+                case 'LLLLLLVAR':
+                    field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + 6);
+                    buff_data.ptr = buff_data.ptr + 6;
+                    var fhval = parseInt(field_value);
+                    field_value = buff_data.data.toString(fenc, buff_data.ptr, buff_data.ptr + fhval);
+                    buff_data.ptr = buff_data.ptr + fhval;
+                    buff_data.decode.body.fheadval.push(fhval);
+                    buff_data.decode.body.fbodyval.push(field_value);
+                    loglib.print_debug_msg("Field" + fn + ": " + field_value + " field_header: " + fhval + "   POINTER: " + buff_data.ptr);
                     break;
                 default:
 

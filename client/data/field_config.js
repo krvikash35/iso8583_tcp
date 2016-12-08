@@ -768,8 +768,8 @@ var iso8583_1993_fields_malavika = {
         'desc': 'Reserved Field 1',
         'subfield': {
             'f1': {
-                'encode': 'chexehex',
-                'length': 8,
+                'encode': 'hex',
+                'maxlen': 8,
                 'lentype': 'CONTVAR',
                 'desc': 'Bitmap'
             },
