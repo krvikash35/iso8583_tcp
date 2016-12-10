@@ -765,27 +765,7 @@ var iso8583_1993_fields_malavika = {
         'type': 'ANS',
         'maxlen': 999999,
         'lentype': 'LLLLLLVAR',
-        'desc': 'Reserved Field 1',
-        'subfield': {
-            'f1': {
-                'encode': 'hex',
-                'maxlen': 8,
-                'lentype': 'CONTVAR',
-                'desc': 'Bitmap'
-            },
-            'f2': {
-                'type': 'ANS',
-                'maxlen': 32,
-                'lentype': 'LLVAR',
-                'desc': 'Reserved Field 1'
-            },
-            'f3': {
-                'type': 'ANS',
-                'maxlen': 48,
-                'lentype': 'FIXED',
-                'desc': 'Reserved Field 1'
-            }
-        }
+        'desc': 'Reserved Field 1'
     },
     f128: {
         'type': 'B',
