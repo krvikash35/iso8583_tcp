@@ -3,21 +3,20 @@
 */
 
 fvalues = {
-  f0: '1200',
-  f3: '400000',
-  f4: '0000010010321700',
-  f11: '000000000008',
-  f12: '20161106183420',
-  f17: '20161206',
-  f24: '200',
-  f32: '23',
-  f34: 'COR',
-  f49: 'INR',
-  f56: '1200000000045353201610211010101100000004535',
-  f102: '           102     RAVISB007X         ',
-  f103: '             102     RETACHSB1          ',
-  f123: 'COR',
-  f125: 'this Funds Transfer transaction was posted by FI'
+  f0: '0800',
+  f2: '123456789',
+  f7: '1126050144',
+  f11: '307448',
+  f70: '301',
+  f127: ' ',
+  f128: '88888888',
+  subfield: {
+    f127: {
+      f2: '9980662980',
+      f3: 'vikash'
+    }
+  }
+
 }
 
 //“SAF<STAN_OF_REQUEST_TO_BE_ARCHIVED><COMMAND><TRAN_DATE_TIME><DCC_ID><CUST_OR_CARD_ID>”

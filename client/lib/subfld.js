@@ -136,6 +136,7 @@ function prepare_final_buffer(subfield_str){
   var varlen = flt.indexOf('V')
   var fbuflist = [];
   for (var i = 0; i < subfield_str.fld_prsnt.length; i++) {
+    console.log("subfield no: %s buffer %s length %s",i,subfield_str.fld_buffer[i], subfield_str.fld_buffer[i].length);
     fhv = fhv + subfield_str.fld_buffer[i].length
     fbuflist[i] = subfield_str.fld_buffer[i]
   }

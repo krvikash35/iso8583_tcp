@@ -106,6 +106,8 @@ function parse_mti_bitmap(buff_data) {
         loglib.print_debug_msg(' bitmap_sec_bin: ' + bitmap_sec_bin);
     } else {
         loglib.print_debug_msg('secondory bitmap not present');
+        bitmap_sec_bin = ""
+        bitmap_sec_hex = ""
     }
     var bitmap_bin = bitmap_pri_bin + bitmap_sec_bin;
     var bitmap_hex = bitmap_pri_hex + bitmap_sec_hex;

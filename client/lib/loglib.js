@@ -9,7 +9,8 @@ var loglib = {
   print_debug_msg: print_debug_msg,
   print_err_msg: print_err_msg,
   print_final_msg: print_final_msg,
-  print_decoded_message: print_decoded_message
+  print_decoded_message: print_decoded_message,
+  print_bin_asci_msg: print_bin_asci_msg
 }
 
 module.exports = loglib;
@@ -35,7 +36,7 @@ function print_final_msg(iso8583_msg){
   console.log('######################## END HEADER DETAILS ##########################');
 
   console.log('######################## START FINAL MESSAGE ##########################');
-  console.log( final_buffer );
+  print_bin_asci_msg(final_buffer);
   console.log('######################## END FINAL MESSAGE ##########################');
   console.log('Sent Total '+totallen+' Bytes..\n\n');
 
@@ -127,6 +128,26 @@ function print_err_msg(){
 }
 
 
+function print_bin_asci_msg(buffer){
+  var buf = buffer;
+  console.log("Binary Data...");
+  var data_bin = ''
+  var temp;
+  for(var i=0; i<buf.length; i++){
+    temp = buf.toString('hex', i, i+1)
+    data_bin = data_bin + pad(temp, 3, 'r', ' ');
+  }
+  console.log(data_bin);
+  console.log("Ascii Data...");
+  var data_ascii = ''
+  var temp;
+  for(var i=0; i<buf.length; i++){
+    temp = buf.toString('ascii', i, i+1)
+    data_ascii = data_ascii + pad(temp, 3, 'r', ' ');
+  }
+  console.log(data_ascii);
+
+}
 
 
 function print_decoded_message(buff_res){

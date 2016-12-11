@@ -67,7 +67,7 @@ var iso8583_1993_fields_malavika = {
     },
     f11: {
         'type': 'N',
-        'maxlen': 12,
+        'maxlen': 6,
         'lentype': 'FIXED',
         'desc': 'Systems Trace Audit Number'
     },
@@ -765,11 +765,235 @@ var iso8583_1993_fields_malavika = {
         'type': 'ANS',
         'maxlen': 999999,
         'lentype': 'LLLLLLVAR',
-        'desc': 'Reserved Field 1'
+        'desc': 'Reserved Field 1',
+        'subfield': {
+            'f1': {
+                'encode': 'hex',
+                'maxlen': 8,
+                'lentype': 'CONTVAR',
+                'desc': 'Bitmap'
+            },
+            'f2': {
+                'type': 'ANS',
+                'maxlen': 32,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+            'f3': {
+                'type': 'ANS',
+                'maxlen': 6,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f4': {
+                'type': 'ANS',
+                'maxlen': 22,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f5': {
+                'type': 'ANS',
+                'maxlen': 73,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f6': {
+                'type': 'ANS',
+                'maxlen': 2,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f7': {
+                'type': 'ANS',
+                'maxlen': 50,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f8': {
+                'type': 'ANS',
+                'maxlen': 999,
+                'lentype': 'LLLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f9': {
+                'type': 'ANS',
+                'maxlen': 255,
+                'lentype': 'LLLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f10': {
+                'type': 'ANS',
+                'maxlen': 3,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f11': {
+                'type': 'ANS',
+                'maxlen': 32,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f12': {
+                'type': 'ANS',
+                'maxlen': 25,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f13': {
+                'type': 'ANS',
+                'maxlen': 17,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f14': {
+                'type': 'ANS',
+                'maxlen': 8,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f15': {
+                'type': 'ANS',
+                'maxlen': 29,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f16': {
+                'type': 'ANS',
+                'maxlen': 1,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f17': {
+                'type': 'ANS',
+                'maxlen': 50,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f18': {
+                'type': 'ANS',
+                'maxlen': 50,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f19': {
+                'type': 'ANS',
+                'maxlen': 31,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f20': {
+                'type': 'ANS',
+                'maxlen': 8,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f21': {
+                'type': 'ANS',
+                'maxlen': 12,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f22': {
+                'type': 'ANS',
+                'maxlen': 99999,
+                'lentype': 'LLLLLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f23': {
+                'type': 'ANS',
+                'maxlen': 253,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f24': {
+                'type': 'ANS',
+                'maxlen': 28,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f25': {
+                'type': 'ANS',
+                'maxlen': 8000,
+                'lentype': 'LLLLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f26': {
+                'type': 'ANS',
+                'maxlen': 12,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f27': {
+                'type': 'ANS',
+                'maxlen': 1,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f28': {
+                'type': 'ANS',
+                'maxlen': 4,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f29': {
+                'type': 'ANS',
+                'maxlen': 40,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f30': {
+                'type': 'ANS',
+                'maxlen': 1,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f31': {
+                'type': 'ANS',
+                'maxlen': 11,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f32': {
+                'type': 'ANS',
+                'maxlen': 33,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f33': {
+                'type': 'ANS',
+                'maxlen': 4,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f34': {
+                'type': 'ANS',
+                'maxlen': 2,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+      'f35': {
+                'type': 'ANS',
+                'maxlen': 11,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f36': {
+                'type': 'ANS',
+                'maxlen': 25,
+                'lentype': 'LLVAR',
+                'desc': 'Reserved Field 1'
+            },
+      'f37': {
+                'type': 'ANS',
+                'maxlen': 4,
+                'lentype': 'FIXED',
+                'desc': 'Reserved Field 1'
+            },
+        }
     },
     f128: {
         'type': 'B',
-        'maxlen': 16,
+        'maxlen': 8,
         'lentype': 'FIXED',
         'desc': 'Message authentication code (MAC) field'
     }
