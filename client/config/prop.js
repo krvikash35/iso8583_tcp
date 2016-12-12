@@ -21,7 +21,7 @@ var prop = {
         }
     },
     client: {
-        field_def: fld_def_list.iso8583_1993_cmn,
+        field_def: fld_def_list.iso8583_1987_kdh,
         encode: {
             header_encode: 'hex', //  hex, ascii
             mti_encode: 'ascii', //  hex, ascii

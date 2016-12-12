@@ -108,6 +108,7 @@ function encode_subfld_data(subfield_str) {
 
 function get_subfld_encoding(prntfld, subfld) {
     var fdef = configlib.read_config("cli_fld_def");
+    console.log(fdef["f" + prntfld]);
     var enc = fdef["f" + prntfld].subfield["f" + subfld].encode;
     if (!enc) {
         enc = 'ascii';

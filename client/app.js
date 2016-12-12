@@ -26,13 +26,10 @@ packlib.pad_field_per_iso8583(iso8583_msg);
 loglib.print_padded_msg(iso8583_msg)
 
 packlib.encode_msg_per_iso8583(iso8583_msg);
-
-
-
-subfldlib.addsubfield(iso8583_msg);
+// subfldlib.addsubfield(iso8583_msg);
 
 packlib.cal_and_add_header(iso8583_msg);
 loglib.print_encoded_msg(iso8583_msg)
-loglib.print_bin_asci_msg(iso8583_msg.iso8583_msg_req_final.final_buffer,"Sent")
 
+loglib.print_bin_asci_msg(iso8583_msg.iso8583_msg_req_final.final_buffer,"Sent")
 socklib.connect_and_send(iso8583_msg.iso8583_msg_req_final.final_buffer);
