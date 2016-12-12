@@ -1,1 +1,1 @@
-# iso8583 implementation as tcp ip using nodejs 
+# tcp/ip iso8583 implementation  using nodejs 
