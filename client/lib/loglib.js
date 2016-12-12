@@ -1,6 +1,6 @@
 // var fldlib = require('./field');
 var prop = require('../config/prop');
-
+var loglevel = prop.loglevel
 
 
 var loglib = {
@@ -16,6 +16,9 @@ module.exports = loglib;
 var configlib = require('./configlib');
 
 function print_encoded_msg(iso8583_msg){
+  if ( !(loglevel>=3) ){
+    return;
+  }
   var msg = iso8583_msg.iso8583_msg_req_encoded;
   var flds = iso8583_msg.field_no_present;
   var fn = null;
@@ -46,6 +49,9 @@ function print_encoded_msg(iso8583_msg){
 }
 
 function print_padded_msg(iso8583_msg){
+  if( ! (loglevel>= 1) ){
+    return ;
+  }
   var msg = iso8583_msg.iso8583_msg_req_paded;
   var msg_org = iso8583_msg.iso8583_msg_req_origated;
   var flds = iso8583_msg.field_no_present;
@@ -54,7 +60,7 @@ function print_padded_msg(iso8583_msg){
   var flt = null;
   var fml = null;
   var fdes = null;
-  console.log('\n\n######################## START ORIGINAL AND PADDED MESSAGE ##########################');
+  console.log('######################## START ORIGINAL AND PADDED MESSAGE ##########################');
   console.log('FNO', pad('FIELD_DESCRIPTION',44),'FTYPE', 'LENTYPE', 'MAX', pad('ORIGINAL VALUE MAX 40 CHAR SHOWN HERE..',40), 'PADDED VALUE IF REQUIRED NO LIMIT ON CHAR HERE');
   for(var i=0; i<msg.length; i++){
     fn = flds[i];
@@ -66,12 +72,12 @@ function print_padded_msg(iso8583_msg){
     fdes = configlib.read_config("cli_fldn_des", fn);
     console.log(pad(fn,3),"(", pad(fdes,40),")",pad(ft,5),pad(flt,7), pad(fml,3),pad(fvo,40),"'"+fv+"'" );
   }
-  console.log('######################## END ORIGINAL AND PADDED MESSAGE ##########################\n\n');
+  console.log('######################## END ORIGINAL AND PADDED MESSAGE ##########################');
 }
 
 
 function print_debug_msg(){
-  if(prop.enable_debug){
+  if(loglevel >= 4){
     for(var i=0; i<arguments.length; i++){
       console.log(arguments[i]);
     }
@@ -89,6 +95,9 @@ function print_err_msg(){
 
 
 function print_bin_asci_msg(buffer,desc){
+  if( !(loglevel >= 2) ){
+    return;
+  }
   desc?desc=desc:desc="";
   var buf = buffer;
   console.log("Total " + buf.length + " Bytes "+ desc +"..");
@@ -113,6 +122,8 @@ function print_bin_asci_msg(buffer,desc){
 
 
 function print_decoded_message(buff_res){
+  if( !(loglevel >= 1) )
+  return
   var fprsnt = buff_res.decode.body.fprsnt;
   var mheadval = buff_res.decode.header.value;
   var mheadlen = buff_res.decode.header.len;
@@ -124,14 +135,7 @@ function print_decoded_message(buff_res){
   var fml = null;
   var fdes = null;
 
-  console.log('######################## START RESPONSE HEADER DETAILS##########################');
-  if(prop.server.header.include_header){
-    console.log( pad('HEAD_LEN',8), pad('HEAD_VAL',8) );
-    console.log( pad(mheadlen,8), pad(mheadval,8) );
-  }else {
-    console.log('Header is not included: server response is without header');
-  }
-  console.log('######################## END RESPONSE HEADER DETAILS##########################');
+
 
   console.log('######################## START RESPONSE MESSAGE DETAILS##########################');
   console.log( pad('FNO',3), pad('FIELD_DESCRIPTION',34), pad('LENTYPE',7), pad('FHV',3), 'FIELD_VALUE' );
@@ -139,10 +143,10 @@ function print_decoded_message(buff_res){
     fn = fprsnt[i];
     fv = fbodyval[i];
     fhv = fheadval[i];
-    ft = fldlib.get_fld_type(fn)
-    flt = fldlib.get_fld_len_type(fn);
-    fml = fldlib.get_fld_len_max(fn);
-    fdes = fldlib.get_fld_desc(fn);
+    ft = configlib.read_config("ser_fldn_type",fn);
+    flt = configlib.read_config("ser_fldn_ltype",fn);
+    fml = configlib.read_config("ser_fldn_max",fn);
+    fdes = configlib.read_config("ser_fldn_des",fn);
     console.log( pad(fn,3), "(",pad(fdes,30),")", pad(flt,7), pad(fhv,3), fv );
   }
   console.log('######################## END RESPONSE MESSAGE DETAILS##########################');
