@@ -1,7 +1,9 @@
+//
+// var prop = require('../prop');
+// var unpacklib = require('./unpack');
 var net = require('net');
-var prop = require('../prop');
-var unpacklib = require('./unpack');
 var loglib = require('./loglib');
+var configlib = require('./configlib');
 
 var soclib = {
   connect_and_send: connect_and_send
@@ -9,8 +11,8 @@ var soclib = {
 module.exports = soclib;
 
 function connect_and_send(data) {
-    var HOST = prop.server_host;
-    var PORT = prop.server_port;
+    var HOST = configlib.read_config("ser_host");
+    var PORT = configlib.read_config("ser_port");
     var client = new net.Socket();
     client.connect(PORT, HOST, function() {
         console.log('CONNECTED TO: ' + HOST + ':' + PORT);

@@ -1,7 +1,9 @@
 var fld_def_list = require('./field_def_list');
+var usr_data = require('../data/data')
 
 var prop = {
-    enable_debug: true,
+    enable_debug: false,
+    usr_data: usr_data,
     server: {
         host: '10.66.118.36', //localhost:6969, 10.66.118.36:16702(agd),   10.66.118.51:7021(chlk) 10.66.118.27:35502(vasuda)
         port: "16702", //6969 16902

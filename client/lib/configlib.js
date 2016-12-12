@@ -12,6 +12,7 @@ module.exports = configlib;
 
 var config_mapping = {
   'enable_debug': 'enable_debug',
+  'usr_data': 'usr_data',
   'ser_host': 'server.host',
   'ser_port': 'server.port',
   'ser_enc_hdr': 'server.encode.header_encode',
@@ -25,7 +26,7 @@ var config_mapping = {
   'ser_fldn_def': 'server.field_def.FNO',
   'ser_fldn_type': 'server.field_def.FNO.type',
   'ser_fldn_max': 'server.field_def.FNO.maxlen',
-  'ser_fldn_type': 'server.field_def.FNO.lentype',
+  'ser_fldn_ltype': 'server.field_def.FNO.lentype',
   'ser_fldn_des': 'server.field_def.FNO.desc',
   'cli_enc_hdr': 'client.encode.header_encode',
   'cli_enc_mti': 'client.encode.mti_encode',
@@ -38,12 +39,12 @@ var config_mapping = {
   'cli_fldn_def': 'client.field_def.FNO',
   'cli_fldn_type': 'client.field_def.FNO.type',
   'cli_fldn_max': 'client.field_def.FNO.maxlen',
-  'cli_fldn_type': 'client.field_def.FNO.lentype',
+  'cli_fldn_ltype': 'client.field_def.FNO.lentype',
   'cli_fldn_des': 'client.field_def.FNO.desc'
 }
 
 function read_config(cmkey, fn){
-  loglib.print_debug_msg("read_config[cmkey]: " + cmkey)
+  // loglib.print_debug_msg("read_config[cmkey]: " + cmkey)
   if( iszerolen(cmkey) ){
     loglib.print_err_msg("read_config: invalid config mapping key");
   }
@@ -51,18 +52,18 @@ function read_config(cmkey, fn){
   if( cmkey.startsWith("cli_fldn") || cmkey.startsWith("ser_fldn") ){
     if ( isnum(fn) ){
       cmvalue = cmvalue.replace('FNO',"f"+fn);
-      loglib.print_debug_msg("read_config: fieldNo: "+fn+" cmvalue: "+cmvalue);
+      // loglib.print_debug_msg("read_config: fieldNo: "+fn+" cmvalue: "+cmvalue);
     }else {
       loglib.print_err_msg("read_config: field no: '"+fn+"' is invalid");
     }
   }
-  loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
+  // loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
   var result = prop;
   cmvalue = cmvalue.split('.');
   for( var i=0; i<cmvalue.length; i++ ){
     result = result[cmvalue[i]];
   }
-  loglib.print_debug_msg("read_config[result]: " + result)
+  // loglib.print_debug_msg("read_config[result]: " + result)
   return result;
 }
 
