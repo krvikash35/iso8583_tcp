@@ -13,8 +13,13 @@ fvalues = {
   // f24: '200',
   // f32: '00000004535',
   // f49: 'IN',
-  f102: '024        10100   SBRUP-015'
+  f102: '024        10100   SBRUP-015',
   // f123: 'CMN'
+  subfield:{
+    f127: {
+      f2: 'vikash'
+    }
+  }
 }
 
 //“SAF<STAN_OF_REQUEST_TO_BE_ARCHIVED><COMMAND><TRAN_DATE_TIME><DCC_ID><CUST_OR_CARD_ID>”

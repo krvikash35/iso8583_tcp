@@ -1,7 +1,8 @@
-//This is patch that can generate subfield
+//This is patch that can generate subfield for only one parent field ie. 127 having 127.1, 127.2, 127.3 etc..
 var loglib = require('./loglib')
 var convlib = require('./convert')
-var fldlib = require('./field');
+// var fldlib = require('./field');
+var configlib = require('./configlib')
 
 var subfldlib = {
     addsubfield: addsubfield
@@ -106,7 +107,7 @@ function encode_subfld_data(subfield_str) {
 }
 
 function get_subfld_encoding(prntfld, subfld) {
-    var fdef = fldlib.get_fld_def()
+    var fdef = configlib.read_config("cli_fld_def");
     var enc = fdef["f" + prntfld].subfield["f" + subfld].encode;
     if (!enc) {
         enc = 'ascii';
@@ -116,14 +117,14 @@ function get_subfld_encoding(prntfld, subfld) {
 
 
 function get_subfld_lentype(prntfld, subfld) {
-    var fdef = fldlib.get_fld_def()
+    var fdef = configlib.read_config("cli_fld_def");
     var lentype = fdef["f" + prntfld].subfield["f" + subfld].lentype;
     return lentype;
 }
 
 
 function get_subfld_maxlen(prntfld, subfld) {
-    var fdef = fldlib.get_fld_def()
+    var fdef = configlib.read_config("cli_fld_def");
     var maxlen = fdef["f" + prntfld].subfield["f" + subfld].maxlen;
     return maxlen;
 }
@@ -131,8 +132,8 @@ function get_subfld_maxlen(prntfld, subfld) {
 
 function prepare_final_buffer(subfield_str){
   var fhv = 0
-  var flt = fldlib.get_fld_len_type(subfield_str.parent_fn)
-  var fhenc = fldlib.get_encode_format(subfield_str.parent_fn)
+  var flt = configlib.read_config("cli_fldn_ltype", subfield_str.parent_fn);
+  var fhenc = configlib.read_config("cli_enc_fld");
   var varlen = flt.indexOf('V')
   var fbuflist = [];
   for (var i = 0; i < subfield_str.fld_prsnt.length; i++) {

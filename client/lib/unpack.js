@@ -1,5 +1,4 @@
 var convlib = require('./convert')
-var fldlib = require('./field');
 var loglib = require('./loglib');
 var configlib = require('./configlib');
 
