@@ -1,4 +1,3 @@
-// var fldlib = require('./field');
 var prop = require('../config/prop');
 var loglevel = prop.loglevel
 
