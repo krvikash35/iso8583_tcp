@@ -19,8 +19,23 @@ function parse_header(buff_data) {
     var headvalue = null;
     if (headinc) {
         loglib.print_debug_msg('header length is ' + headlen + ' Byte and encoding is ' + headenc);
-        headvalue = buff_data.data.toString(headenc, buff_data.ptr, headlen)
-        loglib.print_debug_msg('headvalue from hexstring in hex encoding  is ' + headvalue)
+        switch (headenc) {
+            case "ascii":
+                headvalue = buff_data.data.toString("ascii", buff_data.ptr, headlen);
+                break;
+            case "hex":
+                headvalue = buff_data.data.toString("hex", buff_data.ptr, headlen);
+                break;
+            case "chexehex":
+                headvalue = buff_data.data.toString("hex", buff_data.ptr, headlen);
+                headvalue = convlib.hextodeci(headvalue);
+                break;
+            case "chexeascii":
+                headvalue = buff_data.data.toString("ascii", buff_data.ptr, headlen);
+                headvalue = convlib.hextodeci(headvalue);
+                break;
+        }
+        loglib.print_debug_msg('headvalue is: ' + headvalue)
         headvalue = convlib.hextodeci(headvalue)
         loglib.print_debug_msg('headvalue in decimal after conversion is ' + headvalue);
         buff_data.ptr = buff_data.ptr + parseInt(headlen);

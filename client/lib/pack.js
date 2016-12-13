@@ -106,14 +106,14 @@ function get_fieldno_encformat(fn) {
 function encode_msg_per_iso8583(iso8583_msg) {
     var fv, fn, ft, flt, flm, flhe;
     for (var i = 0; i < iso8583_msg.field_no_present.length; i++) {
-      var field_buffer_ret = {
-          field_head_buffer: 0,
-          field_head_len: 0,
-          field_body_buffer: null,
-          field_body_len: null,
-          field_whole_buffer: null,
-          field_enc: null
-      };
+        var field_buffer_ret = {
+            field_head_buffer: 0,
+            field_head_len: 0,
+            field_body_buffer: null,
+            field_body_len: null,
+            field_whole_buffer: null,
+            field_enc: null
+        };
         fv = iso8583_msg.iso8583_msg_req_paded[i];
         fn = iso8583_msg.field_no_present[i]
 
@@ -193,9 +193,9 @@ function cal_and_add_header(iso8583_msg) {
     }
     loglib.print_debug_msg('msglen is ' + msglen)
     loglib.print_debug_msg('calculating header value');
-    loglib.print_debug_msg('include msg length for header value calculation: ' +headincmsg )
+    loglib.print_debug_msg('include msg length for header value calculation: ' + headincmsg)
     if (headinc) {
-        if ( headincmsg ) {
+        if (headincmsg) {
             totallen = headlen + msglen;
         } else {
             totallen = msglen;
@@ -205,10 +205,28 @@ function cal_and_add_header(iso8583_msg) {
         var msg_buffer = Buffer.concat(msg_buffer_list, msglen);
         var headBuffer = Buffer.alloc(headlen);
         iso8583_msg.iso8583_msg_req_final.header_buf = headBuffer;
-        totallen = convlib.decitohex(totallen);
-        headenc=="hex"?totallen=pad(totallen,headlen*2,'l','0'):totallen=pad(totallen,headlen,'l','0')
-        loglib.print_debug_msg("header value in hex: " +totallen+" encoding: "+headenc);
-        headBuffer.write(totallen, 0, headlen, headenc);
+
+        switch (headenc) {
+            case "ascii":
+                totallen = pad(totallen, headlen, 'l', '0');
+                headBuffer.write(totallen, 0, headlen, "ascii");
+                break;
+            case "hex":
+                totallen = pad(totallen, headlen*2, 'l', '0');
+                headBuffer.write(totallen, 0, headlen, "hex");
+                break;
+            case "chexehex":
+                totallen = convlib.decitohex(totallen);
+                totallen = pad(totallen, headlen*2, 'l', '0');
+                headBuffer.write(totallen, 0, headlen, "hex");
+                break;
+            case "chexeascii":
+                totallen = convlib.decitohex(totallen);
+                totallen = pad(totallen, headlen, 'l', '0');
+                headBuffer.write(totallen, 0, headlen, "ascii");
+                break;
+        }
+        loglib.print_debug_msg("header value in : " + totallen + " encoding: " + headenc);
         loglib.print_debug_msg("wrote header buffer: ", headBuffer)
         iso8583_msg.iso8583_msg_req_final.final_buffer = Buffer.concat([headBuffer, msg_buffer], headlen + msglen);
     } else {

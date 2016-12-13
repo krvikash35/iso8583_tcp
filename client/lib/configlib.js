@@ -44,7 +44,7 @@ var config_mapping = {
 }
 
 function read_config(cmkey, fn){
-  // loglib.print_debug_msg("read_config[cmkey]: " + cmkey)
+  loglib.print_debug_msg("read_config[cmkey]: " + cmkey)
   if( iszerolen(cmkey) ){
     loglib.print_err_msg("read_config: invalid config mapping key");
   }
@@ -52,18 +52,18 @@ function read_config(cmkey, fn){
   if( cmkey.startsWith("cli_fldn") || cmkey.startsWith("ser_fldn") ){
     if ( isnum(fn) ){
       cmvalue = cmvalue.replace('FNO',"f"+fn);
-      // loglib.print_debug_msg("read_config: fieldNo: "+fn+" cmvalue: "+cmvalue);
+      loglib.print_debug_msg("read_config: fieldNo: "+fn+" cmvalue: "+cmvalue);
     }else {
       loglib.print_err_msg("read_config: field no: '"+fn+"' is invalid");
     }
   }
-  // loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
+  loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
   var result = prop;
   cmvalue = cmvalue.split('.');
   for( var i=0; i<cmvalue.length; i++ ){
     result = result[cmvalue[i]];
   }
-  // loglib.print_debug_msg("read_config[result]: " + result)
+  loglib.print_debug_msg("read_config[result]: " + result)
   return result;
 }
 
