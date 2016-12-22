@@ -1,4 +1,4 @@
-//lsafsi update
+//lsafsi update(vasuda)
 f0: '1200',
 f2: '1111111111111111111',
 f3: '970000',
@@ -11,7 +11,7 @@ f102: 'DC         102     SAFREPLAY',
 f123: 'BWY',
 f125: 'SAF|786876876792|TRTR|01-JAN-10|CMN|1111111111111111111'
 
-//dofundtransfer
+//dofundtransfer(vasuda)
 f0: '1200',
 f3: '400000',
 f4: '0000010010321700',
@@ -25,5 +25,23 @@ f49: 'INR',
 f56: '1200000000045353201610211010101100000004535',
 f102: '           102     RAVISB007          ',
 f103: '             102     RETACHSB1          ',
+f123: 'COR',
+f125: 'this Funds Transfer transaction was posted by FI'
+
+
+//dofundtransfer(losvm)
+f0: '1200',
+f3: '400000',
+f4: '0000010010321700',
+f11: '000000000008',
+f12: '20161106183420',
+f17: '20161206',
+f24: '200',
+f32: '23',
+f34: 'COR',
+f49: 'INR',
+f56: '1200000000045353201610211010101100000004535',
+f102: '           102     RAVISB007          ',
+f103: '             102     RAVISB006          ',
 f123: 'COR',
 f125: 'this Funds Transfer transaction was posted by FI'

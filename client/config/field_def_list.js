@@ -2239,6 +2239,12 @@ var iso8583_1993_cmn = {
         'lentype': 'LLVAR',
         'desc': 'Account identification 1'
     },
+    f103: {
+        'type': 'ANS',
+        'maxlen': 40,
+        'lentype': 'LLVAR',
+        'desc': 'Account identification 1'
+    },
     f123: {
         'type': 'AN',
         'maxlen': 3,
