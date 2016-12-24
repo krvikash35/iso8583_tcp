@@ -4,7 +4,9 @@
   "description": "iso8583 implementation in tcpip and http",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc -w -p web/client",
+    "nodemon": "nodemon --ignore public web/server/app.js"
   },
   "repository": {
     "type": "git",
@@ -42,5 +44,9 @@
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
     "socket.io": "^1.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "typescript": "~2.0.10"
   }
 }
