@@ -15,13 +15,14 @@ var http_1 = require('@angular/http');
 var app_routing_module_1 = require('./app-routing.module');
 var app_component_1 = require('./app.component');
 var data_component_1 = require('./data/data.component');
+var config_component_1 = require('./config/config.component');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule],
-            declarations: [app_component_1.AppComponent, data_component_1.DataComponent],
+            declarations: [app_component_1.AppComponent, data_component_1.DataComponent, config_component_1.ConfigComponent],
             providers: [],
             bootstrap: [app_component_1.AppComponent]
         }), 

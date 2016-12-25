@@ -5,6 +5,6 @@ import { Component } from '@angular/core'
   templateUrl: 'app/config/config.component.html',
   styleUrls: []
 })
-export class DataComponent{
+export class ConfigComponent{
 
 }

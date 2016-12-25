@@ -7,10 +7,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }  from './app.component';
 import { DataComponent } from './data/data.component';
+import { ConfigComponent } from './config/config.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, AppRoutingModule ],
-  declarations: [ AppComponent, DataComponent ],
+  declarations: [ AppComponent, DataComponent, ConfigComponent ],
   providers:    [],
   bootstrap:    [ AppComponent ]
 })
