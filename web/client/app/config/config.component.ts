@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 
 @Component({
-  selector: 'data',
-  templateUrl: 'app/data/data.component.html',
+  selector: 'config',
+  templateUrl: 'app/config/config.component.html',
   styleUrls: []
 })
 export class DataComponent{
