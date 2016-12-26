@@ -8,10 +8,11 @@ import { DataService } from './data.service'
   providers: [DataService]
 })
 export class DataComponent implements OnInit {
+  name: any = "    vikash kumar"
   reqData: any = [];
   resData: any = [];
-  reqFieldDef: any = [];
-  resFieldDef: any = [];
+  reqFieldDef: any = {};
+  resFieldDef: any = {};
 
   constructor(private dataService: DataService){}
   ngOnInit(): void{
@@ -36,22 +37,35 @@ export class DataComponent implements OnInit {
 
     this.dataService.getReqFieldDef().then(reqFieldDef => {
       console.log("DataComponent.ngOnInit:reqFieldDef", reqFieldDef)
-      for(let key in reqFieldDef){
-        console.log(key, reqFieldDef[key])
-        this.reqFieldDef.push( {key: key, value: reqFieldDef[key] } );
-      }
+      // for(let key in reqFieldDef){
+      //   console.log(key, reqFieldDef[key])
+      //   this.reqFieldDef.push( {key: key, value: reqFieldDef[key] } );
+      // }
+      this.reqFieldDef = reqFieldDef;
       console.log("DataComponent.ngOnInit:this.reqFieldDef", this.reqFieldDef)
     });
 
 
     this.dataService.getResFieldDef().then(resFieldDef => {
       console.log("DataComponent.ngOnInit:resFieldDef", resFieldDef)
-      for(let key in resFieldDef){
-        console.log(key, resFieldDef[key])
-        this.resFieldDef.push( {key: key, value: resFieldDef[key] } );
-      }
+      // for(let key in resFieldDef){
+      //   console.log(key, resFieldDef[key])
+      //   this.resFieldDef.push( {key: key, value: resFieldDef[key] } );
+      // }
+      this.resFieldDef = resFieldDef;
       console.log("DataComponent.ngOnInit:this.resFieldDef", this.resFieldDef)
     });
 
   }
+
+  downloadReqData(): any{
+    var url = 'data:text/json;charset=utf8,' + encodeURIComponent( JSON.stringify(this.reqData) );
+    window.open(url, '_blank')
+    window.focus();
+  }
+
+  uploadReqData(): any{
+
+  }
+
 }

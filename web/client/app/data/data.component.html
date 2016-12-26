@@ -1,13 +1,50 @@
-<h4>REQUEST</h4>
-<div *ngFor="let req of reqData" >
-  <ul>
-    <li>{{req?.key}}....{{req?.value}}</li>
-  </ul>
+<h6>REQUEST<span>{{name}}</span></h6>
+<table class="table">
+  <tr>
+    <th>Delete</th>
+    <th>FieldNo</th>
+    <th>FieldType</th>
+    <th>FieldLenType</th>
+    <th>FieldLen</th>
+    <th>FieldDescritption</th>
+    <th>FieldValue</th>
+  </tr>
+  <tr *ngFor="let req of reqData">
+    <td><i class="material-icons">delete</i></td>
+    <td>{{req?.key}}</td>
+    <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].type}}</td>
+    <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].lentype}}</td>
+    <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].maxlen}}</td>
+    <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].desc}}</td>
+    <td>"{{req?.value}}"</td>
+    <!-- <td><pre>"{{req?.value}}"</pre></td> -->
+  </tr>
+</table>
+<div>
+  <button class="btn-raised ripple">Add row</button>
+  <button class="btn-raised ripple" (click)="downloadReqData()">Download Data</button>
+  <button class="btn-raised ripple" (click)="uploadReqData()">Upload Data</button>
+  <button class="btn-raised ripple">Send to Server</button>
 </div>
 
-<h4>RESPONSE</h4>
-<div *ngFor="let res of resData" >
-  <ul>
-    <li>{{res?.key}}....{{res?.value}}</li>
-  </ul>
-</div>
+
+<h6>RESPONSE</h6>
+  <table class="table">
+    <tr>
+      <th>FieldNo</th>
+      <th>FieldType</th>
+      <th>FieldLenType</th>
+      <th>FieldLen</th>
+      <th>FieldDescritption</th>
+      <th>FieldValue</th>
+    </tr>
+    <tr *ngFor="let res of resData">
+      <td>{{res?.key}}</td>
+      <td *ngIf="resFieldDef">{{resFieldDef[res?.key].type}}</td>
+      <td *ngIf="resFieldDef">{{resFieldDef[res?.key].lentype}}</td>
+      <td *ngIf="resFieldDef">{{resFieldDef[res?.key].maxlen}}</td>
+      <td *ngIf="resFieldDef">{{resFieldDef[res?.key].desc}}</td>
+      <td>"{{res?.value}}"</td>
+      <!-- <td><pre>"{{res?.value}}"</pre></td> -->
+    </tr>
+  </table>

@@ -1,0 +1,49 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Users\\lovelinux\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'run',
+1 verbose cli   'nodemon' ]
+2 info using npm@4.0.5
+3 info using node@v4.6.1
+4 verbose run-script [ 'prenodemon', 'nodemon', 'postnodemon' ]
+5 info lifecycle iso8583_tcp@1.0.0~prenodemon: iso8583_tcp@1.0.0
+6 silly lifecycle iso8583_tcp@1.0.0~prenodemon: no script for prenodemon, continuing
+7 info lifecycle iso8583_tcp@1.0.0~nodemon: iso8583_tcp@1.0.0
+8 verbose lifecycle iso8583_tcp@1.0.0~nodemon: unsafe-perm in lifecycle true
+9 verbose lifecycle iso8583_tcp@1.0.0~nodemon: PATH: C:\Users\lovelinux\AppData\Roaming\npm\node_modules\npm\bin\node-gyp-bin;E:\MYWORKSPACE\iso8583_tcp\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Users\lovelinux\AppData\Local\Microsoft\WindowsApps;C:\Users\lovelinux\AppData\Local\atom\bin;C:\Users\lovelinux\AppData\Roaming\npm
+10 verbose lifecycle iso8583_tcp@1.0.0~nodemon: CWD: E:\MYWORKSPACE\iso8583_tcp
+11 silly lifecycle iso8583_tcp@1.0.0~nodemon: Args: [ '/d /s /c',
+11 silly lifecycle   'nodemon --ignore client/ --ignore server/ --ignore web/client web/server/app.js' ]
+12 silly lifecycle iso8583_tcp@1.0.0~nodemon: Returned: code: 3221225786  signal: null
+13 info lifecycle iso8583_tcp@1.0.0~nodemon: Failed to exec nodemon script
+14 verbose stack Error: iso8583_tcp@1.0.0 nodemon: `nodemon --ignore client/ --ignore server/ --ignore web/client web/server/app.js`
+14 verbose stack Exit status 3221225786
+14 verbose stack     at EventEmitter.<anonymous> (C:\Users\lovelinux\AppData\Roaming\npm\node_modules\npm\lib\utils\lifecycle.js:279:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (C:\Users\lovelinux\AppData\Roaming\npm\node_modules\npm\lib\utils\spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:829:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid iso8583_tcp@1.0.0
+16 verbose cwd E:\MYWORKSPACE\iso8583_tcp
+17 error Windows_NT 10.0.14393
+18 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Users\\lovelinux\\AppData\\Roaming\\npm\\node_modules\\npm\\bin\\npm-cli.js" "run" "nodemon"
+19 error node v4.6.1
+20 error npm  v4.0.5
+21 error code ELIFECYCLE
+22 error iso8583_tcp@1.0.0 nodemon: `nodemon --ignore client/ --ignore server/ --ignore web/client web/server/app.js`
+22 error Exit status 3221225786
+23 error Failed at the iso8583_tcp@1.0.0 nodemon script 'nodemon --ignore client/ --ignore server/ --ignore web/client web/server/app.js'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the iso8583_tcp package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     nodemon --ignore client/ --ignore server/ --ignore web/client web/server/app.js
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs iso8583_tcp
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls iso8583_tcp
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]

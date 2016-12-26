@@ -2327,3 +2327,18 @@ small {
 .tab-item-active {
   color: #FFFFFF;
   border-bottom: 2px solid #FF4081; }
+
+.table {
+  width: 100%; }
+
+.table td,
+.table th {
+  text-align: left;
+  padding: 5px 10px 5px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+
+.table td {
+  color: rgba(0, 0, 0, 0.87); }
+
+.table th {
+  color: rgba(0, 0, 0, 0.54); }
