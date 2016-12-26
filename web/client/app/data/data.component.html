@@ -1,1 +1,13 @@
-<h1> This is data component</h1>
+<h4>REQUEST</h4>
+<div *ngFor="let req of reqData" >
+  <ul>
+    <li>{{req?.key}}....{{req?.value}}</li>
+  </ul>
+</div>
+
+<h4>RESPONSE</h4>
+<div *ngFor="let res of resData" >
+  <ul>
+    <li>{{res?.key}}....{{res?.value}}</li>
+  </ul>
+</div>
