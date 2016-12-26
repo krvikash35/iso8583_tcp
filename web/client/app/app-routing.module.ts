@@ -3,11 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DataComponent }   from './data/data.component';
 import { ConfigComponent } from './config/config.component';
+import { FieldComponent } from './field/field.component';
+import { LogComponent } from './log/log.component';
+import { HelpComponent } from './help/help.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/data', pathMatch: 'full' },
-  { path: 'data',  component: DataComponent },
-  { path: 'config',  component: ConfigComponent }
+  { path: '', redirectTo: '/app/data', pathMatch: 'full' },
+  { path: 'app/data',  component: DataComponent },
+  { path: 'app/config',  component: ConfigComponent },
+  { path: 'app/field',  component: FieldComponent },
+  { path: 'app/log',  component: LogComponent },
+  { path: 'app/help',  component: HelpComponent }
 ];
 
 @NgModule({

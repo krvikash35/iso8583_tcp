@@ -1,9 +1,10 @@
-<h1>Component Title</h1>
-   <nav>
-     <a routerLink="/data">Data</a>
-     <a routerLink="/config">Configuration</a>
-     <a routerLink="/data">FieldDefinition</a>
-     <a routerLink="/data">ServerConsole</a>
-     <a routerLink="/data">Help</a>
-   </nav>
-   <router-outlet></router-outlet>
+<header>
+  <div class="tab-container">
+      <div class="tab-item" routerLink="/app/data" >Data</div>
+      <div class="tab-item tab-item-active" routerLink="/app/config">Configuration</div>
+      <div class="tab-item" routerLink="/app/field">FieldDefinition</div>
+      <div class="tab-item" routerLink="/app/log">ServerConsole</div>
+      <div class="tab-item" routerLink="/app/help">Help</div>
+  </div>
+</header>
+<router-outlet></router-outlet>
