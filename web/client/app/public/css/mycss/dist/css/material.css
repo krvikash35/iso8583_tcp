@@ -2271,7 +2271,8 @@ small {
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
-  cursor: pointer; }
+  cursor: pointer;
+  color: #FFFFFF; }
 
 .btn-flat {
   background-color: transparent;

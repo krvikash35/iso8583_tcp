@@ -22,10 +22,9 @@
 </table>
 <div class="right">
   <button class="btn-raised ripple">Add row</button>
-  <button class="btn-raised ripple" (click)="downloadReqData()" >Export Data</button>
-  <label for="importReqData" class="btn-raised ripple clickable" (click)="importReqData()">Import Data</label>
-  <input id="importReqData" type="file" />
-  <input type="file" id="input" class="btn-raised ripple" onchange="handleFiles(this.files)" value="text">
+  <a download="request_data.json" [href]="exportReqData()" class="btn-raised ripple clickable">Export Data</a>
+  <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
+  <input id="importReqData" type="file" (change)="importReqData($event)" />
   <button class="btn-raised ripple">Send to Server</button>
 </div>
 

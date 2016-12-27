@@ -10,9 +10,9 @@ export const REQDATA: any = {
   // f32: '23',
   // f34: 'COR',
   // f49: 'INR',
-    f4: '0000000000000106',
-  f103: '             102     RETACHSB1          ',
-  f123: 'COR'
+  //   f4: '0000000000000106',
+  // f103: '             102     RETACHSB1          ',
+  // f123: 'COR'
   // f125: 'this Funds Transfer transaction was posted by FI'
 
 }
