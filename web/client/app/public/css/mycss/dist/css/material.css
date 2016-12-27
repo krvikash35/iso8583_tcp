@@ -1870,6 +1870,15 @@ input[type="submit"] {
   cursor: pointer;
   /* 3 */ }
 
+input[type="file"] {
+  display: none; }
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer; }
+
 /**
  * Re-set default cursor for disabled elements.
  */
@@ -2017,6 +2026,12 @@ th {
 4. text-disabled
 5. z-depth-x
 */
+.clickable {
+  cursor: pointer; }
+
+.pre-ws {
+  white-space: pre; }
+
 .center-nowrap {
   display: flex;
   justify-content: space-around;
@@ -2281,11 +2296,11 @@ small {
     background-color: #ff2770;
     cursor: pointer; }
 
-.ripple, .tab-item-active {
+.ripple, .tab-item {
   position: relative;
   overflow: hidden; }
 
-.ripple:after, .tab-item-active:after {
+.ripple:after, .tab-item:after {
   content: "";
   background: rgba(255, 255, 255, 0.3);
   display: inline-block;
@@ -2298,7 +2313,7 @@ small {
   left: 50%;
   transition: all 1s; }
 
-.ripple:active:after, .tab-item-active:active:after {
+.ripple:active:after, .tab-item:active:after {
   opacity: 1;
   transform: scale(50);
   transition: 0s; }
@@ -2327,3 +2342,18 @@ small {
 .tab-item-active {
   color: #FFFFFF;
   border-bottom: 2px solid #FF4081; }
+
+.table {
+  width: 100%; }
+
+.table td,
+.table th {
+  text-align: left;
+  padding: 5px 10px 5px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+
+.table td {
+  color: rgba(0, 0, 0, 0.87); }
+
+.table th {
+  color: rgba(0, 0, 0, 0.54); }

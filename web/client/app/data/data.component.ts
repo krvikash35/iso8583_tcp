@@ -8,7 +8,6 @@ import { DataService } from './data.service'
   providers: [DataService]
 })
 export class DataComponent implements OnInit {
-  name: any = "    vikash kumar"
   reqData: any = [];
   resData: any = [];
   reqFieldDef: any = {};
@@ -19,10 +18,7 @@ export class DataComponent implements OnInit {
     console.log("ngOnInit lifeCycle..initialize DataComponent: ")
     this.dataService.getReqData().then( reqData => {
       console.log("DataComponent.ngOnInit:reqData", reqData)
-      for(let key in reqData){
-        console.log(key, reqData[key])
-        this.reqData.push( {key: key, value: reqData[key] } );
-      }
+      this.reqData = this.cnvrtReqDataObjToArray(reqData)
       console.log("DataComponent.ngOnInit:this.reqData", this.reqData)
     });
 
@@ -59,13 +55,38 @@ export class DataComponent implements OnInit {
   }
 
   downloadReqData(): any{
-    var url = 'data:text/json;charset=utf8,' + encodeURIComponent( JSON.stringify(this.reqData) );
+    let reqDataObj = this.cnvrtReqDataArrayToObj(this.reqData)
+    // let url = 'data:plain/text;charset=utf8,' + encodeURIComponent( JSON.stringify(reqDataObj) );
+    let url = 'data:application/octet-stream;charset=utf8,' + encodeURIComponent( JSON.stringify(reqDataObj) );
     window.open(url, '_blank')
     window.focus();
   }
 
   uploadReqData(): any{
 
+  }
+
+  removeReqDataRow(rowkey: any): any{
+    console.log("DataComponent.removeReqDataRow:rowkey", rowkey);
+    let index = this.reqData.findIndex( (x: any) => x.key==rowkey);
+    console.log("DataComponent.removeReqDataRow:index", index);
+    this.reqData.splice(index, 1);
+  }
+
+  cnvrtReqDataObjToArray(src: any): any{
+    let target: any = [];
+    for(let key in src){
+      target.push( {key: key, value: src[key] } );
+    }
+    return target;
+  }
+
+  cnvrtReqDataArrayToObj(src: any): any{
+    let target: any = {};
+    for(var i=0; i<src.length; i++){
+      target[src[i].key] = src[i].value
+    }
+    return target;
   }
 
 }
