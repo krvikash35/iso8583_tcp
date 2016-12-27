@@ -1873,12 +1873,6 @@ input[type="submit"] {
 input[type="file"] {
   display: none; }
 
-.custom-file-upload {
-  border: 1px solid #ccc;
-  display: inline-block;
-  padding: 6px 12px;
-  cursor: pointer; }
-
 /**
  * Re-set default cursor for disabled elements.
  */
@@ -2029,26 +2023,58 @@ th {
 .clickable {
   cursor: pointer; }
 
+.hide {
+  visibility: hidden; }
+
+.show {
+  visibility: visible; }
+
+.display-none {
+  display: none; }
+
 .pre-ws {
   white-space: pre; }
 
-.center-nowrap {
+.center {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: nowrap; }
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center; }
 
-.center-wrap {
+.left {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; }
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start; }
 
-.center-equal {
+.right {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end; }
+
+.left > *, .right > *, .center > * {
+  margin: 5px 5px 5px 5px; }
+
+.center-equal-space {
+  display: flex;
+  justify-content: space-around; }
+
+.center-equal-space > * {
+  margin: 5px auto 5px auto; }
+
+.center-equal-size {
+  display: flex;
+  justify-content: space-around; }
+
+.center-equal-size > * {
   flex-grow: 1;
   flex-basis: 0;
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  margin: 5px; }
 
 .text-primary {
   color: white; }

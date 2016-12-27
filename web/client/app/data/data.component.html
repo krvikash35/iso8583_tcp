@@ -20,18 +20,13 @@
     <!-- <td><pre>"{{req?.value}}"</pre></td> -->
   </tr>
 </table>
-<div>
+<div class="right">
   <button class="btn-raised ripple">Add row</button>
   <button class="btn-raised ripple" (click)="downloadReqData()" >Export Data</button>
-  <button class="btn-raised ripple" (click)="uploadReqData()" type="file">Import Data</button>
+  <label for="importReqData" class="btn-raised ripple clickable" (click)="importReqData()">Import Data</label>
+  <input id="importReqData" type="file" />
   <input type="file" id="input" class="btn-raised ripple" onchange="handleFiles(this.files)" value="text">
   <button class="btn-raised ripple">Send to Server</button>
-
-  <label for="file-upload" class="btn-raised ripple">
-    <i class="fa fa-cloud-upload"></i> Custom Upload
-</label>
-<input id="file-upload" type="file"/>
-
 </div>
 
 
