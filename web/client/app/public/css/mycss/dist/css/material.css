@@ -2178,14 +2178,19 @@ small {
   color: #FFFFFF;
   box-shadow: none;
   transition: all 1s; }
-  .btn-flat:focus, .btn-flat:active, .btn-flat[active=true] {
+  .btn-flat:active, .btn-flat:focus, .btn-flat[active=true] {
     background-color: rgba(204, 204, 204, 0.25); }
   .btn-flat:hover {
     background-color: rgba(204, 204, 204, 0.15); }
 
-.btn-flat[disabled],
 .btn-flat.disabled,
-.btn-flat:disabled {
+.btn-flat:disabled,
+.btn-flat[disabled] {
+  color: rgba(255, 255, 255, 0.3);
+  background-color: transparent !important; }
+
+.btn-flat-disabled {
+  pointer-events: none;
   color: rgba(255, 255, 255, 0.3);
   background-color: transparent !important; }
 
@@ -2197,10 +2202,15 @@ small {
   .btn-raised:hover {
     background-color: #ff2770; }
 
-.btn-raised[disabled],
 .btn-raised.disabled,
-.btn-raised:disabled {
+.btn-raised:disabled,
+.btn-raised[disabled] {
   background-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.3); }
+
+.btn-raised-disabled {
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.12) !important;
   color: rgba(255, 255, 255, 0.3); }
 
 .btn-fab {
@@ -2391,9 +2401,9 @@ input[type="text"] {
   .text-disabled else {
     color: rgba(255, 255, 255, 0.38); }
 
-.z-depth-0, .btn-raised[disabled],
-.btn-raised.disabled,
-.btn-raised:disabled {
+.z-depth-0, .btn-raised.disabled,
+.btn-raised:disabled,
+.btn-raised[disabled], .btn-raised-disabled {
   box-shadow: none !important; }
 
 .z-depth-1, .btn-raised, .btn-fab {

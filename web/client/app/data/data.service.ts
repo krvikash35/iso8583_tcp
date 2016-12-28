@@ -7,6 +7,10 @@ export class DataService {
      return Promise.resolve( REQDATA );
   }
 
+  setReqData(){
+    
+  }
+
   getResData(): Promise<any>{
      return Promise.resolve( RESDATA );
   }

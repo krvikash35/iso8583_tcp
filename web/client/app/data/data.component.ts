@@ -1,6 +1,7 @@
 import { Component,  OnInit } from '@angular/core'
 import { DataService } from './data.service'
-import {DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer} from '@angular/platform-browser';
+import { FocusOnInit } from './data.directive'
 
 @Component({
   selector: 'data',
@@ -75,7 +76,7 @@ export class DataComponent implements OnInit {
     console.log('validateReqDataEditFno.fno ', fno)
     this.booleanFlag.isreqDataEditFnoValid = false;
     if(!fno){
-      return this.reqProcStatus.msg = "please enter valid field no..!"
+       return this.reqProcStatus.msg = ""
     }
     let index = this.reqData.findIndex( (x: any) => x.key==fno);
     if(index>=0){
@@ -119,16 +120,11 @@ export class DataComponent implements OnInit {
     let fileList = target.files;
     let file = fileList[0];
     var that = this;
-    if(target.value){
-      console.log("target value is defined: ", target.value)
-    }else{
-      console.log("target value is not defined: ", target.value)
-    }
     target.value='';
     console.log("DataComponent.importReqData:file ", file);
     let freader = new FileReader();
     freader.onload = function(event: any){
-      console.log("filecontent", event.target.result);
+      // console.log("filecontent", event.target.result);
       that.reqData = that.cnvrtReqDataObjToArray(JSON.parse(event.target.result));
     }
     freader.readAsText(file);
@@ -156,5 +152,4 @@ export class DataComponent implements OnInit {
     }
     return target;
   }
-
 }

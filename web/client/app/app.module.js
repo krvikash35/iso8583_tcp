@@ -19,13 +19,14 @@ var config_component_1 = require('./config/config.component');
 var field_component_1 = require('./field/field.component');
 var log_component_1 = require('./log/log.component');
 var help_component_1 = require('./help/help.component');
+var data_directive_1 = require('./data/data.directive');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule],
-            declarations: [app_component_1.AppComponent, data_component_1.DataComponent, config_component_1.ConfigComponent, field_component_1.FieldComponent, log_component_1.LogComponent, help_component_1.HelpComponent],
+            declarations: [app_component_1.AppComponent, data_component_1.DataComponent, config_component_1.ConfigComponent, field_component_1.FieldComponent, log_component_1.LogComponent, help_component_1.HelpComponent, data_directive_1.FocusOnInit],
             providers: [],
             //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
             bootstrap: [app_component_1.AppComponent]

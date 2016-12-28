@@ -1,3 +1,5 @@
+<!-- <input focusOnInit type="text"> -->
+
 <div class="left ">
     <div  class="equal clickable" (click)="showRequest=!showRequest">
       <label class="clickable">REQUEST</label>
@@ -14,7 +16,6 @@
   <tr>
     <th>Delete</th>
     <th>FieldNo</th>
-    <!-- <th>FieldType</th> -->
     <th>FieldLenType</th>
     <th>FieldLen</th>
     <th >FieldDescritption</th>
@@ -23,17 +24,14 @@
   <tr *ngFor="let req of reqData">
     <td class="clickable" (click)="removeReqDataRow(req?.key)"><i class="material-icons">delete</i></td>
     <td>{{req?.key}}</td>
-    <!-- <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].type}}</td> -->
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].lentype}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].maxlen}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].desc}}</td>
-    <td class="pre-ws">"{{req?.value}}"</td>
+    <td *ngIf="!req.showEditField" (click)="req.showEditField=true;" class="pre-ws clickable">"{{req?.value}}"</td>
+    <td *ngIf="req.showEditField">  <input focusOnInit  (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
   </tr>
   <tr >
-    <!-- <td class="clickable" (click)="removeReqDataEditRow(req?.key)"><i class="material-icons">delete</i></td> -->
-    <td></td>
-    <td  > <input class="full-width"  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"  type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
-    <!-- <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].type}}</td> -->
+    <td  colspan="2"> <input  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
     <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
     <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
     <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>
@@ -42,7 +40,7 @@
 </table>
 <div class="right">
   <!-- <button class="btn-raised ripple" [disabled]="!booleanFlag.isreqDataEditFnoValid" >Add row</button> -->
-  <a download="request_data.json" [href]="exportReqData()" class="btn-raised ripple clickable">Export Data</a>
+  <a  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json" [href]="exportReqData()" class="btn-raised ripple  clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
   <button class="btn-raised ripple">Send to Server</button>
