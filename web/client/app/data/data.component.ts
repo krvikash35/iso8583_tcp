@@ -6,8 +6,8 @@ import { FocusOnInit } from './data.directive'
 @Component({
   selector: 'data',
   templateUrl: 'app/data/data.component.html',
-  styleUrls: [],
-  providers: [DataService]
+  styleUrls: []
+  // providers: [DataService]
 })
 export class DataComponent implements OnInit {
   reqData: any = [];
