@@ -13,6 +13,7 @@ export class DataComponent implements OnInit {
   resData: any = [];
   reqFieldDef: any = {};
   resFieldDef: any = {};
+  reqDataEdit: any = {};
   booleanFlag: any = {
     showRequestSection: true,
     isreqDataEditFnoValid: false
@@ -63,7 +64,16 @@ export class DataComponent implements OnInit {
 
   }
 
+  addReqDataEditRow(newReqRowData: any){
+    console.log("DataComponent.addReqDataEditRow:newReqRowData ", newReqRowData)
+    this.reqData.push({key: newReqRowData.fno, value: newReqRowData.fvalue});
+    this.reqDataEdit = {}
+    this.booleanFlag.isreqDataEditFnoValid = false;
+  }
+
   validateReqDataEditFno(fno: any){
+    console.log('validateReqDataEditFno.fno ', fno)
+    this.booleanFlag.isreqDataEditFnoValid = false;
     if(!fno){
       return this.reqProcStatus.msg = "please enter valid field no..!"
     }
@@ -76,7 +86,7 @@ export class DataComponent implements OnInit {
     }
     let fnoi = fno.substr(1, fno.length-1);
     if( !isnum(fnoi) ){
-      return this.reqProcStatus.msg = "this is not a valid field number";
+      return this.reqProcStatus.msg = "character after 'f' should be number";
     }
     if( fnoi == 1 ){
       return this.reqProcStatus.msg = "this field no will be automatically send";
@@ -84,6 +94,11 @@ export class DataComponent implements OnInit {
     if(fnoi<0 || fnoi >127 ){
       return this.reqProcStatus.msg = "field no must be between 0 and 127";
     }
+
+    if(!this.reqFieldDef[fno]){
+      return this.reqProcStatus.msg = "This field no is not present in request field definition"
+    }
+
     this.booleanFlag.isreqDataEditFnoValid = true;
     this.reqProcStatus.msg = "";
 

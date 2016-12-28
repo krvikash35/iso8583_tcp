@@ -4,8 +4,8 @@
       <i [hidden]='showRequest' class="material-icons">keyboard_arrow_down</i>
       <i [hidden]='!showRequest' class="material-icons">keyboard_arrow_up</i></div>
     <div >
-        <label *ngIf="reqProcStatus.type=='success'" class="bg-white text-green"> {{reqProcStatus.msg}}</label>
-        <label *ngIf="reqProcStatus.type=='error'" class="bg-white text-red"> {{reqProcStatus.msg}}</label>
+        <label *ngIf="reqProcStatus.type=='success' && reqProcStatus.msg" class="label-success"> {{reqProcStatus.msg}}</label>
+        <label *ngIf="reqProcStatus.type=='error' && reqProcStatus.msg" class="label-error"> {{reqProcStatus.msg}}</label>
     </div>
 </div>
 
@@ -14,33 +14,34 @@
   <tr>
     <th>Delete</th>
     <th>FieldNo</th>
-    <th>FieldType</th>
+    <!-- <th>FieldType</th> -->
     <th>FieldLenType</th>
     <th>FieldLen</th>
-    <th>FieldDescritption</th>
+    <th >FieldDescritption</th>
     <th>FieldValue</th>
   </tr>
   <tr *ngFor="let req of reqData">
     <td class="clickable" (click)="removeReqDataRow(req?.key)"><i class="material-icons">delete</i></td>
     <td>{{req?.key}}</td>
-    <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].type}}</td>
+    <!-- <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].type}}</td> -->
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].lentype}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].maxlen}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].desc}}</td>
     <td class="pre-ws">"{{req?.value}}"</td>
   </tr>
-  <tr #reqDataEdit>
+  <tr >
     <!-- <td class="clickable" (click)="removeReqDataEditRow(req?.key)"><i class="material-icons">delete</i></td> -->
-    <td colspan="2"> <input required (keyup.enter)="validateReqDataEditFno(reqDataEdit.fno)" (blur)="validateReqDataEditFno(reqDataEdit.fno)" type="text" [(ngModel)]='reqDataEdit.fno' placeholder="..First enter valid field no!.." /> {{reqDataEdit?.fno}}</td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].type}}</td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].lentype}}</td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].maxlen}}</td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].desc}}</td>
-    <td *ngIf="booleanFlag.isreqDataEditFnoValid"> <input type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="..Enter Field Value.." /> {{reqDataEdit?.fvalue}}</td>
+    <td></td>
+    <td  > <input class="full-width"  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"  type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
+    <!-- <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].type}}</td> -->
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>
+    <td *ngIf="booleanFlag.isreqDataEditFnoValid"> <input (keyup.enter)="addReqDataEditRow(reqDataEdit)"  class="full-width" type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="Enter Field Value..Then Hit Enter to add new record!" /></td>
   </tr>
 </table>
 <div class="right">
-  <button class="btn-raised ripple" [disabled]="!booleanFlag.isreqDataEditFnoValid" >Add row</button>
+  <!-- <button class="btn-raised ripple" [disabled]="!booleanFlag.isreqDataEditFnoValid" >Add row</button> -->
   <a download="request_data.json" [href]="exportReqData()" class="btn-raised ripple clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
@@ -67,7 +68,7 @@
   <table class="table">
     <tr>
       <th>FieldNo</th>
-      <th>FieldType</th>
+      <!-- <th>FieldType</th> -->
       <th>FieldLenType</th>
       <th>FieldLen</th>
       <th>FieldDescritption</th>
@@ -75,7 +76,7 @@
     </tr>
     <tr *ngFor="let res of resData">
       <td>{{res?.key}}</td>
-      <td *ngIf="resFieldDef">{{resFieldDef[res?.key].type}}</td>
+      <!-- <td *ngIf="resFieldDef">{{resFieldDef[res?.key].type}}</td> -->
       <td *ngIf="resFieldDef">{{resFieldDef[res?.key].lentype}}</td>
       <td *ngIf="resFieldDef">{{resFieldDef[res?.key].maxlen}}</td>
       <td *ngIf="resFieldDef">{{resFieldDef[res?.key].desc}}</td>
