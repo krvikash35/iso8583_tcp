@@ -13,6 +13,14 @@ export class DataComponent implements OnInit {
   resData: any = [];
   reqFieldDef: any = {};
   resFieldDef: any = {};
+  booleanFlag: any = {
+    showRequestSection: true,
+    isreqDataEditFnoValid: false
+  }
+  reqProcStatus: any = {
+    type: 'error', //error, success
+    msg: ''          //request processing status message
+  }
 
   constructor(private dataService: DataService, private sanitizer:DomSanitizer){}
   ngOnInit(): void{
@@ -55,12 +63,40 @@ export class DataComponent implements OnInit {
 
   }
 
+  validateReqDataEditFno(fno: any){
+    if(!fno){
+      return this.reqProcStatus.msg = "please enter valid field no..!"
+    }
+    let index = this.reqData.findIndex( (x: any) => x.key==fno);
+    if(index>=0){
+      return this.reqProcStatus.msg = "This field no is already present in request"
+    }
+    if( !fno.startsWith('f') ){
+      return this.reqProcStatus.msg = "field no must start with char 'f' ";
+    }
+    let fnoi = fno.substr(1, fno.length-1);
+    if( !isnum(fnoi) ){
+      return this.reqProcStatus.msg = "this is not a valid field number";
+    }
+    if( fnoi == 1 ){
+      return this.reqProcStatus.msg = "this field no will be automatically send";
+    }
+    if(fnoi<0 || fnoi >127 ){
+      return this.reqProcStatus.msg = "field no must be between 0 and 127";
+    }
+    this.booleanFlag.isreqDataEditFnoValid = true;
+    this.reqProcStatus.msg = "";
+
+  }
+
+  toggleBooleanFlag(key: any){
+    console.log("DataComponent.toggleBooleanFlag:key ", key)
+    this.booleanFlag[key] = !this.booleanFlag[key];
+  }
   exportReqData(): any{
     let reqDataObj = this.cnvrtReqDataArrayToObj(this.reqData)
     let url = 'data:text/json;charset=utf8,' + encodeURIComponent( JSON.stringify(reqDataObj) );
     return this.sanitizer.bypassSecurityTrustUrl(url);
-    // window.open(url, '_blank')
-    // window.focus();
   }
 
   importReqData(event: any): any{

@@ -1,4 +1,15 @@
-<h6>REQUEST</h6>
+<div class="left ">
+    <div  class="equal clickable" (click)="showRequest=!showRequest">
+      <label class="clickable">REQUEST</label>
+      <i [hidden]='showRequest' class="material-icons">keyboard_arrow_down</i>
+      <i [hidden]='!showRequest' class="material-icons">keyboard_arrow_up</i></div>
+    <div >
+        <label *ngIf="reqProcStatus.type=='success'" class="bg-white text-green"> {{reqProcStatus.msg}}</label>
+        <label *ngIf="reqProcStatus.type=='error'" class="bg-white text-red"> {{reqProcStatus.msg}}</label>
+    </div>
+</div>
+
+<div *ngIf="!showRequest">
 <table class="table">
   <tr>
     <th>Delete</th>
@@ -17,19 +28,42 @@
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].maxlen}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].desc}}</td>
     <td class="pre-ws">"{{req?.value}}"</td>
-    <!-- <td><pre>"{{req?.value}}"</pre></td> -->
+  </tr>
+  <tr #reqDataEdit>
+    <!-- <td class="clickable" (click)="removeReqDataEditRow(req?.key)"><i class="material-icons">delete</i></td> -->
+    <td colspan="2"> <input required (keyup.enter)="validateReqDataEditFno(reqDataEdit.fno)" (blur)="validateReqDataEditFno(reqDataEdit.fno)" type="text" [(ngModel)]='reqDataEdit.fno' placeholder="..First enter valid field no!.." /> {{reqDataEdit?.fno}}</td>
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].type}}</td>
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].lentype}}</td>
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].maxlen}}</td>
+    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno].desc}}</td>
+    <td *ngIf="booleanFlag.isreqDataEditFnoValid"> <input type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="..Enter Field Value.." /> {{reqDataEdit?.fvalue}}</td>
   </tr>
 </table>
 <div class="right">
-  <button class="btn-raised ripple">Add row</button>
+  <button class="btn-raised ripple" [disabled]="!booleanFlag.isreqDataEditFnoValid" >Add row</button>
   <a download="request_data.json" [href]="exportReqData()" class="btn-raised ripple clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
   <button class="btn-raised ripple">Send to Server</button>
 </div>
+</div>
 
 
-<h6>RESPONSE</h6>
+
+
+
+
+
+
+<div class="left ">
+<div  class="equal clickable" (click)="showResponse=!showResponse">
+  <label class="clickable">RESPONSE</label>
+  <i [hidden]='showResponse' class="material-icons">keyboard_arrow_down</i>
+  <i [hidden]='!showResponse' class="material-icons">keyboard_arrow_up</i>
+</div>
+</div>
+
+<div *ngIf="!showResponse">
   <table class="table">
     <tr>
       <th>FieldNo</th>
@@ -46,6 +80,6 @@
       <td *ngIf="resFieldDef">{{resFieldDef[res?.key].maxlen}}</td>
       <td *ngIf="resFieldDef">{{resFieldDef[res?.key].desc}}</td>
       <td class="pre-ws">"{{res?.value}}"</td>
-      <!-- <td><pre>"{{res?.value}}"</pre></td> -->
     </tr>
   </table>
+</div>

@@ -2076,6 +2076,17 @@ th {
   align-items: center;
   margin: 5px; }
 
+.equal {
+  display: flex; }
+
+.equal > * {
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .text-primary {
   color: white; }
   .text-primary else {
@@ -2384,3 +2395,11 @@ small {
 
 .table th {
   color: rgba(0, 0, 0, 0.54); }
+
+[hidden] {
+  display: none; }
+
+input[type="text"] {
+  color: #FFFFFF;
+  background-color: rgba(204, 204, 204, 0.25);
+  border-radius: 5px; }
