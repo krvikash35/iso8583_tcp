@@ -27,7 +27,7 @@ export class DataComponent implements OnInit {
 
   constructor(private dataService: DataService, private logService: LogService, private sanitizer:DomSanitizer){}
   ngOnInit(): void{
-    this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:")
+    this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:requesting dataService to getReqData")
     this.dataService.getReqData().then( reqData => {
       this.logService.printDebugMessage("DataComponent.ngOnInit:reqDataObj:", reqData)
       this.reqData = this.cnvrtReqDataObjToArray(reqData)
@@ -111,10 +111,10 @@ export class DataComponent implements OnInit {
     this.booleanFlag[key] = !this.booleanFlag[key];
   }
   exportReqData(): any{
-    this.logService.printInfoMessage("DataComponent:exportReqData")
+    // this.logService.printInfoMessage("DataComponent:exportReqData")
     let reqDataObj = this.cnvrtReqDataArrayToObj(this.reqData)
     let url = 'data:text/json;charset=utf8,' + encodeURIComponent( JSON.stringify(reqDataObj) );
-    this.logService.printDebugMessage("DataComponent:exportReqData:urlToBeDownloaded:", url)
+    // this.logService.printDebugMessage("DataComponent:exportReqData:urlToBeDownloaded:", url)
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 

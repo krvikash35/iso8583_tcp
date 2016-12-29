@@ -1,15 +1,19 @@
-var loglib = require(__proot + '/client/lib/loglib')
+logService = require('./logService');
+configService = require('../../client/lib/configlib')
+
 var routeService = {
     serviceRequest: serviceRequest
 }
 
 function serviceRequest(req, res) {
-    loglib.print_debug_msg("Inside serviceRequest");
-    var obj = {
-        f11: '000000000042',
-        f12: '20161106183420',
+  console.log(req.params);
+    var obj = configService.read_config(req.params.servicekey)
+    var resObj = {
+      'status': 200,
+      'response': {data: obj}
     }
-    res.status(200).send(obj);
+    logService.logResponse(resObj)
+    res.status(resObj.status).send(resObj.response);
 }
 
 module.exports = routeService;

@@ -13,32 +13,21 @@ import 'rxjs/add/observable/throw'
 
 @Injectable()
 export class DataService {
-    reqData: any = {};
     constructor(private logService: LogService, private http: Http) {
-        let reqData = this.readFromLocalStorage('reqData');
-        if (isObjEmtpy(reqData)) {
-            console.log('reqData could not be found in cache, will refresh from server and update the cache')
-            this.http
-            .get('service/reqData')
-            .subscribe(res => {
-              this.logService.printDebugMessage("DataService:resExtractor:response:", res.json())
-            })
-            // reqData = REQDATA
-            // this.writeToLocalStorage('reqData', reqData)
-        }
-        this.reqData = reqData;
-    }
-    resExtractor(res) {
-        this.logService.printDebugMessage("DataService:resExtractor:response:", res.json().data)
-        return res.json().data
-    }
-    errorHandler(err) {
-        this.logService.printDebugMessage("DataService:resExtractor:error:", err.json().data)
-        return Observable.throw(err.json().data)
+
     }
 
     getReqData(): Promise<any> {
-        return Promise.resolve(this.reqData);
+      let reqData = this.readFromLocalStorage('reqData');
+      if (!isObjEmtpy(reqData)) {
+        return Promise.resolve(reqData)
+      }else{
+        this.logService.printInfoMessage('reqData could not be found in cache, will refresh from server and update the cache')
+        return this.http.get('service/usr_data').map(res => {
+          let resDatajson = res.json().data
+          this.writeToLocalStorage('reqData', resDatajson); return resDatajson
+        }).toPromise()
+      }
     }
 
     setReqData() {

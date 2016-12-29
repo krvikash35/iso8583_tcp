@@ -13,23 +13,12 @@ function logRequest(req, res, next){
     'originalUrl': req['originalUrl'],
     'path': req['path'],
     'RequestQuery': req['query'],
-    'ResquestBody': req.body,
-    'StatusCode': res['statusCode '],
-    'StatusCode1': res.statusCode,
-    'ResponseBody1': res.body,
-
+    'ResquestBody': req.body
   }
   loglib.print_debug_msg('Got request: ', reqobj )
   next()
 }
 
-
-function logResponse(req, res, next){
-  var resobj = {
-    'ResponseBody': res['body'],
-    'ResponseBody1': res.body,
-    'StatusCode1': res.statusCode,
-  }
+function logResponse(resobj){
   loglib.print_debug_msg('Sent response: ', resobj )
-  next()
 }

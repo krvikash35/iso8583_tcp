@@ -10,8 +10,7 @@ app.use('/node_modules', exp.static(__proot + '/node_modules'));
 app.use('/', exp.static(__proot + '/web/client'));
 app.use('/app/*', exp.static(__proot + '/web/client'));
 app.use(logService.logRequest)
-app.get('/service/:serkey', routeService.serviceRequest);
-app.use(logService.logResponse)
+app.get('/service/:servicekey', routeService.serviceRequest);
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
