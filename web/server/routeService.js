@@ -6,7 +6,9 @@ var routeService = {
 }
 
 function serviceRequest(req, res) {
-  console.log(req.params);
+    if(servicekey == 'transrecieve'){
+
+    }
     var obj = configService.read_config(req.params.servicekey)
     var resObj = {
       'status': 200,
@@ -17,3 +19,8 @@ function serviceRequest(req, res) {
 }
 
 module.exports = routeService;
+
+
+function transrecieve(){
+  
+}

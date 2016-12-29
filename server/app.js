@@ -7,12 +7,7 @@ var PORT = prop.port;
 net.createServer(function(sock) {
     console.log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
     sock.on('data', function(data) {
-<<<<<<< HEAD
-        var buffer_data = Buffer.from(data);
-        console.log("BYTE RECEVIED: %d", buffer_data.length);
-        console.log(buffer_data.toString());
-        sock.write(data);
-=======
+
       var buffer_data = Buffer.from(data);
       console.log("BYTE RECEVIED: %d",buffer_data.length);
       console.log("Binary Data...");
@@ -32,8 +27,6 @@ net.createServer(function(sock) {
       }
       console.log(data_ascii);
       sock.write(data);
-
->>>>>>> master
     });
     sock.on('close', function(data) {
         console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);

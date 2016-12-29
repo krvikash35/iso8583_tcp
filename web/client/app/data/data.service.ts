@@ -25,7 +25,10 @@ export class DataService {
         this.logService.printInfoMessage('reqData could not be found in cache, will refresh from server and update the cache')
         return this.http.get('service/usr_data').map(res => {
           let resDatajson = res.json().data
-          this.writeToLocalStorage('reqData', resDatajson); return resDatajson
+          resDatajson = this.cnvrtReqDataObjToArray(resDatajson);
+          resDatajson = this.sortObjArrayByKey(resDatajson, 'key')
+          this.writeToLocalStorage('reqData', resDatajson);
+          return resDatajson
         }).toPromise()
       }
     }
@@ -55,6 +58,41 @@ export class DataService {
     writeToLocalStorage(key: any, value: any) {
         value = JSON.stringify(value)
         localStorage.setItem(key, value);
+    }
+
+    sortObjArrayByKey(obj: any, key: any){
+      this.logService.printInfoMessage('DataService:sortObjByKey:key:', key)
+      function compare(a,b){
+        let c =  a[key]
+        let d = b[key]
+         c =  parseInt ( c.substr(1, c.length-1) )
+         d = parseInt ( d.substr(1, d.length-1) )
+        if( c < d ){
+          return -1
+        }
+        if( c > d ){
+          return 1;
+        }
+        return 0
+      }
+      let sortedObj = obj.sort(compare)
+      return sortedObj;
+    }
+
+    cnvrtReqDataObjToArray(src: any): any{
+      let target: any = [];
+      for(let key in src){
+        target.push( {key: key, value: src[key] } );
+      }
+      return target;
+    }
+
+    cnvrtReqDataArrayToObj(src: any): any{
+      let target: any = {};
+      for(var i=0; i<src.length; i++){
+        target[src[i].key] = src[i].value
+      }
+      return target;
     }
 
 }

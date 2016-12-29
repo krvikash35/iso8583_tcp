@@ -28,10 +28,10 @@
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].maxlen}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key].desc}}</td>
     <td *ngIf="!req.showEditField" (click)="req.showEditField=true;" class="pre-ws clickable">"{{req?.value}}"</td>
-    <td *ngIf="req.showEditField">  <input focusOnInit  (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
+    <td *ngIf="req.showEditField">  <input focusOnInit  (ngModelChange)="onReqDataFVModelChange(req?.key, $event)" (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
   </tr>
   <tr >
-    <td  colspan="2"> <input  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
+    <td  colspan="2"> <input  autofocus (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
     <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
     <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
     <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>

@@ -30,8 +30,7 @@ export class DataComponent implements OnInit {
     this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:requesting dataService to getReqData")
     this.dataService.getReqData().then( reqData => {
       this.logService.printDebugMessage("DataComponent.ngOnInit:reqDataObj:", reqData)
-      this.reqData = this.cnvrtReqDataObjToArray(reqData)
-      this.logService.printDebugMessage("DataComponent.ngOnInit:this.reqDataArray:", this.reqData)
+      this.reqData = reqData;
     });
 
     this.dataService.getResData().then(resData => {
@@ -68,7 +67,10 @@ export class DataComponent implements OnInit {
 
   addReqDataEditRow(newReqRowData: any){
     this.logService.printDebugMessage("DataComponent:addReqDataEditRow:newRowToBeAddedInRequestData ", newReqRowData)
-    this.reqData.push({key: newReqRowData.fno, value: newReqRowData.fvalue});
+    // this.reqData.push({key: newReqRowData.fno, value: newReqRowData.fvalue});
+    let newrec = [{key: newReqRowData.fno, value: newReqRowData.fvalue}]
+    this.reqData = this.dataService.sortObjArrayByKey(this.reqData.concat(newrec),'key')
+    this.dataService.writeToLocalStorage('reqData', this.reqData);
     this.reqDataEdit = {}
     this.booleanFlag.isreqDataEditFnoValid = false;
   }
@@ -112,7 +114,7 @@ export class DataComponent implements OnInit {
   }
   exportReqData(): any{
     // this.logService.printInfoMessage("DataComponent:exportReqData")
-    let reqDataObj = this.cnvrtReqDataArrayToObj(this.reqData)
+    let reqDataObj = this.dataService.cnvrtReqDataArrayToObj(this.reqData)
     let url = 'data:text/json;charset=utf8,' + encodeURIComponent( JSON.stringify(reqDataObj) );
     // this.logService.printDebugMessage("DataComponent:exportReqData:urlToBeDownloaded:", url)
     return this.sanitizer.bypassSecurityTrustUrl(url);
@@ -130,7 +132,7 @@ export class DataComponent implements OnInit {
     freader.onload = function(event: any){
       let fileContent = JSON.parse(event.target.result)
       that.logService.printDebugMessage("DataComponent:importReqData:fileContent ", fileContent);
-      that.reqData = that.cnvrtReqDataObjToArray(fileContent);
+      that.reqData = that.dataService.cnvrtReqDataObjToArray(fileContent);
     }
     freader.readAsText(file);
   }
@@ -142,19 +144,12 @@ export class DataComponent implements OnInit {
     this.reqData.splice(index, 1);
   }
 
-  cnvrtReqDataObjToArray(src: any): any{
-    let target: any = [];
-    for(let key in src){
-      target.push( {key: key, value: src[key] } );
-    }
-    return target;
+  onReqDataFVModelChange(key, newValue){
+    this.logService.printDebugMessage("DataComponent:onReqDataFVModelChange:key and new value", key, newValue);
+    let updatedReqData = this.dataService.readFromLocalStorage('reqData');
+    let index = updatedReqData.findIndex( (x: any) => x.key==key);
+    updatedReqData[index].value = newValue;
+    this.dataService.writeToLocalStorage('reqData', updatedReqData)
   }
 
-  cnvrtReqDataArrayToObj(src: any): any{
-    let target: any = {};
-    for(var i=0; i<src.length; i++){
-      target[src[i].key] = src[i].value
-    }
-    return target;
-  }
 }

@@ -2280,8 +2280,7 @@ small {
   border-bottom: 2px solid #FF4081; }
 
 .table {
-  width: 100%;
-  font-size: 10px; }
+  width: 100%; }
 
 .table td,
 .table th {
@@ -2294,9 +2293,6 @@ small {
 
 .table th {
   color: rgba(255, 255, 255, 0.54); }
-
-.table tr {
-  line-height: 5px !important; }
 
 input[type="text"] {
   color: #FFFFFF;
