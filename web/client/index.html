@@ -69,6 +69,7 @@
 
 
   function iszerolen(data){
+    console.log(data)
     if(data === undefined || data === null){
       return true;
     }
@@ -76,5 +77,13 @@
       return true;
     }
     return false;
-  }</script>
+  }
+  function isObjEmtpy(srcObj){
+    if (!srcObj || (Object.keys(srcObj).length ==0 && srcObj.constructor===Object) ){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  </script>
 </html>

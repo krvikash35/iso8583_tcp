@@ -1,5 +1,6 @@
 import { Component,  OnInit } from '@angular/core'
 import { DataService } from './data.service'
+import { LogService } from './log.service'
 import { DomSanitizer} from '@angular/platform-browser';
 import { FocusOnInit } from './data.directive'
 
@@ -24,56 +25,56 @@ export class DataComponent implements OnInit {
     msg: ''          //request processing status message
   }
 
-  constructor(private dataService: DataService, private sanitizer:DomSanitizer){}
+  constructor(private dataService: DataService, private logService: LogService, private sanitizer:DomSanitizer){}
   ngOnInit(): void{
-    console.log("ngOnInit lifeCycle..initialize DataComponent: ")
+    this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:")
     this.dataService.getReqData().then( reqData => {
-      // console.log("DataComponent.ngOnInit:reqData", reqData)
+      this.logService.printDebugMessage("DataComponent.ngOnInit:reqDataObj:", reqData)
       this.reqData = this.cnvrtReqDataObjToArray(reqData)
-      // console.log("DataComponent.ngOnInit:this.reqData", this.reqData)
+      this.logService.printDebugMessage("DataComponent.ngOnInit:this.reqDataArray:", this.reqData)
     });
 
     this.dataService.getResData().then(resData => {
-      // console.log("DataComponent.ngOnInit:resData", resData)
+      // this.logService.printDebugMessage("DataComponent.ngOnInit:resData", resData)
       for(let key in resData){
-        // console.log(key, resData[key])
+        // this.logService.printDebugMessage(key, resData[key])
         this.resData.push( {key: key, value: resData[key] } );
       }
-      // console.log("DataComponent.ngOnInit:this.resData", this.resData)
+      // this.logService.printDebugMessage("DataComponent.ngOnInit:this.resData", this.resData)
     });
 
     this.dataService.getReqFieldDef().then(reqFieldDef => {
-      // console.log("DataComponent.ngOnInit:reqFieldDef", reqFieldDef)
+      // this.logService.printDebugMessage("DataComponent.ngOnInit:reqFieldDef", reqFieldDef)
       // for(let key in reqFieldDef){
-      //   console.log(key, reqFieldDef[key])
+      //   this.logService.printDebugMessage(key, reqFieldDef[key])
       //   this.reqFieldDef.push( {key: key, value: reqFieldDef[key] } );
       // }
       this.reqFieldDef = reqFieldDef;
-      // console.log("DataComponent.ngOnInit:this.reqFieldDef", this.reqFieldDef)
+      // this.logService.printDebugMessage("DataComponent.ngOnInit:this.reqFieldDef", this.reqFieldDef)
     });
 
 
     this.dataService.getResFieldDef().then(resFieldDef => {
-      // console.log("DataComponent.ngOnInit:resFieldDef", resFieldDef)
+      // this.logService.printDebugMessage("DataComponent.ngOnInit:resFieldDef", resFieldDef)
       // for(let key in resFieldDef){
-      //   console.log(key, resFieldDef[key])
+      //   this.logService.printDebugMessage(key, resFieldDef[key])
       //   this.resFieldDef.push( {key: key, value: resFieldDef[key] } );
       // }
       this.resFieldDef = resFieldDef;
-      // console.log("DataComponent.ngOnInit:this.resFieldDef", this.resFieldDef)
+      // this.logService.printDebugMessage("DataComponent.ngOnInit:this.resFieldDef", this.resFieldDef)
     });
 
   }
 
   addReqDataEditRow(newReqRowData: any){
-    console.log("DataComponent.addReqDataEditRow:newReqRowData ", newReqRowData)
+    this.logService.printDebugMessage("DataComponent:addReqDataEditRow:newRowToBeAddedInRequestData ", newReqRowData)
     this.reqData.push({key: newReqRowData.fno, value: newReqRowData.fvalue});
     this.reqDataEdit = {}
     this.booleanFlag.isreqDataEditFnoValid = false;
   }
 
   validateReqDataEditFno(fno: any){
-    console.log('validateReqDataEditFno.fno ', fno)
+    this.logService.printDebugMessage('DataComponent:validateReqDataEditFno:fieldNumber ', fno)
     this.booleanFlag.isreqDataEditFnoValid = false;
     if(!fno){
        return this.reqProcStatus.msg = ""
@@ -106,34 +107,38 @@ export class DataComponent implements OnInit {
   }
 
   toggleBooleanFlag(key: any){
-    console.log("DataComponent.toggleBooleanFlag:key ", key)
+    this.logService.printDebugMessage("DataComponent:toggleBooleanFlag:key ", key)
     this.booleanFlag[key] = !this.booleanFlag[key];
   }
   exportReqData(): any{
+    this.logService.printInfoMessage("DataComponent:exportReqData")
     let reqDataObj = this.cnvrtReqDataArrayToObj(this.reqData)
     let url = 'data:text/json;charset=utf8,' + encodeURIComponent( JSON.stringify(reqDataObj) );
+    this.logService.printDebugMessage("DataComponent:exportReqData:urlToBeDownloaded:", url)
     return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   importReqData(event: any): any{
+    this.logService.printInfoMessage("DataComponent:importReqData")
     let target = event.target || event.srcElement || event.currentTarget;
     let fileList = target.files;
     let file = fileList[0];
     var that = this;
     target.value='';
-    console.log("DataComponent.importReqData:file ", file);
+    this.logService.printDebugMessage("DataComponent:importReqData:fileList ", fileList);
     let freader = new FileReader();
     freader.onload = function(event: any){
-      // console.log("filecontent", event.target.result);
-      that.reqData = that.cnvrtReqDataObjToArray(JSON.parse(event.target.result));
+      let fileContent = JSON.parse(event.target.result)
+      that.logService.printDebugMessage("DataComponent:importReqData:fileContent ", fileContent);
+      that.reqData = that.cnvrtReqDataObjToArray(fileContent);
     }
     freader.readAsText(file);
   }
 
   removeReqDataRow(rowkey: any): any{
-    console.log("DataComponent.removeReqDataRow:rowkey", rowkey);
+    this.logService.printDebugMessage("DataComponent:removeReqDataRow:rowkey", rowkey);
     let index = this.reqData.findIndex( (x: any) => x.key==rowkey);
-    console.log("DataComponent.removeReqDataRow:index", index);
+    this.logService.printDebugMessage("DataComponent:removeReqDataRow:index", index);
     this.reqData.splice(index, 1);
   }
 

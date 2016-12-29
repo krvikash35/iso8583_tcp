@@ -14,11 +14,12 @@ import { LogComponent } from './log/log.component';
 import { HelpComponent } from './help/help.component';
 import { FocusOnInit } from './data/data.directive';
 import { DataService } from './data/data.service';
+import { LogService } from './data/log.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, AppRoutingModule ],
   declarations: [ AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent, HelpComponent, FocusOnInit ],
-  providers:    [DataService],
+  providers:    [DataService, LogService],
   //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap:    [ AppComponent ]
 })

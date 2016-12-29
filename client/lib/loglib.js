@@ -74,6 +74,9 @@ function print_padded_msg(iso8583_msg){
   console.log('######################## END ORIGINAL AND PADDED MESSAGE ##########################');
 }
 
+function printInfoMessage(){
+  
+}
 
 function print_debug_msg(){
   if(loglevel >= 4){
