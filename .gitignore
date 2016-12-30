@@ -1,3 +1,4 @@
 node_modules
 web/client/app/**/*.map
 web/client/app/**/*.js
+npm-debug*

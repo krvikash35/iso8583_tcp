@@ -6,14 +6,16 @@ import { ConfigComponent } from './config/config.component';
 import { FieldComponent } from './field/field.component';
 import { LogComponent } from './log/log.component';
 import { HelpComponent } from './help/help.component';
+import { UtilityComponent } from './utility/utility.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/app/data', pathMatch: 'full' },  
+  { path: '', redirectTo: '/app/data', pathMatch: 'full' },
   { path: 'app/data',  component: DataComponent },
   { path: 'app/config',  component: ConfigComponent },
   { path: 'app/field',  component: FieldComponent },
   { path: 'app/log',  component: LogComponent },
   { path: 'app/help',  component: HelpComponent },
+  { path: 'app/utility',  component: UtilityComponent },
   { path: '**', redirectTo: '/app/data', pathMatch: 'full' },
 ];
 

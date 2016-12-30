@@ -17,20 +17,32 @@ export class DataService {
 
     }
 
-    getReqData(): Promise<any> {
-      let reqData = this.readFromLocalStorage('reqData');
-      if (!isObjEmtpy(reqData)) {
-        return Promise.resolve(reqData)
-      }else{
-        this.logService.printInfoMessage('reqData could not be found in cache, will refresh from server and update the cache')
-        return this.http.get('service/usr_data').map(res => {
-          let resDatajson = res.json().data
-          resDatajson = this.cnvrtReqDataObjToArray(resDatajson);
-          resDatajson = this.sortObjArrayByKey(resDatajson, 'key')
-          this.writeToLocalStorage('reqData', resDatajson);
-          return resDatajson
-        }).toPromise()
-      }
+    getReqData(): Observable<boolean> {
+        let reqData = this.readFromLocalStorage('reqData');
+        if (!isObjEmtpy(reqData)) {
+            return new Observable(ob => {
+              ob.next(reqData)
+              ob.complete()
+            })
+        } else {
+            this.logService.printInfoMessage('reqData could not be found in cache, will refresh from server and update the cache')
+            return this.http.get('service/usr_data')
+                .map(res => {
+                    this.logService.printInfoMessage('got success response:')
+                    let resDatajson = res.json().data
+                    this.logService.printDebugMessage(resDatajson)
+                    resDatajson = this.cnvrtReqDataObjToArray(resDatajson);
+                    resDatajson = this.sortObjArrayByKey(resDatajson, 'key')
+                    this.writeToLocalStorage('reqData', resDatajson);
+                    return resDatajson
+                })
+                .catch( (err) => {
+                  this.logService.printInfoMessage('got error response from server:')
+                  let resErrJson = err.json().data;
+                  this.logService.printDebugMessage(resErrJson)
+                  return resErrJson
+                })
+        }
     }
 
     setReqData() {
@@ -60,39 +72,39 @@ export class DataService {
         localStorage.setItem(key, value);
     }
 
-    sortObjArrayByKey(obj: any, key: any){
-      this.logService.printInfoMessage('DataService:sortObjByKey:key:', key)
-      function compare(a,b){
-        let c =  a[key]
-        let d = b[key]
-         c =  parseInt ( c.substr(1, c.length-1) )
-         d = parseInt ( d.substr(1, d.length-1) )
-        if( c < d ){
-          return -1
+    sortObjArrayByKey(obj: any, key: any) {
+        this.logService.printInfoMessage('DataService:sortObjByKey:key:', key)
+        function compare(a, b) {
+            let c = a[key]
+            let d = b[key]
+            c = parseInt(c.substr(1, c.length - 1))
+            d = parseInt(d.substr(1, d.length - 1))
+            if (c < d) {
+                return -1
+            }
+            if (c > d) {
+                return 1;
+            }
+            return 0
         }
-        if( c > d ){
-          return 1;
-        }
-        return 0
-      }
-      let sortedObj = obj.sort(compare)
-      return sortedObj;
+        let sortedObj = obj.sort(compare)
+        return sortedObj;
     }
 
-    cnvrtReqDataObjToArray(src: any): any{
-      let target: any = [];
-      for(let key in src){
-        target.push( {key: key, value: src[key] } );
-      }
-      return target;
+    cnvrtReqDataObjToArray(src: any): any {
+        let target: any = [];
+        for (let key in src) {
+            target.push({ key: key, value: src[key] });
+        }
+        return target;
     }
 
-    cnvrtReqDataArrayToObj(src: any): any{
-      let target: any = {};
-      for(var i=0; i<src.length; i++){
-        target[src[i].key] = src[i].value
-      }
-      return target;
+    cnvrtReqDataArrayToObj(src: any): any {
+        let target: any = {};
+        for (var i = 0; i < src.length; i++) {
+            target[src[i].key] = src[i].value
+        }
+        return target;
     }
 
 }

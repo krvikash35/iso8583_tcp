@@ -11,6 +11,7 @@ import { DataComponent } from './data/data.component';
 import { ConfigComponent } from './config/config.component';
 import { FieldComponent } from './field/field.component';
 import { LogComponent } from './log/log.component';
+import { UtilityComponent } from './utility/utility.component';
 import { HelpComponent } from './help/help.component';
 import { FocusOnInit } from './data/data.directive';
 import { DataService } from './data/data.service';
@@ -18,7 +19,7 @@ import { LogService } from './data/log.service';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, AppRoutingModule ],
-  declarations: [ AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent, HelpComponent, FocusOnInit ],
+  declarations: [ AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent, UtilityComponent, HelpComponent, FocusOnInit ],
   providers:    [DataService, LogService],
   //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap:    [ AppComponent ]
