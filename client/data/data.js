@@ -13,14 +13,14 @@ fvalues = {
   f24: '200',
   f32: '23',
   f34: 'COR',
-  f49: 'INR',
-  f4: '0000010010321700',
-  f11: '000000000008',
-  f12: '20161106183420',
-  f56: '1200000000045353201610211010101100000004535',
-  f102: '           102     RAVISB007          ',
-  f103: '             102     RAVISB006          ',
-  f123: 'COR',
-  f125: 'this Funds Transfer transaction was posted by FI'
+  f49: 'INR'
+  // f4: '0000010010321700',
+  // f11: '000000000008',
+  // f12: '20161106183420',
+  // f56: '1200000000045353201610211010101100000004535',
+  // f102: '           102     RAVISB007          ',
+  // f103: '             102     RAVISB006          ',
+  // f123: 'COR',
+  // f125: 'this Funds Transfer transaction was posted by FI'
 }
 module.exports = fvalues;

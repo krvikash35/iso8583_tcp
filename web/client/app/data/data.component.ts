@@ -16,9 +16,11 @@ export class DataComponent implements OnInit {
     reqFieldDef: any = {};
     resFieldDef: any = {};
     reqDataEdit: any = {};
-    booleanFlag: any = {
-        showRequestSection: true,
-        isreqDataEditFnoValid: false
+    flagObj: any = {
+        isreqDataEditFnoValid: false,
+        isRequestDivVisible: true,
+        isResponseDivVisible: true,
+        responseDataStatus: 1
     }
     reqProcStatus: any = {
         type: 'error', //error, success
@@ -26,6 +28,7 @@ export class DataComponent implements OnInit {
     }
 
     constructor(private dataService: DataService, private logService: LogService, private sanitizer: DomSanitizer) { }
+
     ngOnInit(): void {
         this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:requesting dataService to getReqData")
         this.dataService.getReqData().subscribe(
@@ -36,50 +39,26 @@ export class DataComponent implements OnInit {
             (err) => {
               this.logService.printDebugMessage("DataComponent.ngOnInit:getReqData:", err)
             });
-
-        this.dataService.getResData().then((resData) => {
-            for (let key in resData) {
-                this.resData.push({ key: key, value: resData[key] });
-            }
-        }, (err) => {
-        });
-
         this.dataService.getReqFieldDef().then(reqFieldDef => {
-            // this.logService.printDebugMessage("DataComponent.ngOnInit:reqFieldDef", reqFieldDef)
-            // for(let key in reqFieldDef){
-            //   this.logService.printDebugMessage(key, reqFieldDef[key])
-            //   this.reqFieldDef.push( {key: key, value: reqFieldDef[key] } );
-            // }
             this.reqFieldDef = reqFieldDef;
-            // this.logService.printDebugMessage("DataComponent.ngOnInit:this.reqFieldDef", this.reqFieldDef)
         });
-
-
         this.dataService.getResFieldDef().then(resFieldDef => {
-            // this.logService.printDebugMessage("DataComponent.ngOnInit:resFieldDef", resFieldDef)
-            // for(let key in resFieldDef){
-            //   this.logService.printDebugMessage(key, resFieldDef[key])
-            //   this.resFieldDef.push( {key: key, value: resFieldDef[key] } );
-            // }
             this.resFieldDef = resFieldDef;
-            // this.logService.printDebugMessage("DataComponent.ngOnInit:this.resFieldDef", this.resFieldDef)
         });
-
     }
 
     addReqDataEditRow(newReqRowData: any) {
         this.logService.printDebugMessage("DataComponent:addReqDataEditRow:newRowToBeAddedInRequestData ", newReqRowData)
-        // this.reqData.push({key: newReqRowData.fno, value: newReqRowData.fvalue});
         let newrec = [{ key: newReqRowData.fno, value: newReqRowData.fvalue }]
         this.reqData = this.dataService.sortObjArrayByKey(this.reqData.concat(newrec), 'key')
         this.dataService.writeToLocalStorage('reqData', this.reqData);
         this.reqDataEdit = {}
-        this.booleanFlag.isreqDataEditFnoValid = false;
+        this.setOrToggleFlag('isreqDataEditFnoValid', false)
     }
 
     validateReqDataEditFno(fno: any) {
         this.logService.printDebugMessage('DataComponent:validateReqDataEditFno:fieldNumber ', fno)
-        this.booleanFlag.isreqDataEditFnoValid = false;
+        this.setOrToggleFlag('isreqDataEditFnoValid', false)
         if (!fno) {
             return this.reqProcStatus.msg = ""
         }
@@ -105,21 +84,27 @@ export class DataComponent implements OnInit {
             return this.reqProcStatus.msg = "This field no is not present in request field definition"
         }
 
-        this.booleanFlag.isreqDataEditFnoValid = true;
+        this.setOrToggleFlag('isreqDataEditFnoValid', true)
         this.reqProcStatus.msg = "";
 
     }
 
-    toggleBooleanFlag(key: any) {
-        this.logService.printDebugMessage("DataComponent:toggleBooleanFlag:key ", key)
-        this.booleanFlag[key] = !this.booleanFlag[key];
+    setOrToggleFlag(key: any, value: any) {
+        this.logService.printDebugMessage("DataComponent.setOrToggleFlag.key:value "+key+":"+value)
+        if ( iszerolen(value) ){
+          this.flagObj[key] = !this.flagObj[key];
+        }else{
+          this.flagObj[key] = value;
+        }
+
     }
+
     exportReqData(): any {
-        // this.logService.printInfoMessage("DataComponent:exportReqData")
-        let reqDataObj = this.dataService.cnvrtReqDataArrayToObj(this.reqData)
-        let url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(reqDataObj));
-        // this.logService.printDebugMessage("DataComponent:exportReqData:urlToBeDownloaded:", url)
-        return this.sanitizer.bypassSecurityTrustUrl(url);
+        if(this.reqData && this.reqData.length>0){
+          let reqDataObj = this.dataService.cnvrtReqDataArrayToObj(this.reqData)
+          let url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(reqDataObj));
+          return this.sanitizer.bypassSecurityTrustUrl(url);
+        }
     }
 
     importReqData(event: any): any {
@@ -144,6 +129,7 @@ export class DataComponent implements OnInit {
         let index = this.reqData.findIndex((x: any) => x.key == rowkey);
         this.logService.printDebugMessage("DataComponent:removeReqDataRow:index", index);
         this.reqData.splice(index, 1);
+        this.dataService.writeToLocalStorage('reqData', this.reqData)
     }
 
     onReqDataFVModelChange(key, newValue) {
@@ -154,4 +140,19 @@ export class DataComponent implements OnInit {
         this.dataService.writeToLocalStorage('reqData', updatedReqData)
     }
 
+    getResponseData(){
+      this.logService.printInfoMessage("DataComponent:getResponseData");
+      this.setOrToggleFlag('responseDataStatus', 2);
+      this.dataService.getResData().subscribe(
+          (resData) => {
+              this.logService.printDebugMessage("DataComponent.getResponseData:resData:", resData)
+              this.resData = resData;
+              this.setOrToggleFlag('isRequestDivVisible');
+              this.setOrToggleFlag('responseDataStatus', 4);
+          },
+          (err) => {
+            this.logService.printDebugMessage("DataComponent.getResponseData:err:", err)
+            this.setOrToggleFlag('responseDataStatus', 3);
+          });
+    }
 }

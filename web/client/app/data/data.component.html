@@ -1,17 +1,17 @@
 <!-- <input focusOnInit type="text"> -->
 
 <div class="left ">
-    <div  class="equal clickable" (click)="showRequest=!showRequest">
+    <div  class="equal clickable" (click)="setOrToggleFlag('isRequestDivVisible')">
       <label class="clickable">REQUEST</label>
-      <i [hidden]='showRequest' class="material-icons">keyboard_arrow_down</i>
-      <i [hidden]='!showRequest' class="material-icons">keyboard_arrow_up</i></div>
+      <i [hidden]='flagObj.isRequestDivVisible' class="material-icons">keyboard_arrow_down</i>
+      <i [hidden]='!flagObj.isRequestDivVisible' class="material-icons">keyboard_arrow_up</i></div>
     <div >
         <label *ngIf="reqProcStatus.type=='success' && reqProcStatus.msg" class="label-success"> {{reqProcStatus.msg}}</label>
         <label *ngIf="reqProcStatus.type=='error' && reqProcStatus.msg" class="label-error"> {{reqProcStatus.msg}}</label>
     </div>
 </div>
 
-<div *ngIf="!showRequest">
+<div *ngIf="flagObj.isRequestDivVisible">
 <table class="table">
   <tr>
     <th>Delete</th>
@@ -32,53 +32,61 @@
   </tr>
   <tr >
     <td  colspan="2"> <input  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
-    <td *ngIf="reqFieldDef && booleanFlag.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>
-    <td *ngIf="booleanFlag.isreqDataEditFnoValid"> <input (keyup.enter)="addReqDataEditRow(reqDataEdit)"  class="full-width" type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="Enter Field Value..Then Hit Enter to add new record!" /></td>
+    <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
+    <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
+    <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>
+    <td *ngIf="flagObj.isreqDataEditFnoValid"> <input (keyup.enter)="addReqDataEditRow(reqDataEdit)"  class="full-width" type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="Enter Field Value..Then Hit Enter to add new record!" /></td>
   </tr>
 </table>
 <div class="right">
-  <!-- <button class="btn-raised ripple" [disabled]="!booleanFlag.isreqDataEditFnoValid" >Add row</button> -->
-  <a  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json" [href]="exportReqData()" class="btn-raised ripple  clickable">Export Data</a>
+  <a  [href]="bindExportData? exportReqData(): ''" (click)="bindExportData=true" (blur)="bindExportData=false"  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json"  class="btn-raised ripple  clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
-  <button class="btn-raised ripple">Send to Server</button>
+  <button (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>
 </div>
 </div>
 
 
-
-
-
-
-
-
-<div class="left ">
-<div  class="equal clickable" (click)="showResponse=!showResponse">
-  <label class="clickable">RESPONSE</label>
-  <i [hidden]='showResponse' class="material-icons">keyboard_arrow_down</i>
-  <i [hidden]='!showResponse' class="material-icons">keyboard_arrow_up</i>
-</div>
+<div *ngIf="flagObj.responseDataStatus==1">
+  <h4>1. response will appear here</h4>
 </div>
 
-<div *ngIf="!showResponse">
-  <table class="table">
-    <tr>
-      <th>FieldNo</th>
-      <!-- <th>FieldType</th> -->
-      <th>FieldLenType</th>
-      <th>FieldLen</th>
-      <th>FieldDescritption</th>
-      <th>FieldValue</th>
-    </tr>
-    <tr *ngFor="let res of resData">
-      <td>{{res?.key}}</td>
-      <!-- <td *ngIf="resFieldDef">{{resFieldDef[res?.key].type}}</td> -->
-      <td *ngIf="resFieldDef">{{resFieldDef[res?.key]?.lentype}}</td>
-      <td *ngIf="resFieldDef">{{resFieldDef[res?.key]?.maxlen}}</td>
-      <td *ngIf="resFieldDef">{{resFieldDef[res?.key]?.desc}}</td>
-      <td class="pre-ws">"{{res?.value}}"</td>
-    </tr>
-  </table>
+<div *ngIf="flagObj.responseDataStatus==2">
+  <h4>2. request has been send...wait for response to come</h4>
+</div>
+
+<div *ngIf="flagObj.responseDataStatus==3">
+  <h4>3. error response came</h4>
+</div>
+
+<div *ngIf="flagObj.responseDataStatus==4">
+  <div class="left ">
+  <div  class="equal clickable" (click)="setOrToggleFlag('isResponseDivVisible')">
+    <label class="clickable">RESPONSE</label>
+    <i [hidden]='flagObj.isResponseDivVisible' class="material-icons">keyboard_arrow_down</i>
+    <i [hidden]='!flagObj.isResponseDivVisible' class="material-icons">keyboard_arrow_up</i>
+  </div>
+  </div>
+
+  <div *ngIf="flagObj.isResponseDivVisible">
+    <table class="table">
+      <tr>
+        <th>FieldNo</th>
+        <!-- <th>FieldType</th> -->
+        <th>FieldLenType</th>
+        <th>FieldLen</th>
+        <th>FieldDescritption</th>
+        <th>FieldValue</th>
+      </tr>
+      <tr *ngFor="let res of resData">
+        <td>{{res?.key}}</td>
+        <!-- <td *ngIf="resFieldDef">{{resFieldDef[res?.key].type}}</td> -->
+        <td *ngIf="resFieldDef">{{resFieldDef[res?.key]?.lentype}}</td>
+        <td *ngIf="resFieldDef">{{resFieldDef[res?.key]?.maxlen}}</td>
+        <td *ngIf="resFieldDef">{{resFieldDef[res?.key]?.desc}}</td>
+        <td class="pre-ws">"{{res?.value}}"</td>
+      </tr>
+    </table>
+  </div>
+
 </div>

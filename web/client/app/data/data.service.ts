@@ -17,7 +17,7 @@ export class DataService {
 
     }
 
-    getReqData(): Observable<boolean> {
+    getReqData(): Observable<any> {
         let reqData = this.readFromLocalStorage('reqData');
         if (!isObjEmtpy(reqData)) {
             return new Observable(ob => {
@@ -25,10 +25,10 @@ export class DataService {
               ob.complete()
             })
         } else {
-            this.logService.printInfoMessage('reqData could not be found in cache, will refresh from server and update the cache')
+            this.logService.printInfoMessage('DataService:getReqData:reqData could not be found in cache, will refresh from server and update the cache')
             return this.http.get('service/usr_data')
                 .map(res => {
-                    this.logService.printInfoMessage('got success response:')
+                    this.logService.printInfoMessage('DataService:getReqData:got success response:')
                     let resDatajson = res.json().data
                     this.logService.printDebugMessage(resDatajson)
                     resDatajson = this.cnvrtReqDataObjToArray(resDatajson);
@@ -45,12 +45,24 @@ export class DataService {
         }
     }
 
-    setReqData() {
 
-    }
+    getResData(): Observable<any> {
+      return this.http.get('service/transrecieve')
+          .map(res => {
+              this.logService.printInfoMessage('DataService:getResData:got success response from server:')
+              let resDatajson = res.json().data
+              this.logService.printDebugMessage(resDatajson)
+              resDatajson = this.cnvrtReqDataObjToArray(resDatajson);
+              resDatajson = this.sortObjArrayByKey(resDatajson, 'key')
+              return resDatajson
+          })
+          .catch( (err) => {
+            this.logService.printInfoMessage('DataService:getResData:got error response from server:')
+            let resErrJson = err.json().data;
+            this.logService.printDebugMessage(resErrJson)
+            return resErrJson
+          })
 
-    getResData(): Promise<any> {
-        return Promise.resolve(RESDATA);
     }
 
     getReqFieldDef(): Promise<any> {
@@ -73,7 +85,7 @@ export class DataService {
     }
 
     sortObjArrayByKey(obj: any, key: any) {
-        this.logService.printInfoMessage('DataService:sortObjByKey:key:', key)
+        this.logService.printInfoMessage('DataService:sortObjArrayByKey:ObjectKeyLength:Key='+Object.keys(obj).length+":"+key)
         function compare(a, b) {
             let c = a[key]
             let d = b[key]
@@ -92,6 +104,7 @@ export class DataService {
     }
 
     cnvrtReqDataObjToArray(src: any): any {
+      this.logService.printInfoMessage('DataService:cnvrtReqDataObjToArray:ObjectKeyLength:'+Object.keys(src).length)
         let target: any = [];
         for (let key in src) {
             target.push({ key: key, value: src[key] });
@@ -100,6 +113,7 @@ export class DataService {
     }
 
     cnvrtReqDataArrayToObj(src: any): any {
+      this.logService.printInfoMessage('DataService:cnvrtReqDataArrayToObj:ArrayLength:'+ Object.keys(src).length)
         let target: any = {};
         for (var i = 0; i < src.length; i++) {
             target[src[i].key] = src[i].value

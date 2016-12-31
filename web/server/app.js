@@ -17,6 +17,7 @@ process.on('uncaughtException', (err) => {
 })
 app.use(logService.logRequest)
 app.get('/service/:servicekey', routeService.serviceRequest);
+app.post('/service/:servicekey', routeService.serviceRequest);
 app.use(routeService.errorHandler)
 http.listen(3000, function(){
   console.log('listening on *:3000');
