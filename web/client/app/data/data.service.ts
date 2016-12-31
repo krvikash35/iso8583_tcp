@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { REQDATA, REQFIELDDEF, RESFIELDDEF, PROP } from './sample.data';
 import { LogService } from './log.service';
-import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -26,7 +26,9 @@ export class DataService {
             })
         } else {
             this.logService.printInfoMessage('DataService:getReqData:reqData could not be found in cache, will refresh from server and update the cache')
-            return this.http.get('service/usr_data')
+            let params: URLSearchParams = new URLSearchParams();
+            params.set('key', 'defaultReqData1');
+            return this.http.get('service/getDefaultData', {search: params})
                 .map(res => {
                     this.logService.printInfoMessage('DataService:getReqData:got success response:')
                     let resDatajson = res.json().data

@@ -3,10 +3,28 @@ const util = require('util');
 
 var logService = {
   logRequest: logRequest,
-  logResponse: logResponse
+  logResponse: logResponse,
+  logEvent: logEvent,
+  logInfo: logInfo,
+  logError: logError
 }
 
 module.exports = logService;
+function logEvent(msg){
+  console.log(msg);
+}
+
+function logInfo(){
+  for(var i=0; i<arguments.length; i++){
+    console.log(arguments[i]);
+  }
+}
+
+function logError(err, msg){
+  console.log(msg, err);  
+}
+
+
 
 function logRequest(req, res, next){
   var reqobj = {
@@ -15,13 +33,14 @@ function logRequest(req, res, next){
     'origin': req.headers['origin'],
     'referer': req.headers['referer'],
     'content-type': req.headers['content-type'],
+    'query:': req.query,
     'body': req.body
   }
   // console.log(util.inspect(reqobj, false, null))
-  loglib.print_http_request_response('Got request from client http: ', reqobj )
+  console.log('Got request from http client: ', reqobj);
   next()
 }
 
 function logResponse(resobj){
-  loglib.print_http_request_response('Sent response to client http: ', resobj )
+  console.log('Sent response to http client: ', resobj);
 }

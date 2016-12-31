@@ -1,7 +1,8 @@
-var defaultReqData = require('../requestData');
-var defaultFieldDefList = require('../fieldDefList');
-var defaultProp = require('../prop')
-var default = {
+var defaultReqData = require('../default/requestData');
+var defaultFieldDefList = require('../default/fieldDefList');
+var defaultProp = require('../default/prop');
+
+var defaultData = {
   defaultReqData: defaultReqData,
   defaultFieldDefList: defaultFieldDefList,
   defaultProp: defaultProp
@@ -50,11 +51,20 @@ var config_mapping = {
 
 function get_default(key){
   return new Promise(function(fulfill, reject){
-    var value = default[key];
+    var value = defaultData[key];
     if(!value){
-      reject( new Error("default value for key '"+key+"' not defined") );
+      reject( new Error("defaultData value for key '"+key+"' not defined") );
     }else{
       fulfill(value);
     }
   })
+}
+
+function read_config(){
+
+}
+
+
+function write_config(){
+  
 }
