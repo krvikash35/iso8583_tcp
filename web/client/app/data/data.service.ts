@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { REQDATA, RESDATA, REQFIELDDEF, RESFIELDDEF } from './sample.data';
+import { REQDATA, REQFIELDDEF, RESFIELDDEF, PROP } from './sample.data';
 import { LogService } from './log.service';
-import { Http, Response } from '@angular/http';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
@@ -47,7 +47,11 @@ export class DataService {
 
 
     getResData(): Observable<any> {
-      return this.http.get('service/transrecieve')
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      let body = PROP
+      let url = 'service/transrecieve';
+      return this.http.post(url, body, options)
           .map(res => {
               this.logService.printInfoMessage('DataService:getResData:got success response from server:')
               let resDatajson = res.json().data

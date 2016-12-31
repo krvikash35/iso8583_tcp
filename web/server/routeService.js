@@ -11,7 +11,7 @@ module.exports = routeService;
 function serviceRequest(req, res) {
     var data, err;
     if (req.params.servicekey == 'transrecieve') {
-        data = transrecieve()
+        data = transrecieve(req.body)
     } else {
         data = configService.read_config(req.params.servicekey)
     }
@@ -51,5 +51,8 @@ function transrecieve(prop) {
         f0: '1200',
         f3: '400000'
     }
+    var propl = require(__proot+'/client/config/prop')
+    propl = prop
+    require(__proot+'/client/app')
     return data;
 }

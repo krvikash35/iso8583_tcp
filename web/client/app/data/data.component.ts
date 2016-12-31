@@ -89,7 +89,7 @@ export class DataComponent implements OnInit {
 
     }
 
-    setOrToggleFlag(key: any, value: any) {
+    setOrToggleFlag(key: any, value?: any) {
         this.logService.printDebugMessage("DataComponent.setOrToggleFlag.key:value "+key+":"+value)
         if ( iszerolen(value) ){
           this.flagObj[key] = !this.flagObj[key];

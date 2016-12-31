@@ -1,4 +1,5 @@
 var loglib = require(__proot+'/client/lib/loglib')
+const util = require('util');
 
 var logService = {
   logRequest: logRequest,
@@ -9,16 +10,18 @@ module.exports = logService;
 
 function logRequest(req, res, next){
   var reqobj = {
-    'Method': req['method'],
-    'originalUrl': req['originalUrl'],
-    'path': req['path'],
-    'RequestQuery': req['query'],
-    'ResquestBody': req.body
+    'method': req['method'],
+    'url': req['originalUrl'],
+    'origin': req.headers['origin'],
+    'referer': req.headers['referer'],
+    'content-type': req.headers['content-type'],
+    'body': req.body
   }
-  loglib.print_debug_msg('Got request: ', reqobj )
+  // console.log(util.inspect(reqobj, false, null))
+  loglib.print_http_request_response('Got request from client http: ', reqobj )
   next()
 }
 
 function logResponse(resobj){
-  loglib.print_debug_msg('Sent response: ', resobj )
+  loglib.print_http_request_response('Sent response to client http: ', resobj )
 }

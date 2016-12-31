@@ -8,11 +8,22 @@ var loglib = {
   print_debug_msg: print_debug_msg,
   print_err_msg: print_err_msg,
   print_decoded_message: print_decoded_message,
-  print_bin_asci_msg: print_bin_asci_msg
+  print_bin_asci_msg: print_bin_asci_msg,
+  print_http_request_response: print_http_request_response
 }
 
 module.exports = loglib;
 var configlib = require('./configlib');
+
+function print_http_request_response(logmsg){
+  if ( loglevel!=2 ){
+    return;
+  }else {
+    for(var i=0; i<arguments.length; i++){
+      console.log(arguments[i]);
+    }
+  }
+}
 
 function print_encoded_msg(iso8583_msg){
   if ( !(loglevel>=3) ){
@@ -75,7 +86,7 @@ function print_padded_msg(iso8583_msg){
 }
 
 function printInfoMessage(){
-  
+
 }
 
 function print_debug_msg(){
