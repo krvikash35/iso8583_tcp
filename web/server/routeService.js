@@ -1,5 +1,6 @@
 logService = require('./logService');
 configlib = require('./lib/configlib');
+packlib = require('./lib/pack');
 
 var routeService = {
     getDefaultData: getDefaultData,
@@ -11,7 +12,7 @@ module.exports = routeService;
 
 function getDefaultData(req, res){
   logService.logEvent('routeService.getDefaultData..request recevied for getting default data');
-  configlib.get_default(req.query.key)
+  configlib.get_default()
     .then(function(data){
       logService.logEvent('routeService.getDefaultData..success response with code 200 sent');
       responseHandler(200, data, res)
@@ -23,8 +24,13 @@ function getDefaultData(req, res){
 }
 
 function transrecieve(req, res){
-  logService.logResponse(resObj)
-  res.status(resObj.status).send(resObj.response);
+  packlib.init_and_gen_bitmap(req.body)
+    .then(function(data){
+      responseHandler(200, data);
+    })
+    .catch(function(err){
+      errorHandler(400, err);
+    })
 }
 
 function responseHandler(status, data, res){

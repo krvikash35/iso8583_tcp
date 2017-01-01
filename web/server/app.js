@@ -1,4 +1,5 @@
 global.__proot = __dirname + "/../..";
+require('./lib/global');
 var exp = require('express');
 var app = exp();
 var http = require('http').Server(app);

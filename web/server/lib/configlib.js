@@ -9,7 +9,7 @@ var defaultData = {
 }
 var configlib = {
   read_config: read_config,
-  write_config: write_config,
+  // write_config: write_config,
   get_default: get_default
 }
 module.exports = configlib;
@@ -49,9 +49,9 @@ var config_mapping = {
 }
 
 
-function get_default(key){
+function get_default(){
   return new Promise(function(fulfill, reject){
-    var value = defaultData[key];
+    var value = defaultData;
     if(!value){
       reject( new Error("defaultData value for key '"+key+"' not defined") );
     }else{
@@ -60,11 +60,46 @@ function get_default(key){
   })
 }
 
-function read_config(){
+function read_config(cmkey, fn){
+  return new Promise(function(fulfill, reject){
+    if( iszerolen(cmkey) ){
+      reject(new Error("read_config: invalid config mapping key..it must non zero length"))
+    }
+    var cmvalue = config_mapping[cmkey];
+    if( cmkey.startsWith("cli_fldn") || cmkey.startsWith("ser_fldn") ){
+      if ( isnum(fn) ){
+        cmvalue = cmvalue.replace('FNO',"f"+fn);
+        // loglib.print_debug_msg("read_config: fieldNo: "+fn+" cmvalue: "+cmvalue);
+      }else {
+        throw new Error("read_config: field no: '"+fn+"' is invalid..it must be number")
+        // loglib.print_err_msg("read_config: field no: '"+fn+"' is invalid");
+      }
+    }
+    // loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
+    try {
+      var result = prop;
+      cmvalue = cmvalue.split('.');
+      for( var i=0; i<cmvalue.length; i++ ){
+        result = result[cmvalue[i]];
+      }
+    } catch (e) {
+      throw e;
+    }
+    if(!result){
+      throw new Error("could not get defined value for given config key '"+cmkey+"' and correspodning cmvalue '"+cmvalue+"' ..config value is undefined")
+    }
 
+    // loglib.print_debug_msg("read_config[result]: " + result)
+    return result;
+
+
+
+  })
 }
 
 
-function write_config(){
-  
-}
+// function write_config(){
+//   return new Promise(function(fulfill, reject){
+//
+//   })
+// }

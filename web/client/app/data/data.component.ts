@@ -15,6 +15,7 @@ export class DataComponent implements OnInit {
     resData: any = [];
     reqFieldDef: any = {};
     resFieldDef: any = {};
+    prop: any = {};
     reqDataEdit: any = {};
     flagObj: any = {
         isreqDataEditFnoValid: false,
@@ -32,19 +33,16 @@ export class DataComponent implements OnInit {
     ngOnInit(): void {
         this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:requesting dataService to getReqData")
         this.dataService.getReqData().subscribe(
-            (reqData) => {
-                this.logService.printDebugMessage("DataComponent.ngOnInit:getReqData:", reqData)
-                this.reqData = reqData;
+            (data) => {
+                this.logService.printDebugMessage("DataComponent.ngOnInit:getReqData:", data)
+                this.reqData = data.reqData;
+                this.reqFieldDef = data.reqFieldDef;
+                this.resFieldDef = data.resFieldDef;
+                this.prop = data.prop;
             },
             (err) => {
               this.logService.printDebugMessage("DataComponent.ngOnInit:getReqData:", err)
-            });
-        this.dataService.getReqFieldDef().then(reqFieldDef => {
-            this.reqFieldDef = reqFieldDef;
-        });
-        this.dataService.getResFieldDef().then(resFieldDef => {
-            this.resFieldDef = resFieldDef;
-        });
+            });        
     }
 
     addReqDataEditRow(newReqRowData: any) {
