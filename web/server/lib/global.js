@@ -51,7 +51,16 @@ function iszerolen(data){
   return false;
 }
 
-
+function numComparator(a, b){
+  if (a < b) {
+      return -1
+  }
+  if (a > b) {
+      return 1;
+  }
+  return 0
+}
 global.pad = pad;
 global.isnum = isnum;
 global.iszerolen = iszerolen;
+global.numComparator = numComparator;

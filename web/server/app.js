@@ -1,5 +1,6 @@
-global.__proot = __dirname + "/../..";
+'use strict'
 require('./lib/global');
+global.__proot = __dirname + "/../..";
 var exp = require('express');
 var app = exp();
 var http = require('http').Server(app);
@@ -13,9 +14,9 @@ app.use(bodyParser.json())
 app.use('/node_modules', exp.static(__proot + '/node_modules'));
 app.use('/', exp.static(__proot + '/web/client'));
 app.use('/app/*', exp.static(__proot + '/web/client'));
-process.on('uncaughtException', (err) => {
-  console.log('uncaughtException', err);
-})
+// process.on('uncaughtException', (err) => {
+//   console.log('uncaughtException', err);
+// })
 app.use(logService.logRequest)
 app.get('/service/getDefaultData', routeService.getDefaultData);
 app.post('/service/transrecieve', routeService.transrecieve);

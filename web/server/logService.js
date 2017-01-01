@@ -1,4 +1,3 @@
-var loglib = require(__proot+'/client/lib/loglib')
 const util = require('util');
 
 var logService = {
@@ -21,7 +20,7 @@ function logInfo(){
 }
 
 function logError(err, msg){
-  console.log(msg, err);  
+  console.log(msg, err);
 }
 
 
@@ -42,5 +41,7 @@ function logRequest(req, res, next){
 }
 
 function logResponse(resobj){
-  console.log('Sent response to http client: ', resobj);
+  // console.log('Sent response to http client: ', resobj);
+  console.log('Sent response to http client: ');
+  console.log(util.inspect(resobj, false, null))
 }

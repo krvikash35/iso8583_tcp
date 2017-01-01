@@ -51,14 +51,14 @@ export class DataService {
                     this.writeToLocalStorage('reqFieldDefkey', 'iso8583_1993_cmn');
                     this.writeToLocalStorage('resFieldDefkey', 'iso8583_1993_cmn');
                     let defaultReqFieldDef = defaultFieldDefList.iso8583_1993_cmn;
-                    let defaultReqFieldDef = defaultFieldDefList.iso8583_1993_cmn;
+                    let defaultResFieldDef = defaultFieldDefList.iso8583_1993_cmn;
                     let defaultProp = resDatajson.defaultProp
                     this.writeToLocalStorage('prop', defaultProp);
 
                     let returnObj = {
                       reqData: defaultReqData,
                       reqFieldDef: defaultReqFieldDef,
-                      resFieldDef: defaultReqFieldDef,
+                      resFieldDef: defaultResFieldDef,
                       prop: defaultProp
                     }
 
@@ -79,6 +79,7 @@ export class DataService {
       let options = new RequestOptions({ headers: headers });
       let prop = this.readFromLocalStorage('prop');
       let reqData = this.readFromLocalStorage('reqData');
+      reqData = this.cnvrtReqDataArrayToObj(reqData);
       let reqFieldDef = this.getFieldDefinition('reqFieldDefkey');
       let resFieldDef = this.getFieldDefinition('resFieldDefkey');
       prop.personal.reqData = reqData;

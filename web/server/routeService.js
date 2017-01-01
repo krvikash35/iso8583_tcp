@@ -26,10 +26,10 @@ function getDefaultData(req, res){
 function transrecieve(req, res){
   packlib.init_and_gen_bitmap(req.body)
     .then(function(data){
-      responseHandler(200, data);
+      responseHandler(200, data, res);
     })
     .catch(function(err){
-      errorHandler(400, err);
+      errorHandler(400, err, res);
     })
 }
 
