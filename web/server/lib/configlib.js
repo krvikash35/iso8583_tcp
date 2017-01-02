@@ -19,6 +19,8 @@ var config_mapping = {
   'per_req_data': 'personal.reqData',
   'per_theme_type': 'personal.theme',
   'per_log_level': 'personal.loglevel',
+  'per_http_timeout': 'personal.http_timeout',
+  'per_tcp_timeout': 'personal.tcp_timeout',
   'ser_host': 'server.host',
   'ser_port': 'server.port',
   'ser_enc_hdr': 'server.encode.header_encode',
@@ -80,14 +82,14 @@ function read_config(cmkey, fn){
     }
     // loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
       var result = defaultProp;
+      // console.log("result: \n\n", result.client.field_def.f0);
       cmvalue = cmvalue.split('.');
       for( var i=0; i<cmvalue.length; i++ ){
         result = result[cmvalue[i]];
+        if(iszerolen(result)){
+          throw new Error("could not get defined value for given config key '"+cmkey+"' and correspodning cmvalue '"+cmvalue+"' ..config value is undefined")
+        }
       }
-    if(!result){
-      throw new Error("could not get defined value for given config key '"+cmkey+"' and correspodning cmvalue '"+cmvalue+"' ..config value is undefined")
-    }
-
     // loglib.print_debug_msg("read_config[result]: " + result)
     return result;
 }
@@ -102,4 +104,5 @@ function read_config(cmkey, fn){
 
 function update_prop(prop){
   defaultProp = prop;
+  // console.log("defaultProp: \n\n", defaultProp.client);
 }

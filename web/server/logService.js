@@ -9,39 +9,52 @@ var logService = {
 }
 
 module.exports = logService;
+var logLevel = 4; //1, 2, 3, 4
+
+
+function logError(err, msg){
+  if(logLevel == 1){
+      console.log(msg, err);
+  }
+}
+
 function logEvent(msg){
-  console.log(msg);
+  if(logLevel == 4){
+      console.log(msg);
+  }
 }
 
 function logInfo(){
-  for(var i=0; i<arguments.length; i++){
-    console.log(arguments[i]);
+  if(logLevel == 3){
+    for(var i=0; i<arguments.length; i++){
+      console.log(arguments[i]);
+    }
   }
 }
-
-function logError(err, msg){
-  console.log(msg, err);
-}
-
 
 
 function logRequest(req, res, next){
-  var reqobj = {
-    'method': req['method'],
-    'url': req['originalUrl'],
-    'origin': req.headers['origin'],
-    'referer': req.headers['referer'],
-    'content-type': req.headers['content-type'],
-    'query:': req.query,
-    'body': req.body
+  if(logLevel == 4){
+    var reqobj = {
+      'method': req['method'],
+      'url': req['originalUrl'],
+      'origin': req.headers['origin'],
+      'referer': req.headers['referer'],
+      'content-type': req.headers['content-type'],
+      'query:': req.query,
+      'body': req.body
+    }
+    // console.log(util.inspect(reqobj, false, null))
+    console.log('Got request from http client: ', reqobj);
+
   }
-  // console.log(util.inspect(reqobj, false, null))
-  console.log('Got request from http client: ', reqobj);
   next()
 }
 
 function logResponse(resobj){
-  // console.log('Sent response to http client: ', resobj);
-  console.log('Sent response to http client: ');
-  console.log(util.inspect(resobj, false, null))
+  if(logLevel == 4){
+    // console.log('Sent response to http client: ', resobj);
+    console.log('Sent response to http client: ');
+    console.log(util.inspect(resobj, false, null))
+  }
 }

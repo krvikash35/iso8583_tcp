@@ -2,7 +2,9 @@ var prop = {
     personal:{
       loglevel: 2,//1,2,3,4
       reqData: '',
-      theme: 'dark' //dark, light
+      theme: 'dark', //dark, light
+      http_timeout: 10,
+      tcp_timeout: 60
     },
     server: {
         host: 'localhost', //localhost:6969, 10.66.118.36:16702(agd),  10.66.124.22:20651(losvm) 10.66.118.51:7021(chlk) 10.66.118.27:35502(vasuda) 10.66.118.160:7021(malavika)

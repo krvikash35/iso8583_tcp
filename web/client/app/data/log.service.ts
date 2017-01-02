@@ -1,31 +1,27 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class LogService{
-  logLevel: number = 3;
-  printErrorMessage(...args){
-    if(this.logLevel >= 1){
-      for(var i=0; i<args.length; i++){
-        console.log(args[i])
-      }
-    }
-  }
+export class LogService {
+    logLevel: number = 3; //1,2,3,4
 
-  printInfoMessage(...args){
-    if(this.logLevel >= 2){
-      for(var i=0; i<args.length; i++){
-        console.log(args[i])
-      }
+    logError(err, msg) {
+        if (this.logLevel == 1 || this.logLevel == 4) {
+            console.log(msg, err);
+        }
     }
-  }
 
-  printDebugMessage(...args){
-    if(this.logLevel >= 3){
-      for(var i=0; i<args.length; i++){
-        console.log(args[i])
-      }
+    logEvent(msg) {
+        if (this.logLevel == 2 || this.logLevel == 4) {
+            console.log(msg);
+        }
     }
-  }
 
+    logInfo() {
+        if (this.logLevel == 3 || this.logLevel == 4) {
+            for (var i = 0; i < arguments.length; i++) {
+                console.log(arguments[i]);
+            }
+        }
+    }
 
 }

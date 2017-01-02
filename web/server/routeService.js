@@ -1,6 +1,7 @@
-logService = require('./logService');
-configlib = require('./lib/configlib');
-packlib = require('./lib/pack');
+var logService = require('./logService');
+var configlib = require('./lib/configlib');
+var packlib = require('./lib/pack');
+var socklib = require('./lib/socklib')
 
 var routeService = {
     getDefaultData: getDefaultData,
@@ -24,8 +25,15 @@ function getDefaultData(req, res){
 }
 
 function transrecieve(req, res){
-  packlib.init_and_gen_bitmap(req.body)
+  packlib.req_init_gen_bitmap(req.body)
     .then(function(data){
+      return packlib.req_encode_request_fields(data)
+    })
+    .then(function(data){
+      return packlib.req_add_header(data);
+    })
+    .then(function(data){
+      return socklib.createNewSockConnAndSend(data);
       responseHandler(200, data, res);
     })
     .catch(function(err){

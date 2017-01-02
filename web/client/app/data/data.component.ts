@@ -31,22 +31,25 @@ export class DataComponent implements OnInit {
     constructor(private dataService: DataService, private logService: LogService, private sanitizer: DomSanitizer) { }
 
     ngOnInit(): void {
-        this.logService.printInfoMessage("DataComponent:ngOnInit:initialize DataComponent:requesting dataService to getReqData")
+        this.logService.logEvent("DataComponent.ngOnInit...initialize DataComponent...requesting dataService to getReqData!")
         this.dataService.getReqData().subscribe(
             (data) => {
-                this.logService.printDebugMessage("DataComponent.ngOnInit:getReqData:", data)
+                this.logService.logEvent("DataComponent.ngOnInit.getReqData...dataService returned success ")
+                this.logService.logInfo("DataComponent.ngOnInit.getReqData.data:", data)
                 this.reqData = data.reqData;
                 this.reqFieldDef = data.reqFieldDef;
                 this.resFieldDef = data.resFieldDef;
                 this.prop = data.prop;
             },
             (err) => {
-              this.logService.printDebugMessage("DataComponent.ngOnInit:getReqData:", err)
-            });        
+                this.logService.logEvent("DataComponent.ngOnInit.getReqData...dataService returned error")
+                this.logService.logInfo("DataComponent.ngOnInit.getReqData.err:"err)
+            });
     }
 
     addReqDataEditRow(newReqRowData: any) {
-        this.logService.printDebugMessage("DataComponent:addReqDataEditRow:newRowToBeAddedInRequestData ", newReqRowData)
+        this.logService.logEvent("DataComponent.addReqDataEditRow...add new row in request data! ")
+        this.logService.logInfo("DataComponent.addReqDataEditRow.newRowToBeAddedInRequestData:", newReqRowData)
         let newrec = [{ key: newReqRowData.fno, value: newReqRowData.fvalue }]
         this.reqData = this.dataService.sortObjArrayByKey(this.reqData.concat(newrec), 'key')
         this.dataService.writeToLocalStorage('reqData', this.reqData);
@@ -55,7 +58,7 @@ export class DataComponent implements OnInit {
     }
 
     validateReqDataEditFno(fno: any) {
-        this.logService.printDebugMessage('DataComponent:validateReqDataEditFno:fieldNumber ', fno)
+        this.logService.logInfo('DataComponent:validateReqDataEditFno:fieldNumber ', fno)
         this.setOrToggleFlag('isreqDataEditFnoValid', false)
         if (!fno) {
             return this.reqProcStatus.msg = ""
@@ -88,69 +91,74 @@ export class DataComponent implements OnInit {
     }
 
     setOrToggleFlag(key: any, value?: any) {
-        this.logService.printDebugMessage("DataComponent.setOrToggleFlag.key:value "+key+":"+value)
-        if ( iszerolen(value) ){
-          this.flagObj[key] = !this.flagObj[key];
-        }else{
-          this.flagObj[key] = value;
+        this.logService.logInfo("DataComponent.setOrToggleFlag.key:value " + key + ":" + value)
+        if (iszerolen(value)) {
+            this.flagObj[key] = !this.flagObj[key];
+        } else {
+            this.flagObj[key] = value;
         }
 
     }
 
     exportReqData(): any {
-        if(this.reqData && this.reqData.length>0){
-          let reqDataObj = this.dataService.cnvrtReqDataArrayToObj(this.reqData)
-          let url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(reqDataObj));
-          return this.sanitizer.bypassSecurityTrustUrl(url);
+        this.logService.logEvent("DataComponent.exportReqData...export request data")
+        if (this.reqData && this.reqData.length > 0) {
+            let reqDataObj = this.dataService.cnvrtReqDataArrayToObj(this.reqData)
+            let url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(reqDataObj));
+            return this.sanitizer.bypassSecurityTrustUrl(url);
         }
     }
 
     importReqData(event: any): any {
-        this.logService.printInfoMessage("DataComponent:importReqData")
+        this.logService.logEvent("DataComponent.importReqData...import request data")
         let target = event.target || event.srcElement || event.currentTarget;
         let fileList = target.files;
         let file = fileList[0];
         var that = this;
         target.value = '';
-        this.logService.printDebugMessage("DataComponent:importReqData:fileList ", fileList);
+        this.logService.logInfo("DataComponent:importReqData:fileList ", fileList);
         let freader = new FileReader();
         freader.onload = function(event: any) {
             let fileContent = JSON.parse(event.target.result)
-            that.logService.printDebugMessage("DataComponent:importReqData:fileContent ", fileContent);
+            that.logService.logInfo("DataComponent:importReqData:fileContent ", fileContent);
             that.reqData = that.dataService.cnvrtReqDataObjToArray(fileContent);
+            that.dataService.writeToLocalStorage("reqData", that.reqData);
+            that.logService.logEvent("DataComponent.importReqData...updated cache!")
         }
         freader.readAsText(file);
     }
 
     removeReqDataRow(rowkey: any): any {
-        this.logService.printDebugMessage("DataComponent:removeReqDataRow:rowkey", rowkey);
+        this.logService.logEvent("DataComponent.addReqDataEditRow...remove row from request data! ")
+        this.logService.logInfo("DataComponent:removeReqDataRow:rowkey", rowkey);
         let index = this.reqData.findIndex((x: any) => x.key == rowkey);
-        this.logService.printDebugMessage("DataComponent:removeReqDataRow:index", index);
+        this.logService.logInfo("DataComponent:removeReqDataRow:index", index);
         this.reqData.splice(index, 1);
         this.dataService.writeToLocalStorage('reqData', this.reqData)
     }
 
     onReqDataFVModelChange(key, newValue) {
-        this.logService.printDebugMessage("DataComponent:onReqDataFVModelChange:key and new value", key, newValue);
+        this.logService.logEvent("DataComponent.onReqDataFVModelChange...change detected in request data!")
+        this.logService.logInfo("DataComponent:onReqDataFVModelChange.key and new value", key, newValue);
         let updatedReqData = this.dataService.readFromLocalStorage('reqData');
         let index = updatedReqData.findIndex((x: any) => x.key == key);
         updatedReqData[index].value = newValue;
         this.dataService.writeToLocalStorage('reqData', updatedReqData)
     }
 
-    getResponseData(){
-      this.logService.printInfoMessage("DataComponent:getResponseData");
-      this.setOrToggleFlag('responseDataStatus', 2);
-      this.dataService.getResData().subscribe(
-          (resData) => {
-              this.logService.printDebugMessage("DataComponent.getResponseData:resData:", resData)
-              this.resData = resData;
-              this.setOrToggleFlag('isRequestDivVisible');
-              this.setOrToggleFlag('responseDataStatus', 4);
-          },
-          (err) => {
-            this.logService.printDebugMessage("DataComponent.getResponseData:err:", err)
-            this.setOrToggleFlag('responseDataStatus', 3);
-          });
+    getResponseData() {
+        this.logService.logEvent("DataComponent.getResponseData...calling dataService to get the response data!");
+        this.setOrToggleFlag('responseDataStatus', 2);
+        this.dataService.getResData().subscribe(
+            (resData) => {
+                this.logService.logInfo("DataComponent.getResponseData:resData:", resData)
+                this.resData = resData;
+                // this.setOrToggleFlag('isRequestDivVisible');
+                this.setOrToggleFlag('responseDataStatus', 4);
+            },
+            (err) => {
+                this.logService.logInfo("DataComponent.getResponseData:err:", err)
+                this.setOrToggleFlag('responseDataStatus', 3);
+            });
     }
 }
