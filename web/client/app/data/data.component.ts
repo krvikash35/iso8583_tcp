@@ -153,7 +153,7 @@ export class DataComponent implements OnInit {
             (resData) => {
                 this.logService.logInfo("DataComponent.getResponseData:resData:", resData)
                 this.resData = resData;
-                // this.setOrToggleFlag('isRequestDivVisible');
+                this.setOrToggleFlag('isRequestDivVisible');
                 this.setOrToggleFlag('responseDataStatus', 4);
             },
             (err) => {

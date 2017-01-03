@@ -42,7 +42,7 @@
   <a  [href]="bindExportData? exportReqData(): ''" (click)="bindExportData=true" (blur)="bindExportData=false"  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json"  class="btn-raised ripple  clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
-  <button (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>
+  <button [class.btn-raised-disabled]="reqData?.length==0" (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>
 </div>
 </div>
 
