@@ -16,8 +16,8 @@
   <tr>
     <th>Delete</th>
     <th>FieldNo</th>
-    <th>FieldLenType</th>
-    <th>FieldLen</th>
+    <th>FieldLengthType</th>
+    <th>FieldMaxLenght</th>
     <th >FieldDescritption</th>
     <th>FieldValue</th>
   </tr>
@@ -42,21 +42,29 @@
   <a  [href]="bindExportData? exportReqData(): ''" (click)="bindExportData=true" (blur)="bindExportData=false"  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json"  class="btn-raised ripple  clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
-  <button [class.btn-raised-disabled]="reqData?.length==0" (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>
+  <button [class.btn-raised-disabled]="reqData?.length==0 || flagObj.isSendBtnDisabled" (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>
 </div>
 </div>
 
 
-<div *ngIf="flagObj.responseDataStatus==1">
-  <h4>1. response will appear here</h4>
+<div *ngIf="flagObj.responseDataStatus==1" class="center">
+  <!-- <h4>1. response will appear here </h4> -->
+  <pre>Response will appear here...!</pre>
 </div>
 
-<div *ngIf="flagObj.responseDataStatus==2">
-  <h4>2. request has been send...wait for response to come</h4>
+<div *ngIf="flagObj.responseDataStatus==2" class="center">
+  <!-- <h4>2. request has been send...wait for response to come</h4> -->
+  <div class="circle">{{resTimeoutCntr}} Sec..</div>
 </div>
 
-<div *ngIf="flagObj.responseDataStatus==3">
-  <h4>3. error response came</h4>
+<div *ngIf="flagObj.responseDataStatus==3 " class="label-error ">
+  <!-- <pre>{{resErrorData.name}}\n</pre> -->
+  <!-- <pre>{{resErrorData.message}}\n</pre> -->
+  <label class="center">Got error response!</label>
+  <pre ><span *ngFor="let err of resErrorData">{{err.key}}: {{err.value}}<br/></span></pre>
+  <!-- <pre>Message: {{resErrorData.message}}</pre>
+  <pre>Stack: {{resErrorData.stack}}</pre> -->
+  <!-- <pre>Name: {{resErrorData.name}}<br/>Message: {{resErrorData.message}}<br/>Stack: {{resErrorData.stack}}</pre> -->
 </div>
 
 <div *ngIf="flagObj.responseDataStatus==4">
@@ -73,8 +81,8 @@
       <tr>
         <th>FieldNo</th>
         <!-- <th>FieldType</th> -->
-        <th>FieldLenType</th>
-        <th>FieldLen</th>
+        <th>FieldLengthType</th>
+        <th>FieldMaxLength</th>
         <th>FieldDescritption</th>
         <th>FieldValue</th>
       </tr>

@@ -101,8 +101,9 @@ export class DataService {
           .catch( (err) => {
             this.logService.logEvent('DataService.getResData...got error response from server!')
             let resErrJson = err.json().data;
+            resErrJson = this.cnvrtReqDataObjToArray(resErrJson);
             this.logService.logInfo('DataService.getResData.httpErrorResponseData:',resErrJson)
-            return resErrJson
+            return Observable.throw(resErrJson)
           })
 
     }

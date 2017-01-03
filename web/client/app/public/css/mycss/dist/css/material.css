@@ -2309,7 +2309,8 @@ input[type="text"] {
 5. z-depth-x
 */
 .label-error {
-  padding: 5px;
+  padding: 10px;
+  margin: 0px 10px 0px 10px;
   border-radius: 5px; }
 
 .label-success {
@@ -2333,6 +2334,9 @@ input[type="text"] {
 
 .pre-ws {
   white-space: pre; }
+
+pre {
+  white-space: pre-wrap; }
 
 .center {
   display: flex;
@@ -2426,3 +2430,12 @@ input[type="text"] {
 
 [hidden] {
   display: none; }
+
+.circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  color: #FFFFFF;
+  line-height: 70px;
+  text-align: center;
+  border: 3px solid #FF4081; }

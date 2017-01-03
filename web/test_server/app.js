@@ -14,7 +14,7 @@ net.createServer(function(sock) {
         }else{
           sock.write(data);//send data after 5 second
         }
-      }, 5000);
+      }, 1000);
 
     });
     sock.on('close', function(data) {

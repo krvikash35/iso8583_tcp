@@ -13,15 +13,18 @@ import { FocusOnInit } from './data.directive'
 export class DataComponent implements OnInit {
     reqData: any = [];
     resData: any = [];
+    resErrorData: any = [];
     reqFieldDef: any = {};
     resFieldDef: any = {};
     prop: any = {};
     reqDataEdit: any = {};
+    resTimeoutCntr: number = 40;
     flagObj: any = {
         isreqDataEditFnoValid: false,
         isRequestDivVisible: true,
         isResponseDivVisible: true,
-        responseDataStatus: 1
+        responseDataStatus: 1,
+        isSendBtnDisabled: false
     }
     reqProcStatus: any = {
         type: 'error', //error, success
@@ -149,16 +152,26 @@ export class DataComponent implements OnInit {
     getResponseData() {
         this.logService.logEvent("DataComponent.getResponseData...calling dataService to get the response data!");
         this.setOrToggleFlag('responseDataStatus', 2);
+        this.setOrToggleFlag('isSendBtnDisabled');
+        let  respCntr = setInterval( () => { this.resTimeoutCntr = this.resTimeoutCntr - 1; }, 1000);
+        setTimeout(() => { clearInterval(respCntr)}, this.resTimeoutCntr*1000)
         this.dataService.getResData().subscribe(
             (resData) => {
+                clearInterval(respCntr)
                 this.logService.logInfo("DataComponent.getResponseData:resData:", resData)
                 this.resData = resData;
                 this.setOrToggleFlag('isRequestDivVisible');
                 this.setOrToggleFlag('responseDataStatus', 4);
+                this.setOrToggleFlag('isSendBtnDisabled');
             },
             (err) => {
-                this.logService.logInfo("DataComponent.getResponseData:err:", err)
+                clearInterval(respCntr)
+                this.logService.logInfo("DataComponent.getResponseData:err:", err);
+                this.resErrorData = err;
+                // console.log(err.toString())
+                this.setOrToggleFlag('isRequestDivVisible');
                 this.setOrToggleFlag('responseDataStatus', 3);
+                this.setOrToggleFlag('isSendBtnDisabled');
             });
     }
 }
