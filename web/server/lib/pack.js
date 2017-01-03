@@ -62,7 +62,7 @@ function init_gen_bitmap(prop) {
         iso8583_msg.request.string_data.f1 = bitmap_hex;
         iso8583_msg.request.field_no_present.push(1);
         iso8583_msg.request.field_no_present.sort(numComparator)
-        logService.logInfo("packlib.init_gen_bitmap.iso8583_msg:", iso8583_msg)
+        logService.logInfo("packlib.init_gen_bitmap.iso8583_msg...request data:", iso8583_msg.request)
         fulfill(iso8583_msg);
     })
 }
@@ -166,12 +166,15 @@ function add_header(iso8583_msg) {
         logService.logEvent("packlib.add_header...msg buffer length is "+msg_buffer_len+" Bytes!");
 
         if (ishdrincl) {
+          let hdrlen = configlib.read_config("cli_hdr_len");
+          let hdr_value = msg_buffer_len;
+          msg_buffer_len = msg_buffer_len + hdrlen;
           logService.logEvent("packlib.add_header...as per configuration header has to be included, so calculating header value!")
             if (configlib.read_config("cli_hdr_msg")) {
-                msg_buffer_len = msg_buffer_len + configlib.read_config("cli_hdr_len");
-                logService.logEvent("packlib.add_header...header length also included in header value, so header value is "+msg_buffer_len);
+                hdr_value = hdr_value + hdrlen;
+                logService.logEvent("packlib.add_header...header length also included in header value, so header value is "+hdr_value);
             }else {
-              logService.logEvent("packlib.add_header..only msg length included in header value, so header value is "+msg_buffer_len);
+              logService.logEvent("packlib.add_header..only msg length included in header value, so header value is "+hdr_value);
             }
             let fdet = getFieldDetForEnc(-1, msg_buffer_len);
             let hdrbuf = Buffer.from(fdet.fvalue, fdet.fenc);

@@ -21,7 +21,7 @@ function createNewSockConnAndSend(iso8583_msg) {
     client.connect(PORT, HOST, function() {
         logService.logEvent("socklib.createNewSockConnAndSend...CONNECTED!")
         client.write(iso8583_msg.request.final_buffer);
-        client.setTimeout(timeout)
+        client.setTimeout(timeout*1000)
     });
     client.on('data', function(data) {
         var buffer_data = Buffer.from(data);
