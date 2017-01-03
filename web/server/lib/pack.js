@@ -4,14 +4,14 @@ var convlib = require('./convert');
 var logService = require('../logService');
 
 var packlib = {
-    req_init_gen_bitmap: req_init_gen_bitmap,
-    req_encode_request_fields: req_encode_request_fields,
-    req_add_header: req_add_header
+    init_gen_bitmap: init_gen_bitmap,
+    encode_request_fields: encode_request_fields,
+    add_header: add_header
 }
 module.exports = packlib;
 
 
-function req_init_gen_bitmap(prop) {
+function init_gen_bitmap(prop) {
     var iso8583_msg = {
         request: {
             field_no_present: [],
@@ -20,13 +20,15 @@ function req_init_gen_bitmap(prop) {
             final_buffer: ''
         },
         response: {
+          field_no_present: [],
           final_buffer: '',
-          string_data: {}
+          string_data: {},
+          pointer: 0
         }
     }
 
     return new Promise(function(fulfill, reject) {
-        logService.logEvent("packlib.init_and_gen_bitmap..set user specific profile/properties");
+        logService.logEvent("packlib.init_gen_bitmap..set user specific profile/properties");
         // console.log("Befor: ", configlib.read_config("per_log_level") );
         configlib.update_prop(prop);
         // console.log("After: ", configlib.read_config("per_log_level") );
@@ -35,7 +37,7 @@ function req_init_gen_bitmap(prop) {
         let bitmap_hex = "";
         let isSecBitPresent = false;
         let reqData = iso8583_msg.request.string_data;
-        logService.logEvent("packlib.init_and_gen_bitmap..generating bitmap")
+        logService.logEvent("packlib.init_gen_bitmap..generating bitmap")
         if (iso8583_msg.request.string_data.f0) {
             iso8583_msg.request.field_no_present.push(0);
         }
@@ -55,12 +57,12 @@ function req_init_gen_bitmap(prop) {
         } else {
             bitmap_bin = "0" + bitmap_bin.substr(0, 63);
         }
-        logService.logEvent("packlib.init_and_gen_bitmap..bitmap generated '" + bitmap_bin + "'");
+        logService.logEvent("packlib.init_gen_bitmap..bitmap generated '" + bitmap_bin + "'");
         bitmap_hex = convlib.bitohex(bitmap_bin);
         iso8583_msg.request.string_data.f1 = bitmap_hex;
         iso8583_msg.request.field_no_present.push(1);
         iso8583_msg.request.field_no_present.sort(numComparator)
-        logService.logInfo("packlib.init_and_gen_bitmap.iso8583_msg:", iso8583_msg)
+        logService.logInfo("packlib.init_gen_bitmap.iso8583_msg:", iso8583_msg)
         fulfill(iso8583_msg);
     })
 }
@@ -124,16 +126,16 @@ function getFieldDetForEnc(fn, fvalue) {
 
 }
 
-function req_encode_request_fields(iso8583_msg) {
-    logService.logEvent("packlib.req_encode_request_fields...encode each field one by one")
+function encode_request_fields(iso8583_msg) {
+    logService.logEvent("packlib.encode_request_fields...encode each field one by one")
     var iso = iso8583_msg;
     var flist = iso.request.field_no_present;
     var fdata = iso.request.string_data;
     return new Promise(function(fulfill, reject) {
         for (var i = 0; i < flist.length; i++) {
-            logService.logEvent("packlib.req_encode_request_fields...encoding field '" + flist[i] + "'")
+            logService.logEvent("packlib.encode_request_fields...encoding field '" + flist[i] + "'")
             let fdet = getFieldDetForEnc(flist[i], fdata["f" + flist[i]]);
-            logService.logInfo("packlib.req_encode_request_fields...encoding detail for field '" + flist[i] + "':", fdet)
+            logService.logInfo("packlib.encode_request_fields...encoding detail for field '" + flist[i] + "':", fdet)
             let buff = Buffer.from(fdet.fvalue, fdet.fenc);
             iso.request.encoded_data["f" + flist[i]] = buff;
         }
@@ -141,10 +143,10 @@ function req_encode_request_fields(iso8583_msg) {
     })
 }
 
-function req_add_header(iso8583_msg) {
+function add_header(iso8583_msg) {
 
     return new Promise(function(fulfill, reject) {
-      logService.logEvent("packlib.req_add_header...add header and prepare final buffer msg!")
+      logService.logEvent("packlib.add_header...add header and prepare final buffer msg!")
         let msg_buffer = [];
         let msg_buffer_len = 0;
         let iso = iso8583_msg;
@@ -161,21 +163,21 @@ function req_add_header(iso8583_msg) {
             msg_buffer[sindex] = fdatabuf["f" + flist[i]]
             sindex = sindex + 1;
         }
-        logService.logEvent("packlib.req_add_header...msg buffer length is "+msg_buffer_len+" Bytes!");
+        logService.logEvent("packlib.add_header...msg buffer length is "+msg_buffer_len+" Bytes!");
 
         if (ishdrincl) {
-          logService.logEvent("packlib.req_add_header...as per configuration header has to be included, so calculating header value!")
+          logService.logEvent("packlib.add_header...as per configuration header has to be included, so calculating header value!")
             if (configlib.read_config("cli_hdr_msg")) {
                 msg_buffer_len = msg_buffer_len + configlib.read_config("cli_hdr_len");
-                logService.logEvent("packlib.req_add_header...header length also included in header value, so header value is "+msg_buffer_len);
+                logService.logEvent("packlib.add_header...header length also included in header value, so header value is "+msg_buffer_len);
             }else {
-              logService.logEvent("packlib.req_add_header..only msg length included in header value, so header value is "+msg_buffer_len);
+              logService.logEvent("packlib.add_header..only msg length included in header value, so header value is "+msg_buffer_len);
             }
             let fdet = getFieldDetForEnc(-1, msg_buffer_len);
             let hdrbuf = Buffer.from(fdet.fvalue, fdet.fenc);
             msg_buffer[0] = hdrbuf;
         }else {
-          logService.logEvent("packlib.req_add_header...as per configuration dont include header, so header will not be sent!")
+          logService.logEvent("packlib.add_header...as per configuration dont include header, so header will not be sent!")
         }
         iso.request.final_buffer = Buffer.concat(msg_buffer, msg_buffer_len);
         fulfill(iso);

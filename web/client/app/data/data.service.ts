@@ -165,10 +165,11 @@ export class DataService {
 
     filterReqDataPerFieldDef(reqData: any, reqFieldDef: any){
       //remove those field data from request, whose field definition is not present
+      //reqData []. reqFieldDef {}
       let filtereReqData = []
       for(var i=0; i<reqData.length; i++){
         if ( reqFieldDef[reqData[i].key] ){
-          filtereReqData.psh(reqData[i]);
+          filtereReqData.push(reqData[i]);
         }
       }
       return filtereReqData;

@@ -16,7 +16,7 @@ export class LogService {
         }
     }
 
-    logInfo() {
+    logInfo(...args) {
         if (this.logLevel == 3 || this.logLevel == 4) {
             for (var i = 0; i < arguments.length; i++) {
                 console.log(arguments[i]);

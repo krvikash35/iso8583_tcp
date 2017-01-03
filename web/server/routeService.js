@@ -26,15 +26,18 @@ function getDefaultData(req, res){
 }
 
 function transrecieve(req, res){
-  packlib.req_init_gen_bitmap(req.body)
+  packlib.init_gen_bitmap(req.body)
     .then(function(data){
-      return packlib.req_encode_request_fields(data)
+      return packlib.encode_request_fields(data)
     })
     .then(function(data){
-      return packlib.req_add_header(data);
+      return packlib.add_header(data);
     })
     .then(function(data){
       return socklib.createNewSockConnAndSend(data);
+    })
+    .then(function(data){
+      return unpacklib.decode_response_fields(data)
     })
     .then(function(data){
       responseHandler(200, data, res);
@@ -57,7 +60,7 @@ function responseHandler(status, data, res){
 }
 
 function errorHandler(status, err, res){
-  logService.logEvent("routeService.errorHandler...Sent response to http client!")
+  logService.logEvent("routeService.errorHandler...Sent ERROR response to http client!")
   var errObj = {
     'name':  err.name,
     'message': err.message,
@@ -75,6 +78,7 @@ function errorHandler(status, err, res){
 }
 
 function catchAllHandler(err, req, res, next) {
+  logService.logEvent("routeService.catchAllHandler...Sent ERROR response (STATUS_CODE 500) to http client!")
     var errObj = {
       'method': req['method'],
       'url': req['originalUrl'],

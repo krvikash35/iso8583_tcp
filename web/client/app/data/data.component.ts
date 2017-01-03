@@ -43,7 +43,7 @@ export class DataComponent implements OnInit {
             },
             (err) => {
                 this.logService.logEvent("DataComponent.ngOnInit.getReqData...dataService returned error")
-                this.logService.logInfo("DataComponent.ngOnInit.getReqData.err:"err)
+                this.logService.logInfo("DataComponent.ngOnInit.getReqData.err:", err)
             });
     }
 
