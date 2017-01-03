@@ -1,7 +1,8 @@
 var logService = require('./logService');
-var configlib = require('./lib/configlib');
+var configlib = require('./lib/config');
 var packlib = require('./lib/pack');
-var socklib = require('./lib/socklib')
+var socklib = require('./lib/sock');
+var unpacklib = require('./lib/unpack');
 
 var routeService = {
     getDefaultData: getDefaultData,
@@ -34,6 +35,8 @@ function transrecieve(req, res){
     })
     .then(function(data){
       return socklib.createNewSockConnAndSend(data);
+    })
+    .then(function(data){
       responseHandler(200, data, res);
     })
     .catch(function(err){
@@ -42,6 +45,7 @@ function transrecieve(req, res){
 }
 
 function responseHandler(status, data, res){
+  logService.logEvent("routeService.responseHandler...Sent response to http client!")
   var resObj = {
       'status': status,
       'response': {
@@ -53,6 +57,7 @@ function responseHandler(status, data, res){
 }
 
 function errorHandler(status, err, res){
+  logService.logEvent("routeService.errorHandler...Sent response to http client!")
   var errObj = {
     'name':  err.name,
     'message': err.message,

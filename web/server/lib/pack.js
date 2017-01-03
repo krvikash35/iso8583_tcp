@@ -1,5 +1,5 @@
 'use strict'
-var configlib = require('./configlib');
+var configlib = require('./config');
 var convlib = require('./convert');
 var logService = require('../logService');
 
@@ -53,7 +53,7 @@ function req_init_gen_bitmap(prop) {
         if (isSecBitPresent) {
             bitmap_bin = "1" + bitmap_bin;
         } else {
-            bitmap_bin = "0" + bitmap_bin
+            bitmap_bin = "0" + bitmap_bin.substr(0, 63);
         }
         logService.logEvent("packlib.init_and_gen_bitmap..bitmap generated '" + bitmap_bin + "'");
         bitmap_hex = convlib.bitohex(bitmap_bin);
@@ -161,7 +161,6 @@ function req_add_header(iso8583_msg) {
             msg_buffer[sindex] = fdatabuf["f" + flist[i]]
             sindex = sindex + 1;
         }
-        console.log(msg_buffer);
         logService.logEvent("packlib.req_add_header...msg buffer length is "+msg_buffer_len+" Bytes!");
 
         if (ishdrincl) {
@@ -178,7 +177,6 @@ function req_add_header(iso8583_msg) {
         }else {
           logService.logEvent("packlib.req_add_header...as per configuration dont include header, so header will not be sent!")
         }
-        console.log(msg_buffer);
         iso.request.final_buffer = Buffer.concat(msg_buffer, msg_buffer_len);
         fulfill(iso);
     })

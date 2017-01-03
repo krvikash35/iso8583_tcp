@@ -77,7 +77,7 @@ export class DataComponent implements OnInit {
         if (fnoi == 1) {
             return this.reqProcStatus.msg = "this field no will be automatically send";
         }
-        if (fnoi < 0 || fnoi > 127) {
+        if (fnoi < 0 || fnoi > 128) {
             return this.reqProcStatus.msg = "field no must be between 0 and 127";
         }
 
