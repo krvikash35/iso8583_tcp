@@ -2008,7 +2008,7 @@ var iso8583_1993_cmn = {
     f0: {
         'type': 'N',
         'maxlen': 4,
-        'lentype': 0,
+        'lentype': 1,
         'desc': 'Message Type Indicator'
     },
     f1: {

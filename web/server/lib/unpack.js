@@ -68,20 +68,31 @@ function parse_mti(iso){
   let buff_data = iso.response.final_buffer;
   let ptr = iso.response.pointer;
   let flen = configlib.read_config("ser_fldn_max", 0) ;
-  let fenc = configlib.read_config("ser_enc_mti") ;
-  logService.logEvent("unpacklib.res_decode_response_fields...MTI length is "+flen+" and MTI encoding is "+fenc + " and pointer is "+ptr);
-  switch (fenc) {
-      case "ascii":
-          fvalue = buff_data.toString("ascii", ptr, ptr+flen);
-          ptr = ptr + flen;
-          break;
-      case "hex":
-          fvalue = buff_data.toString("hex", ptr, ptr+flen);
-          ptr = ptr + flen;
-          break;
-      default:
-          throw new Error("unpacklib.res_decode_response_fields...given encoding type '"+ fenc+"' for MTI is not supported!");
+  let fenc = configlib.read_config("ser_enc_fld") ;
+  let flentype = configlib.read_config("ser_fldn_ltype", 0);
+  logService.logEvent("unpacklib.res_decode_response_fields...parsing MTI, length type is "+flentype + " and max length is "+ flen +" and encoding is "+fenc + " and pointer is "+ptr);
+  if( flentype == 0){
+    fvalue = buff_data.toString(fenc, ptr, ptr+flen);
+    ptr = ptr + flen;
+  }else {
+    let fheadlen = parseInt (buff_data.toString(fenc, ptr, ptr+flentype) );
+    ptr = ptr + flentype;
+    fvalue = buff_data.toString(fenc, ptr, ptr+fheadlen);
+    ptr = ptr + fheadlen;
   }
+
+  // switch (fenc) {
+  //     case "ascii":
+  //         fvalue = buff_data.toString("ascii", ptr, ptr+flen);
+  //         ptr = ptr + flen;
+  //         break;
+  //     case "hex":
+  //         fvalue = buff_data.toString("hex", ptr, ptr+flen);
+  //         ptr = ptr + flen;
+  //         break;
+  //     default:
+  //         throw new Error("unpacklib.res_decode_response_fields...given encoding type '"+ fenc+"' for MTI is not supported!");
+  // }
   iso.response.field_no_present.push(0);
   iso.response.string_data.f0 = fvalue;
   iso.response.pointer = ptr;

@@ -1,1 +1,162 @@
-<h1>This is config component</h1>
+<div class="card-container">
+
+    <!-- common section card -->
+    <div class="card">
+        <div class="card-header">
+            {{prop.personal.title}}
+        </div>
+        <div class="card-body">
+            <div class="card-body-item">
+                {{prop.personal.host.title}}
+                <input type="text" placeholder="{{prop.personal.host.hint}}" />
+            </div>
+            <div class="card-body-item">
+                {{prop.personal.port.title}}
+                <input type="text" placeholder="{{prop.personal.port.hint}}" />
+            </div>
+            <div class="card-body-item">
+                {{prop.personal.loglevel.title}}
+                <select>
+                 <option *ngFor="let opt of prop.personal.loglevel.allowdValue" [value]="opt.value">{{opt.name}}</option>
+              </select>
+            </div>
+            <div class="card-body-item">
+                {{prop.personal.theme.title}}
+                <select>
+                 <option *ngFor="let opt of prop.personal.theme.allowdValue" [value]="opt.value">{{opt.name}}</option>
+              </select>
+            </div>
+            <div class="card-body-item">
+                {{prop.personal.tcp_timeout.title}}
+                <select>
+                 <option *ngFor="let opt of prop.personal.tcp_timeout.allowdValue" [value]="opt.value">{{opt.name}}</option>
+              </select>
+            </div>
+            <div class="card-body-item">{{prop.personal.http_timeout.title}}
+                <select>
+                 <option *ngFor="let opt of prop.personal.http_timeout.allowdValue" [value]="opt.value">{{opt.name}}</option>
+              </select>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="card-footer">
+            <button class="btn-flat ripple">Cancel</button>
+            <button class="btn-flat ripple">Done</button>
+        </div>
+    </div>
+
+
+
+    <!-- client section card -->
+    <div class="card">
+        <div class="card-header">
+            {{prop.client.title}}<label class="disabled-text">&nbsp; &nbsp;(HOW REQUEST SENT AS CLIENT)</label>
+        </div>
+        <div class="card-body">
+            <!--  server top section-->
+            <div class="card-body-item">{{prop.client.field_definition.title}}
+                <select>
+          <option *ngFor="let opt of prop.client.field_definition.allowdValue" [value]="opt.value">{{opt.name}}</option>
+       </select>
+            </div>
+            <div class="divider"></div>
+            <!--  server header section-->
+            <div class="card-body-item">{{prop.client.header.include_header.title}}
+                <label class="switch">
+          <input checked="true" type="checkbox">
+          <div class="slider"></div>
+        </label>
+            </div>
+            <div class="card-body-item">{{prop.client.header.header_value_logic.title}}
+                <label class="switch">
+          <input type="checkbox">
+          <div class="slider"></div>
+        </label>
+            </div>
+            <div class="card-body-item">{{prop.client.header.header_len.title}}
+                <input type="text" placeholder="{{prop.client.header.header_len.hint}}" />
+            </div>
+            <div class="divider"></div>
+            <!-- server encoding section  -->
+            <div class="card-body-item">{{prop.client.encode.header.title}}
+                <select>
+          <option *ngFor="let opt of prop.client.encode.header.allowdValue" [value]="opt.value">{{opt.name}}</option>
+       </select>
+            </div>
+            <div class="card-body-item">{{prop.client.encode.bitmap.title}}
+                <select>
+          <option *ngFor="let opt of prop.client.encode.bitmap.allowdValue" [value]="opt.value">{{opt.name}}</option>
+       </select>
+            </div>
+            <div class="card-body-item">{{prop.client.encode.fields.title}}
+                <select>
+          <option *ngFor="let opt of prop.client.encode.fields.allowdValue" [value]="opt.value">{{opt.name}}</option>
+       </select>
+            </div>
+            <div class="divider"></div>
+        </div>
+        <div class="card-footer">
+            <button class="btn-flat ripple">Edit</button>
+            <button class="btn-flat ripple">Cancel</button>
+            <button class="btn-flat ripple">Done</button>
+        </div>
+    </div>
+
+
+
+    <!-- server section card -->
+    <div class="card">
+        <div class="card-header">
+            {{prop.server.title}}<label class="disabled-text">&nbsp; &nbsp;(HOW RESPONSE RECEIVED FROM SERVER)</label>
+        </div>
+        <div class="card-body">
+            <!--  server top section-->
+            <div class="card-body-item">{{prop.server.field_definition.title}}
+                <select>
+              <option *ngFor="let opt of prop.server.field_definition.allowdValue" [value]="opt.value">{{opt.name}}</option>
+           </select>
+            </div>
+            <div class="divider"></div>
+            <!--  server header section-->
+            <div class="card-body-item">{{prop.server.header.include_header.title}}
+                <label class="switch">
+              <input checked="true" type="checkbox">
+              <div class="slider"></div>
+            </label>
+            </div>
+            <div class="card-body-item">{{prop.server.header.header_value_logic.title}}
+                <label class="switch">
+              <input type="checkbox">
+              <div class="slider"></div>
+            </label>
+            </div>
+            <div class="card-body-item">{{prop.server.header.header_len.title}}
+                <input type="text" placeholder="{{prop.server.header.header_len.hint}}" />
+            </div>
+            <div class="divider"></div>
+            <!-- server encoding section  -->
+            <div class="card-body-item">{{prop.server.encode.header.title}}
+                <select>
+              <option *ngFor="let opt of prop.server.encode.header.allowdValue" [value]="opt.value">{{opt.name}}</option>
+           </select>
+            </div>
+            <div class="card-body-item">{{prop.server.encode.bitmap.title}}
+                <select>
+              <option *ngFor="let opt of prop.server.encode.bitmap.allowdValue" [value]="opt.value">{{opt.name}}</option>
+           </select>
+            </div>
+            <div class="card-body-item">{{prop.server.encode.fields.title}}
+                <select>
+              <option *ngFor="let opt of prop.server.encode.fields.allowdValue" [value]="opt.value">{{opt.name}}</option>
+           </select>
+            </div>
+            <div class="divider"></div>
+        </div>
+        <div class="card-footer">
+            <button class="btn-flat ripple">Edit</button>
+            <button class="btn-flat ripple">Cancel</button>
+            <button class="btn-flat ripple">Done</button>
+        </div>
+    </div>
+
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { PROP } from './config.templete'
 
 @Component({
   selector: 'config',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core'
   styleUrls: []
 })
 export class ConfigComponent{
-
+  prop = PROP;
 }

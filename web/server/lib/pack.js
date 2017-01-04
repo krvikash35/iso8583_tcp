@@ -74,7 +74,8 @@ function getFieldDetForEnc(fn, fvalue) {
     }
     let fenc, flen, flentype;
     if ((fn >= 2 && fn <= 128) || fn == 0) {
-        fn == 0 ? fenc = configlib.read_config("cli_enc_mti") : fenc = configlib.read_config("cli_enc_fld");
+        // fn == 0 ? fenc = configlib.read_config("cli_enc_mti") : fenc = configlib.read_config("cli_enc_fld");
+        fenc = configlib.read_config("cli_enc_fld")
         flentype = configlib.read_config("cli_fldn_ltype", fn);
         if (flentype == 0) {
             fdet.fvalue = fvalue;
