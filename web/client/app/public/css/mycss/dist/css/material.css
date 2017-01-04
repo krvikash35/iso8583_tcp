@@ -2389,6 +2389,13 @@ select {
 4. text-disabled
 5. z-depth-x
 */
+.disabled {
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.12); }
+
+.enabled {
+  pointer-events: auto; }
+
 .divider {
   width: 100%;
   height: 1px;
