@@ -2,7 +2,7 @@
 
 <div class="left ">
     <div  class="equal clickable" (click)="setOrToggleFlag('isRequestDivVisible')">
-      <label class="clickable">REQUEST</label>
+      <label class="clickable">REQUEST{{resFieldDef?.f0?.lentype}}</label>
       <i [hidden]='flagObj.isRequestDivVisible' class="material-icons">keyboard_arrow_down</i>
       <i [hidden]='!flagObj.isRequestDivVisible' class="material-icons">keyboard_arrow_up</i></div>
     <div >

@@ -1,38 +1,39 @@
 <div class="card-container">
 
     <!-- common section card -->
-    <div  class="card ">
+    <div class="card ">
         <div class="card-header">
             {{prop.personal.title}}
         </div>
-        <div  class="card-body">
+        <div class="card-body">
             <div class="card-body-item">
-                {{prop.personal.host.title}}
-                <input [(ngModel)]="config.server.host" type="text" placeholder="{{prop.personal.host.hint}}" />
+                <label>{{prop.personal.host.title}}</label>
+                <input [(ngModel)]="config.personal.host" type="text" placeholder="{{prop.personal.host.hint}}" />
             </div>
             <div class="card-body-item">
-                {{prop.personal.port.title}}
-                <input [(ngModel)]="config.server.port" type="text" placeholder="{{prop.personal.port.hint}}" />
+                <label>{{prop.personal.port.title}}</label>
+                <input [(ngModel)]="config.personal.port" type="text" placeholder="{{prop.personal.port.hint}}" />
             </div>
             <div class="card-body-item">
-                {{prop.personal.loglevel.title}}
+                <label>{{prop.personal.loglevel.title}}</label>
                 <select [(ngModel)]="config.personal.loglevel">
                  <option *ngFor="let opt of prop.personal.loglevel.allowdValue" [value]="opt.value">{{opt.name}}</option>
               </select>
             </div>
             <div class="card-body-item">
-                {{prop.personal.theme.title}}
+                <label>{{prop.personal.theme.title}}</label>
                 <select [(ngModel)]="config.personal.theme">
                  <option *ngFor="let opt of prop.personal.theme.allowdValue" [value]="opt.value">{{opt.name}}</option>
               </select>
             </div>
             <div class="card-body-item">
-                {{prop.personal.tcp_timeout.title}}
-                <select [(ngModel)]="config.personal.tcp_timeout">
+                <label>{{prop.personal.tcp_timeout.title}}</label>
+                <select type="number" [(ngModel)]="config.personal.tcp_timeout">
                  <option *ngFor="let opt of prop.personal.tcp_timeout.allowdValue" [value]="opt.value">{{opt.name}}</option>
               </select>
             </div>
-            <div class="card-body-item">{{prop.personal.http_timeout.title}}
+            <div class="card-body-item">
+                <label>{{prop.personal.http_timeout.title}}</label>
                 <select [(ngModel)]="config.personal.http_timeout">
                  <option *ngFor="let opt of prop.personal.http_timeout.allowdValue" [value]="opt.value">{{opt.name}}</option>
               </select>
@@ -40,7 +41,7 @@
         </div>
         <div class="divider"></div>
         <div class="card-footer">
-            <button class="btn-flat ripple">Save</button>
+            <button (click)="update_config('personal')" class="btn-flat ripple">Save</button>
         </div>
     </div>
 
@@ -51,45 +52,53 @@
     <!-- client section card -->
     <div class="card">
         <div class="card-header">
-            {{prop.client.title}}<label class="disabled-text">&nbsp; &nbsp;(HOW REQUEST SENT AS CLIENT)</label>
+            <label>{{prop.client.title}}</label>
+            <label class="disabled-text">(HOW REQUEST SENT AS CLIENT)</label>
         </div>
         <div class="card-body">
             <!--  server top section-->
-            <div class="card-body-item">{{prop.client.field_definition.title}}
+            <div class="card-body-item">
+                <label>{{prop.client.field_definition.title}}</label>
                 <select [(ngModel)]="config.client.field_def">
                       <option *ngFor="let item of fdlist" [value]="item">{{item}}</option>
                 </select>
             </div>
             <div class="divider"></div>
             <!--  server header section-->
-            <div class="card-body-item">{{prop.client.header.include_header.title}}
+            <div class="card-body-item">
+                <label>{{prop.client.header.include_header.title}}</label>
                 <label class="switch">
                   <input [(ngModel)]="config.client.header.include_header"  type="checkbox">
                   <div class="slider"></div>
                 </label>
             </div>
-            <div class="card-body-item">{{prop.client.header.header_value_logic.title}}
+            <div class="card-body-item">
+                <label>{{prop.client.header.header_value_logic.title}}</label>
                 <label class="switch">
           <input [(ngModel)]="config.client.header.include_header_for_msglen_cal"  type="checkbox">
           <div class="slider"></div>
         </label>
             </div>
-            <div class="card-body-item">{{prop.client.header.header_len.title}}
-                <input [(ngModel)]="config.client.header.header_len"  type="text" placeholder="{{prop.client.header.header_len.hint}}" />
+            <div class="card-body-item">
+                <label>{{prop.client.header.header_len.title}}</label>
+                <input [(ngModel)]="config.client.header.header_len" type="number" placeholder="{{prop.client.header.header_len.hint}}" />
             </div>
             <div class="divider"></div>
             <!-- server encoding section  -->
-            <div class="card-body-item">{{prop.client.encode.header.title}}
+            <div class="card-body-item">
+                <label>{{prop.client.encode.header.title}}</label>
                 <select [(ngModel)]="config.client.encode.header_encode">
           <option *ngFor="let opt of prop.client.encode.header.allowdValue" [value]="opt.value">{{opt.name}}</option>
        </select>
             </div>
-            <div class="card-body-item">{{prop.client.encode.bitmap.title}}
+            <div class="card-body-item">
+                <label>{{prop.client.encode.bitmap.title}}</label>
                 <select [(ngModel)]="config.client.encode.bitmap_encode">
           <option *ngFor="let opt of prop.client.encode.bitmap.allowdValue" [value]="opt.value">{{opt.name}}</option>
        </select>
             </div>
-            <div class="card-body-item">{{prop.client.encode.fields.title}}
+            <div class="card-body-item">
+                <label>{{prop.client.encode.fields.title}}</label>
                 <select [(ngModel)]="config.client.encode.field_encode">
           <option *ngFor="let opt of prop.client.encode.fields.allowdValue" [value]="opt.value">{{opt.name}}</option>
        </select>
@@ -97,7 +106,7 @@
             <div class="divider"></div>
         </div>
         <div class="card-footer">
-          <button class="btn-flat ripple">Save</button>
+            <button (click)="update_config('client')" class="btn-flat ripple">Save</button>
         </div>
     </div>
 
@@ -112,41 +121,48 @@
         </div>
         <div class="card-body">
             <!--  server top section-->
-            <div class="card-body-item">{{prop.server.field_definition.title}}
+            <div class="card-body-item">
+                <label>{{prop.server.field_definition.title}}</label>
                 <select [(ngModel)]="config.server.field_def">
               <option *ngFor="let item of fdlist" [value]="item">{{item}}</option>
            </select>
             </div>
             <div class="divider"></div>
             <!--  server header section-->
-            <div class="card-body-item">{{prop.server.header.include_header.title}}
+            <div class="card-body-item">
+                <label>{{prop.server.header.include_header.title}}</label>
                 <label class="switch">
               <input [(ngModel)]="config.server.header.include_header"  type="checkbox">
               <div class="slider"></div>
             </label>
             </div>
-            <div class="card-body-item">{{prop.server.header.header_value_logic.title}}
+            <div class="card-body-item">
+                <label>{{prop.server.header.header_value_logic.title}}</label>
                 <label class="switch">
               <input [(ngModel)]="config.server.header.include_header_for_msglen_cal" type="checkbox">
               <div class="slider"></div>
             </label>
             </div>
-            <div class="card-body-item">{{prop.server.header.header_len.title}}
-                <input type="text" [(ngModel)]="config.server.header.header_len" placeholder="{{prop.server.header.header_len.hint}}" />
+            <div class="card-body-item">
+                <label>{{prop.server.header.header_len.title}}</label>
+                <input type="number" [(ngModel)]="config.server.header.header_len" placeholder="{{prop.server.header.header_len.hint}}" />
             </div>
             <div class="divider"></div>
             <!-- server encoding section  -->
-            <div class="card-body-item">{{prop.server.encode.header.title}}
+            <div class="card-body-item">
+                <label>{{prop.server.encode.header.title}}</label>
                 <select [(ngModel)]="config.server.encode.header_encode">
               <option *ngFor="let opt of prop.server.encode.header.allowdValue" [value]="opt.value">{{opt.name}}</option>
            </select>
             </div>
-            <div class="card-body-item">{{prop.server.encode.bitmap.title}}
+            <div class="card-body-item">
+                <label>{{prop.server.encode.bitmap.title}}</label>
                 <select [(ngModel)]="config.server.encode.bitmap_encode">
               <option *ngFor="let opt of prop.server.encode.bitmap.allowdValue" [value]="opt.value">{{opt.name}}</option>
            </select>
             </div>
-            <div class="card-body-item">{{prop.server.encode.fields.title}}
+            <div class="card-body-item">
+                <label>{{prop.server.encode.fields.title}}</label>
                 <select [(ngModel)]="config.server.encode.field_encode">
               <option *ngFor="let opt of prop.server.encode.fields.allowdValue" [value]="opt.value">{{opt.name}}</option>
            </select>
@@ -154,7 +170,7 @@
             <div class="divider"></div>
         </div>
         <div class="card-footer">
-          <button class="btn-flat ripple">Save</button>
+            <button (click)="update_config('server')" class="btn-flat ripple">Save</button>
         </div>
     </div>
 

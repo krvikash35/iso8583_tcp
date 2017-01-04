@@ -17,7 +17,8 @@ function init_gen_bitmap(prop) {
             field_no_present: [],
             string_data: {},
             encoded_data: {},
-            final_buffer: ''
+            final_buffer: '',
+            pointer: 0
         },
         response: {
           field_no_present: [],
@@ -83,10 +84,11 @@ function getFieldDetForEnc(fn, fvalue) {
             fdet.fvalue = pad(fvalue.length, flentype, "l", "0") + fvalue;
         }
         fdet.fenc = fenc;
+        fdet.flentype = flentype;
         return fdet;
     } else if (fn == -1) {
         fenc = configlib.read_config("cli_enc_hdr");
-        flen = configlib.read_config("cli_hdr_len")
+        flen = configlib.read_config("cli_hdr_len");
         switch (fenc) {
             case "ascii":
                 fvalue = pad(fvalue, flen, 'l', '0');
@@ -119,7 +121,7 @@ function getFieldDetForEnc(fn, fvalue) {
         fenc = configlib.read_config("cli_enc_bit");
         fdet.fvalue = fvalue;
         fdet.fenc = fenc;
-
+        fdet.flentype = configlib.read_config("cli_fldn_ltype", 1);
         return fdet;
     } else {
         throw new Error("packlib.getFieldDetForEnc..invalid field number '" + fn + "' provided while reading config!")
@@ -130,16 +132,19 @@ function getFieldDetForEnc(fn, fvalue) {
 function encode_request_fields(iso8583_msg) {
     logService.logEvent("packlib.encode_request_fields...encode each field one by one")
     var iso = iso8583_msg;
+    let ptr = iso.request.pointer;
     var flist = iso.request.field_no_present;
     var fdata = iso.request.string_data;
     return new Promise(function(fulfill, reject) {
         for (var i = 0; i < flist.length; i++) {
-            logService.logEvent("packlib.encode_request_fields...encoding field '" + flist[i] + "'")
             let fdet = getFieldDetForEnc(flist[i], fdata["f" + flist[i]]);
+            logService.logEvent("packlib.encode_request_fields...encoding field " + flist[i] + "and value is "+fdet.fvalue+" and encoding is "+fdet.fenc+" and length type is "+fdet.flentype+" and pointer is "+ptr)
             logService.logInfo("packlib.encode_request_fields...encoding detail for field '" + flist[i] + "':", fdet)
             let buff = Buffer.from(fdet.fvalue, fdet.fenc);
+            ptr = ptr + buff.length;
             iso.request.encoded_data["f" + flist[i]] = buff;
         }
+        iso.request.pointer = ptr;
         fulfill(iso);
     })
 }
@@ -151,6 +156,7 @@ function add_header(iso8583_msg) {
         let msg_buffer = [];
         let msg_buffer_len = 0;
         let iso = iso8583_msg;
+        let ptr = iso.request.pointer;
         let flist = iso.request.field_no_present;
         let ishdrincl = configlib.read_config("cli_hdr_encl");
         let arrSize = ishdrincl ? flist.length + 1: flist.length;
@@ -178,8 +184,11 @@ function add_header(iso8583_msg) {
               logService.logEvent("packlib.add_header..only msg length included in header value, so header value is "+hdr_value);
             }
             let fdet = getFieldDetForEnc(-1, msg_buffer_len);
+            logService.logEvent("packlib.add_header...encoding header " + "and value is "+fdet.fvalue+" and encoding is "+fdet.fenc+" and length is "+hdrlen+"  and pointer is "+ptr)
             let hdrbuf = Buffer.from(fdet.fvalue, fdet.fenc);
+            ptr = ptr + hdrbuf.length;
             msg_buffer[0] = hdrbuf;
+            iso.request.pointer = ptr;
         }else {
           logService.logEvent("packlib.add_header...as per configuration dont include header, so header will not be sent!")
         }

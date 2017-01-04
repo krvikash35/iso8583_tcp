@@ -153,6 +153,8 @@ export class DataComponent implements OnInit {
         this.logService.logEvent("DataComponent.getResponseData...calling dataService to get the response data!");
         this.setOrToggleFlag('responseDataStatus', 2);
         this.setOrToggleFlag('isSendBtnDisabled');
+        let prop = this.dataService.readFromLocalStorage("prop");
+        this.resTimeoutCntr = parseInt(prop.personal.http_timeout) + parseInt(prop.personal.tcp_timeout);
         let  respCntr = setInterval( () => { this.resTimeoutCntr = this.resTimeoutCntr - 1; }, 1000);
         setTimeout(() => { clearInterval(respCntr)}, this.resTimeoutCntr*1000)
         this.dataService.getResData().subscribe(

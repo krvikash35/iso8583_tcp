@@ -69,7 +69,7 @@ function parse_mti(iso){
   let ptr = iso.response.pointer;
   let flen = configlib.read_config("ser_fldn_max", 0) ;
   let fenc = configlib.read_config("ser_enc_fld") ;
-  let flentype = configlib.read_config("ser_fldn_ltype", 0);
+  let flentype = parseInt(configlib.read_config("ser_fldn_ltype", 0));
   logService.logEvent("unpacklib.res_decode_response_fields...parsing MTI, length type is "+flentype + " and max length is "+ flen +" and encoding is "+fenc + " and pointer is "+ptr);
   if( flentype == 0){
     fvalue = buff_data.toString(fenc, ptr, ptr+flen);

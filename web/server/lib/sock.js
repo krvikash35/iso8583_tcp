@@ -14,13 +14,14 @@ function createNewSockConnAndSend(iso8583_msg) {
   return new Promise(function(fulfill, reject){
     let HOST = configlib.read_config("ser_host");
     let PORT = configlib.read_config("ser_port");
-    let timeout = configlib.read_config("per_tcp_timeout");
+    let timeout = parseInt(configlib.read_config("per_tcp_timeout"));
 
     logService.logEvent('socklib.createNewSockConnAndSend...CONNECTING TO: ' + HOST + ':' + PORT + " and receive timeout is "+timeout+" second!");
     var client = new net.Socket();
     client.connect(PORT, HOST, function() {
         logService.logEvent("socklib.createNewSockConnAndSend...CONNECTED!")
         client.write(iso8583_msg.request.final_buffer);
+        logService.logEvent("socklib.createNewSockConnAndSend...Wrote "+iso8583_msg.request.final_buffer.length+" Bytes..")
         client.setTimeout(timeout*1000)
     });
     client.on('data', function(data) {

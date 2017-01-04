@@ -56,8 +56,8 @@ function logRequest(req, res, next){
 
 function logResponse(resobj){
   if(logLevel == 4){
-    // console.log('Sent response to http client: ', resobj);
-    console.log('Sent response to http client: ');
-    console.log(util.inspect(resobj, false, null))
+    console.log('Sent response to http client: ', resobj);
+    // console.log('Sent response to http client: ');
+    // console.log(util.inspect(resobj, false, null))
   }
 }

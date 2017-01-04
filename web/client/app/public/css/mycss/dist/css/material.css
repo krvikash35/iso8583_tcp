@@ -2214,17 +2214,10 @@ small {
 .table th {
   color: rgba(255, 255, 255, 0.54); }
 
-input[type="text"] {
-  color: #FFFFFF;
-  border: none;
-  border-bottom: 1px solid #F50057;
-  outline: none;
-  background-color: transparent; }
-
-.primary-text, .card-container > .card > .card-header {
+.primary-text, select, input[type="text"], input[type="number"], .card-container > .card > .card-header {
   color: white; }
 
-.secondary-text, .card-container > .card > .card-body {
+.secondary-text, .card-container > .card > .card-body, .card-body-item > label {
   color: rgba(255, 255, 255, 0.7); }
 
 .disabled-text, .btn-flat.disabled,
@@ -2277,7 +2270,18 @@ input:checked + .slider:before {
 
 select {
   background-color: #00796b;
-  border-radius: 5px; }
+  border-radius: 5px;
+  width: 185px; }
+
+input[type="text"], input[type="number"] {
+  border: none;
+  border-bottom: 1px solid #F50057;
+  outline: none;
+  background-color: transparent; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; }
 
 .card-container {
   display: flex;
@@ -2301,7 +2305,9 @@ select {
   padding: 5px; }
 
 .card-container > .card > .card-body > .card-body-item {
-  padding: 5px; }
+  padding: 5px;
+  display: flex;
+  justify-content: space-between; }
 
 .card-container > .card > .card-footer > button {
   color: #F50057 !important; }

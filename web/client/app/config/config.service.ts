@@ -9,8 +9,14 @@ export class ConfigService {
 
     }
     getConfigObj(){
+      this.logService.logEvent("ConfigService.getConfigObj...will get config object from cache!");
       let configObj = this.dataService.readFromLocalStorage('prop');
       return configObj;
+    }
+    setConfigObj(sectionKey: any, configValue: any){
+      let configObj = this.dataService.readFromLocalStorage('prop');
+      configObj[sectionKey] = configValue[sectionKey];
+      this.dataService.writeToLocalStorage('prop', configObj);
     }
 
     getPropTemplte(){

@@ -21,9 +21,9 @@ export class DataService {
         let reqData = this.readFromLocalStorage('reqData');
         if (!isObjEmtpy(reqData)) {
           this.logService.logEvent('DataService.getReqData...requested data found in cache, no need to fetch from server!')
-          let reqFieldDef = this.getFieldDefinition('reqFieldDefkey');
-          let resFieldDef = this.getFieldDefinition('resFieldDefkey');
           let prop = this.readFromLocalStorage('prop');
+          let reqFieldDef = this.getFieldDefinition(prop.client.field_def);
+          let resFieldDef = this.getFieldDefinition(prop.server.field_def);
           let returnObj = {
             reqData: reqData,
             reqFieldDef: reqFieldDef,
@@ -48,14 +48,14 @@ export class DataService {
                     defaultReqData = this.sortObjArrayByKey(defaultReqData, 'key')
                     this.writeToLocalStorage('reqData', defaultReqData);
 
+                    let defaultProp = resDatajson.defaultProp;
+                    this.writeToLocalStorage('prop', defaultProp);
+
                     let defaultFieldDefList = resDatajson.defaultFieldDefList;
                     this.writeToLocalStorage('fieldDefList', defaultFieldDefList);
-                    this.writeToLocalStorage('reqFieldDefkey', 'iso8583_1993_cmn');
-                    this.writeToLocalStorage('resFieldDefkey', 'iso8583_1993_cmn');
-                    let defaultReqFieldDef = defaultFieldDefList.iso8583_1993_cmn;
-                    let defaultResFieldDef = defaultFieldDefList.iso8583_1993_cmn;
-                    let defaultProp = resDatajson.defaultProp
-                    this.writeToLocalStorage('prop', defaultProp);
+                    let defaultReqFieldDef = defaultFieldDefList[defaultProp.client.field_def];
+                    let defaultResFieldDef = defaultFieldDefList[defaultProp.server.field_def];
+
 
                     let returnObj = {
                       reqData: defaultReqData,
@@ -80,10 +80,12 @@ export class DataService {
       let headers = new Headers({ 'Content-Type': 'application/json' });
       let options = new RequestOptions({ headers: headers });
       let prop = this.readFromLocalStorage('prop');
+      // console.log(prop.client.field_def)
       let reqData = this.readFromLocalStorage('reqData');
       reqData = this.cnvrtReqDataArrayToObj(reqData);
-      let reqFieldDef = this.getFieldDefinition('reqFieldDefkey');
-      let resFieldDef = this.getFieldDefinition('resFieldDefkey');
+      let reqFieldDef = this.getFieldDefinition(prop.client.field_def);
+      console.log(reqFieldDef)
+      let resFieldDef = this.getFieldDefinition(prop.server.field_def);
       prop.personal.reqData = reqData;
       prop.client.field_def = reqFieldDef;
       prop.server.field_def = resFieldDef;
@@ -110,15 +112,13 @@ export class DataService {
 
     getFieldDefinition(key: any){
       let fdlist = this.readFromLocalStorage('fieldDefList');
-      let fdlistkey =  this.readFromLocalStorage(key);
-      return fdlist[fdlistkey];
+      return fdlist[key];
     }
 
     readFromLocalStorage(key: any) {
         let value = JSON.parse(localStorage.getItem(key))
         return value;
     }
-
 
     writeToLocalStorage(key: any, value: any) {
         value = JSON.stringify(value)
