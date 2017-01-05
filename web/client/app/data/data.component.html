@@ -40,10 +40,10 @@
 </table>
 <div class="right">
   <input focusOnInit *ngIf="showExportFileName" type="text" (blur)="showExportFileName=false"  [(ngModel)]='exportFileName' placeholder="ENTER FILE NAME...!" />
-  <a  [href]="bindExportData? exportReqData(): ''"  (mouseover)="showExportFileName=true" (click)="bindExportData=true" (blur)="bindExportData=false;"  [class.btn-raised-disabled]="reqData?.length==0" [attr.download]="getExportFileName()"  class="btn-raised ripple  clickable">Export Data</a>
-  <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
+  <a  [href]="bindExportData? exportReqData(): ''"  (mouseover)="showExportFileName=true" (click)="bindExportData=true" (blur)="bindExportData=false;"  [class.btn-raised-disabled]="reqData?.length==0" [attr.download]="getExportFileName()"  class="btn-raised ripple  clickable">Export request Data</a>
+  <label for="importReqData" class="btn-raised ripple clickable" >Import Request Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
-  <button [class.btn-raised-disabled]="reqData?.length==0 || flagObj.isSendBtnDisabled" (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>
+  <button [class.btn-raised-disabled]="reqData?.length==0 || flagObj.isSendBtnDisabled" (click)="getResponseData()" class="btn-raised ripple">Send REQUEST to Server</button>
 </div>
 </div>
 

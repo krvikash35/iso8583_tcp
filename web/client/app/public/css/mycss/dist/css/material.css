@@ -2233,9 +2233,6 @@ small {
 .table tr {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 
-th:last-child {
-  width: 100%; }
-
 .primary-text, select, input[type="text"], input[type="number"], .card-container > .card > .card-header {
   color: white; }
 
