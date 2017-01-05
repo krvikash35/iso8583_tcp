@@ -1,1 +1,7 @@
-<h1>This is field component</h1>
+<div class="center">
+  <a  [href]="bindExportData? exportFieldDefinition(): ''" (click)="bindExportData=true" (blur)="bindExportData=false"  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json"  class="btn-raised ripple  clickable">EXPORT FIELD DEFINITION</a>
+  <label for="importFieldDefinition" class="btn-raised ripple clickable" >IMPORT FIELD DEFINITION</label>
+  <input id="importFieldDefinition" type="file" (change)="importFieldDefinition($event)" />
+  <label for="importUsingCDCI" class="btn-raised ripple clickable" >USE CDCI.CFG FIELD DEFINITION</label>
+  <input id="importUsingCDCI" type="file" (change)="importUsingCDCI($event)" />
+</div>
