@@ -1,7 +1,34 @@
-<div class="center">
-  <a  [href]="bindExportData? exportFieldDefinition(): ''" (click)="bindExportData=true" (blur)="bindExportData=false"  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json"  class="btn-raised ripple  clickable">EXPORT FIELD DEFINITION</a>
-  <label for="importFieldDefinition" class="btn-raised ripple clickable" >IMPORT FIELD DEFINITION</label>
-  <input id="importFieldDefinition" type="file" (change)="importFieldDefinition($event)" />
-  <label for="importUsingCDCI" class="btn-raised ripple clickable" >USE CDCI.CFG FIELD DEFINITION</label>
-  <input id="importUsingCDCI" type="file" (change)="importUsingCDCI($event)" />
+
+
+
+<div class="right">
+
+
+  <input focusOnInit *ngIf="showExportFileName" type="text" (blur)="showExportFileName=false"  [(ngModel)]='exportFileName' placeholder="ENTER FILE NAME...!" />
+  <a  [href]="bindExportData? exportFieldDefData(): ''"  (mouseover)="showExportFileName=true" (click)="bindExportData=true" (blur)="bindExportData=false;"  [attr.download]="getExportFileName()"  class="btn-raised ripple  clickable">Export field definition</a>
+  <label for="importFieldDefData" class="btn-raised ripple clickable" >Import field definition</label>
+  <input id="importFieldDefData" type="file" (change)="importFieldDefData($event)" />
+  <label for="importUsingCDCIData" class="btn-raised ripple clickable" >Import using cdci.cfg</label>
+  <input id="importUsingCDCIData" type="file" (change)="importUsingCDCIData($event)" />
 </div>
+
+<div class="left">
+<label>VIEW FIELD DEFINITION</label>
+<select (change)="update_currentfdObjArr()" [(ngModel)]="currentfdKey">
+ <option  *ngFor="let opt of fdlistKeyArr" [value]="opt">{{opt}}</option>
+</select>
+</div>
+<table class="table">
+  <tr>
+    <th>FieldNo</th>
+    <th>FieldLengthType</th>
+    <th>FieldMaxLenght</th>
+    <th >FieldDescritption</th>
+  </tr>
+  <tr *ngFor="let fd of currentfdObjArr">
+    <td>{{fd?.key}}</td>
+    <td>{{fd?.value?.lentype}}</td>
+    <td>{{fd?.value?.maxlen}}</td>
+    <td>{{fd?.value?.desc}}</td>
+  </tr>
+</table>

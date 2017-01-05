@@ -39,7 +39,8 @@
   </tr>
 </table>
 <div class="right">
-  <a  [href]="bindExportData? exportReqData(): ''" (click)="bindExportData=true" (blur)="bindExportData=false"  [class.btn-raised-disabled]="reqData?.length==0" download="request_data.json"  class="btn-raised ripple  clickable">Export Data</a>
+  <input focusOnInit *ngIf="showExportFileName" type="text" (blur)="showExportFileName=false"  [(ngModel)]='exportFileName' placeholder="ENTER FILE NAME...!" />
+  <a  [href]="bindExportData? exportReqData(): ''"  (mouseover)="showExportFileName=true" (click)="bindExportData=true" (blur)="bindExportData=false;"  [class.btn-raised-disabled]="reqData?.length==0" [attr.download]="getExportFileName()"  class="btn-raised ripple  clickable">Export Data</a>
   <label for="importReqData" class="btn-raised ripple clickable" >Import Data</label>
   <input id="importReqData" type="file" (change)="importReqData($event)" />
   <button [class.btn-raised-disabled]="reqData?.length==0 || flagObj.isSendBtnDisabled" (click)="getResponseData()" class="btn-raised ripple">Send to Server</button>

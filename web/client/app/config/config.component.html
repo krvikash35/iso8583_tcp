@@ -1,5 +1,12 @@
-<div class="card-container">
 
+  <div class="right">
+    <input focusOnInit *ngIf="showExportFileName" type="text" (blur)="showExportFileName=false"  [(ngModel)]='exportFileName' placeholder="ENTER FILE NAME...!" />
+    <a  [href]="bindExportData? exportFieldDefData(): ''"  (mouseover)="showExportFileName=true" (click)="bindExportData=true" (blur)="bindExportData=false;"  [class.btn-raised-disabled]="reqData?.length==0" [attr.download]="getExportFileName()"  class="btn-raised ripple  clickable">Export Data</a>
+    <label for="importConfigData" class="btn-raised ripple clickable" >Import Data</label>
+    <input id="importConfigData" type="file" (change)="importConfigData($event)" />
+  </div>
+
+<div class="card-container">
     <!-- common section card -->
     <div class="card ">
         <div class="card-header">

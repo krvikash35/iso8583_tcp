@@ -19,6 +19,7 @@ export class DataComponent implements OnInit {
     prop: any = {};
     reqDataEdit: any = {};
     resTimeoutCntr: number = 40;
+    exportFileName: string = "balanceInquery.json";
     flagObj: any = {
         isreqDataEditFnoValid: false,
         isRequestDivVisible: true,
@@ -107,7 +108,7 @@ export class DataComponent implements OnInit {
         this.logService.logEvent("DataComponent.exportReqData...export request data")
         if (this.reqData && this.reqData.length > 0) {
             let reqDataObj = this.dataService.cnvrtReqDataArrayToObj(this.reqData)
-            let url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(reqDataObj));
+            let url = 'data:text/json;charset=utf8,' + encodeURIComponent(JSON.stringify(reqDataObj, null, 4));
             return this.sanitizer.bypassSecurityTrustUrl(url);
         }
     }
@@ -175,5 +176,19 @@ export class DataComponent implements OnInit {
                 this.setOrToggleFlag('responseDataStatus', 3);
                 this.setOrToggleFlag('isSendBtnDisabled');
             });
+    }
+
+
+    getExportFileName(){
+      if(!this.exportFileName){
+        return "balanceInquery.json"
+      }else{
+        let temp = this.exportFileName.split(".");
+        if(temp){
+          return temp[0]+".json"
+        }else{
+          return temp+".json"
+        }
+      }
     }
 }

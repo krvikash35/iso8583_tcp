@@ -27,4 +27,8 @@ export class ConfigService {
       let fdlist = this.dataService.readFromLocalStorage('fieldDefList');
       return Object.keys(fdlist)
     }
+
+    writeToLocalStorage(key, value){
+      this.dataService.writeToLocalStorage(key, value)
+    }
 }

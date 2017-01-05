@@ -121,6 +121,14 @@ export class DataService {
     }
 
     writeToLocalStorage(key: any, value: any) {
+
+        if(key == "fieldDefList"){//whenever fdlist changes, update config server and client default fd
+          let prop = this.readFromLocalStorage("prop");
+          prop.server.field_def = Object.keys(value)[0]
+          prop.client.field_def = Object.keys(value)[0]
+          prop = JSON.stringify(prop)
+          localStorage.setItem("prop", prop);
+        }
         value = JSON.stringify(value)
         localStorage.setItem(key, value);
     }
