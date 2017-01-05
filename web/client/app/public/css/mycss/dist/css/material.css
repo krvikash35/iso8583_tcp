@@ -2013,6 +2013,21 @@ th {
   src: url("../fonts/roboto/Roboto-Medium.eot");
   src: url("../fonts/roboto/Roboto-Medium.woff2") format("woff2"), url("../fonts/roboto/Roboto-Medium.woff") format("woff"), url("../fonts/roboto/Roboto-Medium.ttf") format("truetype");
   font-weight: 500; }
+.material-icons.md-13 {
+  font-size: 13px; }
+
+.material-icons.md-18 {
+  font-size: 18px; }
+
+.material-icons.md-24 {
+  font-size: 24px; }
+
+.material-icons.md-36 {
+  font-size: 36px; }
+
+.material-icons.md-48 {
+  font-size: 48px; }
+
 a {
   text-decoration: none; }
 
@@ -2200,19 +2215,26 @@ small {
   border-bottom: 2px solid #F50057; }
 
 .table {
-  width: 100%; }
+  width: 100%;
+  font-size: 13px; }
 
 .table td,
 .table th {
   text-align: left;
-  padding: 5px 10px 5px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  padding: 5px 10px 5px 10px; }
 
 .table td {
-  color: rgba(255, 255, 255, 0.87); }
+  color: rgba(255, 255, 255, 0.87);
+  white-space: nowrap; }
 
 .table th {
   color: rgba(255, 255, 255, 0.54); }
+
+.table tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+
+th:last-child {
+  width: 100%; }
 
 .primary-text, select, input[type="text"], input[type="number"], .card-container > .card > .card-header {
   color: white; }

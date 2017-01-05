@@ -2,7 +2,7 @@
 
 <div class="left ">
     <div  class="equal clickable" (click)="setOrToggleFlag('isRequestDivVisible')">
-      <label class="clickable">REQUEST{{resFieldDef?.f0?.lentype}}</label>
+      <label class="clickable">REQUEST</label>
       <i [hidden]='flagObj.isRequestDivVisible' class="material-icons">keyboard_arrow_down</i>
       <i [hidden]='!flagObj.isRequestDivVisible' class="material-icons">keyboard_arrow_up</i></div>
     <div >
@@ -19,16 +19,16 @@
     <th>FieldLengthType</th>
     <th>FieldMaxLenght</th>
     <th >FieldDescritption</th>
-    <th>FieldValue</th>
+    <th >FieldValue</th>
   </tr>
   <tr *ngFor="let req of reqData">
-    <td class="clickable" (click)="removeReqDataRow(req?.key)"><i class="material-icons">delete</i></td>
+    <td class="clickable" (click)="removeReqDataRow(req?.key)"><i  class="material-icons md-13">delete</i></td>
     <td>{{req?.key}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.lentype}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.maxlen}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.desc}}</td>
     <td *ngIf="!req.showEditField" (click)="req.showEditField=true;" class="pre-ws clickable">"{{req?.value}}"</td>
-    <td *ngIf="req.showEditField">  <input focusOnInit  (ngModelChange)="onReqDataFVModelChange(req?.key, $event)" (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
+    <td *ngIf="req.showEditField">  <input focusOnInit  [attr.maxlength]="reqFieldDef[req?.key]?.maxlen" (ngModelChange)="onReqDataFVModelChange(req?.key, $event)" (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
   </tr>
   <tr >
     <td  colspan="2"> <input  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
