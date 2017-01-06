@@ -9,7 +9,7 @@ var logService = {
 }
 
 module.exports = logService;
-var logLevel = 4; //1, 2, 3, 4
+var logLevel = 2; //1, 2, 3, 4
 
 
 function logError(err, msg){
@@ -19,7 +19,7 @@ function logError(err, msg){
 }
 
 function logEvent(msg){
-  if(logLevel == 4){
+  if(logLevel == 2){
       console.log(msg);
   }
 }

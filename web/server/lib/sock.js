@@ -28,8 +28,8 @@ function createNewSockConnAndSend(iso8583_msg) {
         var buffer_data = Buffer.from(data);
         logService.logEvent("socklib.createNewSockConnAndSend..."+buffer_data.length+" BYTE RECEVIED FROM SERVER: , WILL END CONNECTION NOW...", buffer_data.length);
         iso8583_msg.response.final_buffer = buffer_data;
-        fulfill(iso8583_msg)
-        client.end()
+        client.end();
+        fulfill(iso8583_msg);        
     });
     client.on('timeout', function() {
         logService.logEvent("socklib.createNewSockConnAndSend...TIMEOUT IN RECEIVING RESPONSE FROM SERVER, WILL END CONNECTION...");
@@ -38,6 +38,7 @@ function createNewSockConnAndSend(iso8583_msg) {
     })
     client.on('close', function() {
         logService.logEvent('socklib.createNewSockConnAndSend...Connection closed');
+        reject(new Error("socklib.createNewSockConnAndSend...Connection closed!"))
     });
     client.on('error', function() {
         logService.logEvent('socklib.createNewSockConnAndSend...Connection error, check if given host and port is correct!');

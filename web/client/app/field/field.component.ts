@@ -73,7 +73,10 @@ export class FieldComponent{
         that.fdlistKeyArr = Object.keys(that.fdlistObj);
         that.logService.logInfo("FieldComponent:importFieldDefData:fileContent ", fileContent);
         that.fieldService.writeToLocalStorage("fieldDefList", fileContent);
-        that.logService.logEvent("FieldComponent.importFieldDefData...updated cache!")
+        that.logService.logEvent("FieldComponent.importFieldDefData...updated cache!");
+        that.fdlistKeyArr = Object.keys(that.fdlistObj);
+        that.currentfdKey = that.fdlistKeyArr[0];
+        that.update_currentfdObjArr();
     }
     freader.readAsText(file);
   }
@@ -94,7 +97,10 @@ export class FieldComponent{
         that.fdlistObj = that.fieldService.convertCDCIToJson(fileContent);
         that.logService.logInfo("FieldComponent:importUsingCDCIData: after converting cdci.cfg to json: ", that.fdlistObj);
         that.fieldService.writeToLocalStorage("fieldDefList", that.fdlistObj);
-        that.logService.logEvent("FieldComponent.importUsingCDCIData...updated cache!")
+        that.logService.logEvent("FieldComponent.importUsingCDCIData...updated cache!");
+        that.fdlistKeyArr = Object.keys(that.fdlistObj);
+        that.currentfdKey = that.fdlistKeyArr[0];
+        that.update_currentfdObjArr();
     }
     freader.readAsText(file);
   }
