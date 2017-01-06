@@ -28,3 +28,12 @@ net.createServer(function(sock) {
 
 }).listen(PORT, HOST);
 console.log('Server listening on ' + HOST + ':' + PORT);
+
+
+
+
+function callFn(fn, intervalInSecond, times){
+  let temp = 1;
+  let  respCntr = setInterval( () => { this.resTimeoutCntr = this.resTimeoutCntr - 1; }, 1000);
+  setInterval(fn, intervalInSecond*1000)
+}

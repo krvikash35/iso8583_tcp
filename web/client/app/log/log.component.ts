@@ -11,7 +11,6 @@ import { Observable, Observer, Subject } from 'rxjs/Rx';
 })
 export class LogComponent implements OnInit{
 
-  private msgevt: Subject<MessageEvent>;
   constructor(private logService: LogService, private wsService: WebSocketService) { }
 
     ngOnInit(): void {
@@ -19,9 +18,15 @@ export class LogComponent implements OnInit{
     }
 
     createWebSocket(){
-      let host = location.hostname;
-      let sock_url = "ws://"+host+"/websocket"
-      this.msgevt = this.wsService.connect(sock_url);
-      console.log(this.msgevt)
+      let host = window.location.hostname;
+      let port = window.location.port;
+      // let port = 1234;
+      let sock_url = "ws://"+host+":"+port;
+      this.wsService.connect(sock_url).subscribe((data) =>{
+        console.log("data: ", data.data)
+      }, (err) => {
+        console.log("error: ",err)
+      })
+
     }
 }
