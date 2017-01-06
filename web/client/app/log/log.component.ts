@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { LogService } from '../data/log.service'
 import { WebSocketService } from './socket.service'
+import { Observable, Observer, Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'log',
@@ -10,6 +11,7 @@ import { WebSocketService } from './socket.service'
 })
 export class LogComponent implements OnInit{
 
+  private msgevt: Subject<MessageEvent>;
   constructor(private logService: LogService, private wsService: WebSocketService) { }
 
     ngOnInit(): void {
@@ -19,6 +21,7 @@ export class LogComponent implements OnInit{
     createWebSocket(){
       let host = location.hostname;
       let sock_url = "ws://"+host+"/websocket"
-      this.wsService.connect(sock_url);
+      this.msgevt = this.wsService.connect(sock_url);
+      console.log(this.msgevt)
     }
 }

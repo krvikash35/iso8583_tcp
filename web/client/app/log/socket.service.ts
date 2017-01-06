@@ -12,46 +12,57 @@ export class WebSocketService {
     }
 
     connect(url) {
-        if (!this.socket) {
-            this.socket = this.createWebSocket(url);
-        }
+        // if (!this.socket) {
+        this.socket = this.createWebSocket(url);
+        // }
         return this.socket;
     }
 
     createWebSocket(url) {
         let ws = new WebSocket(url);
 
+        let observer = Observer.create(
+            function(data) {
+                // worker.postMessage(data);
+                console.log("observer:", data)
+            });
+
         let observable = Observable.create(
-            (obs: Observer<MessageEvent>) => {
-                // ws.onmessage = obs.next.bind(obs);
-                // ws.onerror = obs.error.bind(obs);
-                // ws.onclose = obs.complete.bind(obs);
-                ws.onmessage = obs.onmessage.bind(obs);
-                ws.onerror = obs.onerror.bind(obs);
-                ws.onclose = obs.onclose.bind(obs);
-                return ws.close.bind(ws);
+            (obs) => {
+                ws.onmessage = function(data) {
+                    obs.onNext(data);
+                };
+                ws.onerror = function(err) {
+                    obs.onError(err);
+                };
+                return function() {
+                    ws.close();
+                };
             }
         );
 
-        let observer = {
-            // next: (data: Object) => {
-            //     if (ws.readyState === WebSocket.OPEN) {
-            //         ws.send(JSON.stringify(data));
-            //     }
-            // },
-            // error: (data: Object) => {
-            //   console.log("error")
-            // }
-            onmessage: (data: Object) => {
-              console.log("message received from websocket server")
-            },
-            onerror: (data: Object) => {
-              console.log("error connecting to websocket server")
-            },
-            onclose: (data: Object) => {
-              console.log("websocket connection closed")
-            }
-        };
+
+
+
+        // let observer = {
+        //     next: (data: Object) => {
+        //         if (ws.readyState === WebSocket.OPEN) {
+        //             ws.send(JSON.stringify(data));
+        //         }
+        //     },
+        //     error: (data: Object) => {
+        //       console.log("error connecting to websocket server")
+        //     }
+        //     // onmessage: (data: Object) => {
+        //     //   console.log("message received from websocket server")
+        //     // },
+        //     // onerror: (data: Object) => {
+        //     //   console.log("error connecting to websocket server")
+        //     // },
+        //     // onclose: (data: Object) => {
+        //     //   console.log("websocket connection closed")
+        //     // }
+        // };
 
         return Subject.create(observer, observable);
 
