@@ -26,7 +26,7 @@ export class WebSocketService {
 		if (!this.subject) {
 			this.subject = this.create(url);
 		}
-		return JSON.parse(this.subject);
+		return this.subject;
 	}
 
   public close(){
@@ -46,6 +46,10 @@ export class WebSocketService {
     }
 
   }
+
+	public getSubjectStatus(){
+		return this.subject;
+	}
 
 	private create(url): Subject<MessageEvent> {
 		let ws = new WebSocket(url);

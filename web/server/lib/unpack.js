@@ -2,6 +2,7 @@
 var configlib = require('./config');
 var convlib = require('./convert');
 var logService = require('../logService');
+var wslogService = require('../wslogService');
 
 var unpacklib = {
     decode_response_fields: decode_response_fields
@@ -9,6 +10,7 @@ var unpacklib = {
 module.exports = unpacklib;
 
 function decode_response_fields(iso8583_msg){
+  let logService = wslogService(iso8583_msg.wsid)
   logService.logEvent("unpacklib.res_decode_response_fields...decode response field one by one!")
   return new Promise(function(fulfill, reject){
     let resBuff = iso8583_msg.response.final_buffer;
@@ -16,12 +18,14 @@ function decode_response_fields(iso8583_msg){
     parse_mti(iso8583_msg);
     parse_bitmap(iso8583_msg);
     parse_fields(iso8583_msg);
+    console.log("iso8583_msg", iso8583_msg.wsid);
     fulfill(iso8583_msg.response.string_data);
   })
 }
 
 
 function parse_header(iso){
+  let logService = wslogService(iso.wsid)
   logService.logEvent("unpacklib.res_decode_response_fields...parsing header!");
   let ishdrincl = configlib.read_config("ser_hdr_encl");
   if(!ishdrincl){
@@ -63,6 +67,7 @@ function parse_header(iso){
 }
 
 function parse_mti(iso){
+  let logService = wslogService(iso.wsid)
   logService.logEvent("unpacklib.res_decode_response_fields...parsing MTI!");
   let fvalue = 0;
   let buff_data = iso.response.final_buffer;
@@ -100,6 +105,7 @@ function parse_mti(iso){
 }
 
 function parse_bitmap(iso){
+  let logService = wslogService(iso.wsid)
   logService.logEvent("unpacklib.res_decode_response_fields...parsing bitmap");
   let fenc = configlib.read_config("ser_enc_bit") ;
   let flen = fenc=="hex"? 8:  16;
@@ -137,6 +143,7 @@ function parse_bitmap(iso){
 }
 
 function parse_fields(iso){
+  let logService = wslogService(iso.wsid)
   logService.logEvent("unpacklib.res_decode_response_fields...parsing data  fields!");
   let sindex = iszerolen(iso.response.string_data.header)? 0: 1;
   let fvalue = 0;

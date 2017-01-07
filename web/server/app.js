@@ -9,10 +9,12 @@ var websoklib = require('./lib/websock');
 var httpserver = require('http').createServer(app);
 var routeService = require('./routeService');
 var logService = require('./logService');
+var wslogService = require('./wslogService')();
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
     extended: true
 }))
+
 app.use(bodyParser.json())
 app.use('/node_modules', exp.static(__proot + '/node_modules'));
 app.use('/', exp.static(__proot + '/web/client'));
@@ -20,6 +22,8 @@ app.use('/app/*', exp.static(__proot + '/web/client'));
 // process.on('uncaughtException', (err) => {
 //   console.log('uncaughtException', err);
 // })
+
+
 app.use(logService.logRequest)
 app.get('/service/getDefaultData', routeService.getDefaultData);
 app.post('/service/transrecieve', routeService.transrecieve);

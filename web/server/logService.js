@@ -6,17 +6,12 @@ var logService = {
   logResponse: logResponse,
   logEvent: logEvent,
   logInfo: logInfo,
-  logError: logError,
-  setwsid: setwsid
+  logError: logError
 }
 
 module.exports = logService;
 var logLevel = 2; //1, 2, 3, 4
 var wsid = null;
-
-function setwsid(id){
-  wsid = id;
-}
 
 function logError(err, msg){
   if(logLevel == 1){
@@ -24,20 +19,9 @@ function logError(err, msg){
   }
 }
 
-function logEvent(msg){
-
-  var logData ={
-    msg: msg,
-    type: "event"
-  }
-
+function logEvent(msg, wsid){
   if(logLevel == 2){
-    websoklib.send_msg(wsid, msg);
-    // console.log("sending logevent");
-    // console.log(new Error().stack);
-    // websoklib.sendLogMsg(logData);
-
-      // console.log(msg);
+      console.log(msg);
   }
 }
 
@@ -52,7 +36,7 @@ function logInfo(){
 
 function logRequest(req, res, next){
   if(logLevel == 2){
-    console.log("routeService.requestHandler...Got request from http client!");
+    console.log("logService.logRequest...Got request from http client!");
   }
   if(logLevel == 4){
     var reqobj = {

@@ -2414,6 +2414,15 @@ input::-webkit-inner-spin-button {
 4. text-disabled
 5. z-depth-x
 */
+.webconsole {
+  margin: 10px;
+  padding: 10px;
+  height: 500px;
+  display: block;
+  overflow-y: scroll;
+  background: black;
+  border-radius: 10px; }
+
 .disabled {
   pointer-events: none;
   background-color: rgba(255, 255, 255, 0.12); }

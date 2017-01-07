@@ -2,6 +2,7 @@
 var configlib = require('./config');
 var convlib = require('./convert');
 var logService = require('../logService');
+var wslogService = require('../wslogService');
 
 var packlib = {
     init_gen_bitmap: init_gen_bitmap,
@@ -12,6 +13,7 @@ module.exports = packlib;
 
 
 function init_gen_bitmap(prop) {
+  let logService = wslogService(prop.wsid)
     var iso8583_msg = {
         request: {
             field_no_present: [],
@@ -25,7 +27,8 @@ function init_gen_bitmap(prop) {
           final_buffer: '',
           string_data: {},
           pointer: 0
-        }
+        },
+        wsid: prop.wsid
     }
 
     return new Promise(function(fulfill, reject) {
@@ -130,6 +133,7 @@ function getFieldDetForEnc(fn, fvalue) {
 }
 
 function encode_request_fields(iso8583_msg) {
+  let logService = wslogService(iso8583_msg.wsid)
     logService.logEvent("packlib.encode_request_fields...encode each field one by one")
     var iso = iso8583_msg;
     let ptr = iso.request.pointer;
@@ -150,7 +154,7 @@ function encode_request_fields(iso8583_msg) {
 }
 
 function add_header(iso8583_msg) {
-
+let logService = wslogService(iso8583_msg.wsid)
     return new Promise(function(fulfill, reject) {
       logService.logEvent("packlib.add_header...add header and prepare final buffer msg!")
         let msg_buffer = [];

@@ -89,6 +89,7 @@ export class DataService {
       prop.personal.reqData = reqData;
       prop.client.field_def = reqFieldDef;
       prop.server.field_def = resFieldDef;
+      prop.wsid = this.readFromLocalStorage("wsid");
       let body = prop;
       let url = 'service/transrecieve';
       return this.http.post(url, body, options)

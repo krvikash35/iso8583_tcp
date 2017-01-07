@@ -2,6 +2,7 @@
 var net = require('net');
 var configlib = require('./config');
 var logService = require('../logService');
+var wslogService = require('../wslogService');
 
 var socklib = {
   createNewSockConnAndSend: createNewSockConnAndSend
@@ -10,6 +11,7 @@ var socklib = {
 module.exports = socklib;
 
 function createNewSockConnAndSend(iso8583_msg) {
+  let logService = wslogService(iso8583_msg.wsid)
   logService.logEvent("socklib.createNewSockConnAndSend...create new tcp socket connection and write the buffer!")
   return new Promise(function(fulfill, reject){
     let HOST = configlib.read_config("ser_host");
@@ -26,10 +28,10 @@ function createNewSockConnAndSend(iso8583_msg) {
     });
     client.on('data', function(data) {
         var buffer_data = Buffer.from(data);
-        logService.logEvent("socklib.createNewSockConnAndSend..."+buffer_data.length+" BYTE RECEVIED FROM SERVER: , WILL END CONNECTION NOW...", buffer_data.length);
+        logService.logEvent("socklib.createNewSockConnAndSend..."+buffer_data.length+" BYTE RECEVIED FROM SERVER: , WILL END CONNECTION NOW...");
         iso8583_msg.response.final_buffer = buffer_data;
         client.end();
-        fulfill(iso8583_msg);        
+        fulfill(iso8583_msg);
     });
     client.on('timeout', function() {
         logService.logEvent("socklib.createNewSockConnAndSend...TIMEOUT IN RECEIVING RESPONSE FROM SERVER, WILL END CONNECTION...");

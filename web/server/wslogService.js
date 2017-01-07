@@ -1,13 +1,30 @@
+"use strict"
 var websoklib = require('./lib/websock')
 
 function wslogService(wsid){
-console.log(wsid);
-  var logobj = {
-    logEvent: logEvent
+  let logLevel = 2; //1, 2, 3, 4
+  let logobj = {
+    logEvent: logEvent,
+    logInfo: logInfo
   }
+  function logInfo(){
+
+  }
+
   function logEvent(msg){
-      websoklib.send_msg(wsid, msg);
+    if(logLevel == 2){
+      let res = {type: websoklib.msgtype.LOG, data:{
+        type: "event",
+        log: msg
+      }}
+      if(!iszerolen(wsid)){
+        websoklib.send_msg(wsid, res);
+      }
+
+    }
   }
+
+
   return logobj;
 }
 

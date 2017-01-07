@@ -1,5 +1,6 @@
 "use strict"
 var logService = require('./logService');
+var wslogService = require('./wslogService');
 var configlib = require('./lib/config');
 var packlib = require('./lib/pack');
 var socklib = require('./lib/sock');
@@ -12,6 +13,7 @@ var routeService = {
     catchAllHandler: catchAllHandler
     // wstester: wstester
 }
+
 
 module.exports = routeService;
 
@@ -29,6 +31,8 @@ function getDefaultData(req, res){
 }
 
 function transrecieve(req, res){
+  let logService = wslogService(req.body.wsid);
+  logService.logEvent("routeService.transrecieve...Gor transrecieve request from http client!")
   packlib.init_gen_bitmap(req.body)
     .then(function(data){
       return packlib.encode_request_fields(data)
@@ -42,10 +46,12 @@ function transrecieve(req, res){
     .then(function(data){
       return unpacklib.decode_response_fields(data)
     })
-    .then(function(data){
+    .then(function(data, wsid){
+      logService.logEvent("routeService.transrecieve...Sent response to http client!")
       responseHandler(200, data, res);
     })
     .catch(function(err){
+      logService.logevent("routeService.transrecieve...Sent ERROR response to http client!")
       errorHandler(400, err, res);
     })
 }
