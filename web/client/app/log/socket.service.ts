@@ -26,7 +26,7 @@ export class WebSocketService {
 		if (!this.subject) {
 			this.subject = this.create(url);
 		}
-		return this.subject;
+		return JSON.parse(this.subject);
 	}
 
   public close(){

@@ -8,14 +8,14 @@ import { Observable, Observer, Subject } from 'rxjs/Rx';
   selector: 'log',
   templateUrl: 'app/log/log.component.html',
   styleUrls: [],
-  providers: [WebSocketService]
+  providers: []
 })
 export class LogComponent implements OnInit{
 
   constructor(private logService: LogService, private wsService: WebSocketService, private dataService: DataService) { }
 
     ngOnInit(): void {
-
+      this.createWebSocket()
     }
 
     closeWebSocket(){
@@ -30,9 +30,9 @@ export class LogComponent implements OnInit{
     createWebSocket(){
       let host = window.location.hostname;
       let port = window.location.port;
-      // let port = 1234;
       let sock_url = "ws://"+host+":"+port;
       this.wsService.connect(sock_url).subscribe((data) =>{
+        this.dataService.writeToLocalStorage("wsid", )
         console.log("data: ", data.data)
       }, (err) => {
         console.log("error: ",err)

@@ -23,7 +23,7 @@ app.use('/app/*', exp.static(__proot + '/web/client'));
 app.use(logService.logRequest)
 app.get('/service/getDefaultData', routeService.getDefaultData);
 app.post('/service/transrecieve', routeService.transrecieve);
-app.get('/service/wstester', routeService.wstester)
+// app.get('/service/wstester', routeService.wstester)
 
 app.use(routeService.catchAllHandler)
 httpserver.listen(3000, function() {

@@ -5,11 +5,12 @@ var packlib = require('./lib/pack');
 var socklib = require('./lib/sock');
 var unpacklib = require('./lib/unpack');
 
+
 var routeService = {
     getDefaultData: getDefaultData,
     transrecieve: transrecieve,
-    catchAllHandler: catchAllHandler,
-    wstester: wstester
+    catchAllHandler: catchAllHandler
+    // wstester: wstester
 }
 
 module.exports = routeService;
@@ -105,24 +106,28 @@ function catchAllHandler(err, req, res, next) {
 }
 
 
-function wstester(req, res){
-  let reqmsg = req.query.name
-  let wsid = req.query.wsid
-
-  let intervalInSecond = 2;
-  let resmsg = "Hi "+reqmsg;
-  let i =0;
-  let intfn = setInterval(()=> {
-    i = i+1;
-    logService.setwsid(wsid)
-    logService.logEvent(resmsg+i)
-  }, intervalInSecond*1000);
-
-  setTimeout(() => {
-     clearInterval(intfn);
-     res.status(200).send("Hi "+reqmsg+" from server")
-     console.log("response sent");
-   },15*1000)
-
-
-}
+// function wstester(req, res){
+//   let reqmsg = req.query.name
+//   let wsid = req.query.wsid
+//   // let wslogService = wslogService(wsid)
+//   //  let logService = require('./wslogService')(wsid);
+//   logService.setwsid(wsid);
+//   let logService = require('./logService');
+//
+//   let intervalInSecond = 2;
+//   let resmsg = "Hi "+reqmsg;
+//   let i =0;
+//   let intfn = setInterval(()=> {
+//     i = i+1;
+//     console.log("value of wsid stack ", wsid);
+//     // logService.setwsid(wsid);
+//     // wslogService.logEvent(resmsg+i)
+//     logService.logEvent(resmsg+i)
+//   }, intervalInSecond*1000);
+//
+//   setTimeout(() => {
+//      clearInterval(intfn);
+//      res.status(200).send("Hi "+reqmsg+" from server")
+//      console.log("response sent");
+//    },15*1000)
+// }
