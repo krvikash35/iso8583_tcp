@@ -1,16 +1,22 @@
 const util = require('util');
+var websoklib = require('./lib/websock')
 
 var logService = {
   logRequest: logRequest,
   logResponse: logResponse,
   logEvent: logEvent,
   logInfo: logInfo,
-  logError: logError
+  logError: logError,
+  setwsid: setwsid
 }
 
 module.exports = logService;
 var logLevel = 2; //1, 2, 3, 4
+var wsid = null;
 
+function setwsid(id){
+  wsid = id;
+}
 
 function logError(err, msg){
   if(logLevel == 1){
@@ -19,8 +25,19 @@ function logError(err, msg){
 }
 
 function logEvent(msg){
+
+  var logData ={
+    msg: msg,
+    type: "event"
+  }
+
   if(logLevel == 2){
-      console.log(msg);
+    websoklib.send_msg(wsid, msg);
+    // console.log("sending logevent");
+    // console.log(new Error().stack);
+    // websoklib.sendLogMsg(logData);
+
+      // console.log(msg);
   }
 }
 

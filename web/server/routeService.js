@@ -1,3 +1,4 @@
+"use strict"
 var logService = require('./logService');
 var configlib = require('./lib/config');
 var packlib = require('./lib/pack');
@@ -7,7 +8,8 @@ var unpacklib = require('./lib/unpack');
 var routeService = {
     getDefaultData: getDefaultData,
     transrecieve: transrecieve,
-    catchAllHandler: catchAllHandler
+    catchAllHandler: catchAllHandler,
+    wstester: wstester
 }
 
 module.exports = routeService;
@@ -97,6 +99,30 @@ function catchAllHandler(err, req, res, next) {
             data: errObj
         }
     }
+    console.log(err);
     logService.logResponse(resObj)
     res.status(resObj.status).send(resObj.response);
+}
+
+
+function wstester(req, res){
+  let reqmsg = req.query.name
+  let wsid = req.query.wsid
+
+  let intervalInSecond = 2;
+  let resmsg = "Hi "+reqmsg;
+  let i =0;
+  let intfn = setInterval(()=> {
+    i = i+1;
+    logService.setwsid(wsid)
+    logService.logEvent(resmsg+i)
+  }, intervalInSecond*1000);
+
+  setTimeout(() => {
+     clearInterval(intfn);
+     res.status(200).send("Hi "+reqmsg+" from server")
+     console.log("response sent");
+   },15*1000)
+
+
 }

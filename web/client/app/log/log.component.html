@@ -1,2 +1,6 @@
 
-<button (click)="createWebSocket()" class="btn-raised ripple">Create websocket connection</button>
+<button (click)="createWebSocket()" class="btn-raised ripple">CONNECT</button>
+<button (click)="closeWebSocket()" class="btn-raised ripple">CLOSE</button>
+<button (click)="sendMessageToWS(climsg, wsid)" class="btn-raised ripple">SEND</button>
+<input [(ngModel)]="climsg" type="text">
+<input [(ngModel)]="wsid" type="number">
