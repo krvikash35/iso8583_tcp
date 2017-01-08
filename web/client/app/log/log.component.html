@@ -6,9 +6,15 @@
 
 
 <div class="center">
+  <select [(ngModel)]="showlogtype">
+   <option value="event">Show Event Log Only</option>
+   <option value="info">Show Info Log Only</option>
+   <option value="isomsgbytes">Show BYTES Logs Only</option>
+   <option value="all">All Logs</option>
+</select>
     <button (click)="fireRequest()" class="btn-raised ripple">FIRE REQUEST</button>
     <button (click)="logmsgs=[]" class="btn-raised ripple">CLEAR LOG</button>
 </div>
 <div class="webconsole">
-    <pre><span *ngFor="let msg of logmsgs"><label [class]="getcssclass(msg.type).type" >[{{msg.type}}:]</label> <label [class]="getcssclass(msg.type).log"  >{{msg.log}}</label><br/></span></pre>
+    <pre ><span *ngFor="let msg of logmsgs"><span *ngIf="showlogtype==msg.type || showlogtype=='all' || 'browserSideMessage'==msg.type"> <label [class]="getcssclass(msg.type).type" >[{{msg.type}}:]</label> <label [class]="getcssclass(msg.type).log"  >{{msg.log}}</label><br/></span></span></pre>
 </div>

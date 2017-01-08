@@ -44,7 +44,7 @@ function send_msg(wsid, msg){
   if(ws){
     ws.send(JSON.stringify(msg))
   }else{
-    console.log("websoklib.send_msg...given wsid not found, so msg not sent");
+    // console.log("websoklib.send_msg...given wsid not found, so msg not sent");
   }
 }
 

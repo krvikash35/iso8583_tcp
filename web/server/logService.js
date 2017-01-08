@@ -10,7 +10,7 @@ var logService = {
 }
 
 module.exports = logService;
-var logLevel = 2; //1, 2, 3, 4
+var logLevel = 3; //1, 2, 3, 4
 var wsid = null;
 
 function logError(err, msg){

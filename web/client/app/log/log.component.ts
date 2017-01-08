@@ -21,6 +21,10 @@ const CLRCLASS = {
     type: 'text-red text-darken-4',
     log: 'text-red text-darken-1'
   },
+  info: {
+    type: 'text-teal text-darken-4',
+    log: 'text-teal text-darken-1'
+  },
   default: {
     type: 'text-teal text-darken-4',
     log: 'text-teal text-darken-1'
@@ -34,10 +38,16 @@ const CLRCLASS = {
 })
 export class LogComponent implements OnInit{
   logmsgs: any = [];
+  showlogtype: string = "event"
   constructor(private logService: LogService, private wsService: WebSocketService, private dataService: DataService) { }
 
     ngOnInit(): void {
       this.createWebSocket()
+      let logmsg = {
+        type: 'browserSideMessage',
+        log: 'before firing request, make sure to enable log in configuration tab!'
+      }
+      this.logmsgs.push(logmsg)
     }
 
     getcssclass(type){
@@ -91,7 +101,7 @@ export class LogComponent implements OnInit{
         return JSON.parse(response.data);
       })
       .subscribe((res) =>{
-        console.log("response: ", res)
+        // console.log("response: ", res)
         if(res.type == MSGTYPE.HANDSAKE){
           this.dataService.writeToLocalStorage("wsid", res.data.wsid)
         }
