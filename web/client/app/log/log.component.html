@@ -3,10 +3,12 @@
 <button (click)="sendMessageToWS(climsg, wsid)" class="btn-raised ripple">SEND</button>
 <input [(ngModel)]="climsg" type="text">
 <input [(ngModel)]="wsid" type="number"> -->
+
+
 <div class="center">
     <button (click)="fireRequest()" class="btn-raised ripple">FIRE REQUEST</button>
     <button (click)="logmsgs=[]" class="btn-raised ripple">CLEAR LOG</button>
 </div>
 <div class="webconsole">
-    <pre><span *ngFor="let msg of logmsgs"><label [ngClass]="{'text-light-green text-darken-4' : msg.type=='event'}" >[{{msg.type}}:]</label> <label [ngClass]="{'text-light-green text-darken-1' : msg.type=='event'}"  >{{msg.log}}</label><br/></span></pre>
+    <pre><span *ngFor="let msg of logmsgs"><label [class]="getcssclass(msg.type).type" >[{{msg.type}}:]</label> <label [class]="getcssclass(msg.type).log"  >{{msg.log}}</label><br/></span></pre>
 </div>

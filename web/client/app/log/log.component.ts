@@ -8,10 +8,14 @@ const MSGTYPE = {
   HANDSAKE: 0,
   LOG: 1
 }
-const lc = {
-  evt: {
+const CLRCLASS = {
+  event: {
     type: 'text-light-green text-darken-4',
     log: 'text-light-green text-darken-1'
+  },
+  browserSideMessage: {
+    type: 'text-indigo text-darken-4',
+    log: 'text-indigo text-darken-1'
   }
 }
 @Component({
@@ -28,25 +32,40 @@ export class LogComponent implements OnInit{
       this.createWebSocket()
     }
 
+    getcssclass(type){
+      return CLRCLASS[type]
+    }
+
     closeWebSocket(){
       this.wsService.close()
     }
 
     sendMessageToWS(msg, wsid){
-      // this.wsService.send(msg);
-      this.wsService.getwstester(msg, wsid);
+      this.wsService.send(msg);
+      // this.wsService.getwstester(msg, wsid);
     }
 
     fireRequest(){
-      // this.createWebSocket()
-      console.log("getSubjectStatus", this.wsService.getSubjectStatus())
-      // this.dataService
-      // .getResData()
-      // .subscribe((res) =>{
-      //   console.log("LogComponent.fireRequest...response",res)
-      // }, (err) =>{
-      //   console.log("LogComponent.fireRequest...error", err)
-      // })
+      if(this.wsService.getWebsocket().readyState === WebSocket.OPEN){
+        this.getResData()
+      }else{
+        let logmsg = {
+          type: 'browserSideMessage',
+          log: 'connection is not in open state ...might be due to server restart or intermittent network connectivity, you can try refreshing page!'
+        }
+        this.logmsgs.push(logmsg)
+        // this.createWebSocket()
+      }
+    }
+
+    getResData(){
+      this.dataService
+      .getResData()
+      .subscribe((res) =>{
+        console.log("LogComponent.fireRequest...response",res)
+      }, (err) =>{
+        console.log("LogComponent.fireRequest...error", err)
+      })
     }
 
     createWebSocket(){

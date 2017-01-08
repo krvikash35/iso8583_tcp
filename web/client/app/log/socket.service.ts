@@ -5,6 +5,7 @@ import { Http, Response, RequestOptions, Headers, URLSearchParams } from '@angul
 @Injectable()
 export class WebSocketService {
 	private subject: Subject<MessageEvent>;
+	private websocket: WebSocket;
 
   constructor(private http: Http) {
 
@@ -21,6 +22,10 @@ export class WebSocketService {
           console.log(err)
         })
   }
+
+	public getWebsocket(){
+		return this.websocket;
+	}
 
 	public connect(url): Subject<MessageEvent> {
 		if (!this.subject) {
@@ -52,7 +57,9 @@ export class WebSocketService {
 	}
 
 	private create(url): Subject<MessageEvent> {
+		console.log("creating")
 		let ws = new WebSocket(url);
+		this.websocket = ws;
 
 		let observable = Observable.create(
 			(obs: Observer<MessageEvent>) => {

@@ -31,11 +31,12 @@ function add_new_ws_conn(new_ws_conn){
     }
   }
   new_ws_conn.send( JSON.stringify(msg) )
+  // new_ws_conn.close()
 }
 
 function close_ws_conn_byid(wsid){
   wsstruct.ws_conn_list.delete(wsid);
-  console.log("websoklib.close_new_ws_conn...current active connection: ", wsstruct.ws_conn_list.size, " wsid: ", wsid);
+  console.log("websoklib.close_new_ws_conn... current active connection: ", wsstruct.ws_conn_list.size, " wsid: ", wsid);
 }
 
 function send_msg(wsid, msg){
