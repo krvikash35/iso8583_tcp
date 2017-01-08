@@ -2407,6 +2407,18 @@ input::-webkit-inner-spin-button {
     background-color: #dc004e;
     cursor: pointer; }
 
+.book {
+  margin: 10px;
+  display: flex; }
+
+.book > .preface {
+  padding: 5px 10px 5px 5px;
+  height: 80vh;
+  border-right: 2px solid rgba(255, 255, 255, 0.12); }
+
+.book > .content {
+  padding: 5px 5px 5px 10px; }
+
 /*
 1. center
 2. text-primary
@@ -2433,6 +2445,11 @@ input::-webkit-inner-spin-button {
 .divider {
   width: 100%;
   height: 1px;
+  background: rgba(255, 255, 255, 0.12); }
+
+.divider-vertical {
+  width: 1px;
+  height: 100vh;
   background: rgba(255, 255, 255, 0.12); }
 
 .label-error {

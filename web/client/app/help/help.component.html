@@ -1,1 +1,52 @@
-<h1>This is help component</h1>
+<div class="book">
+
+<div class="preface">
+  <h6>CHAPTER</h6>
+  <ul>
+    <li><a (click)="goTo('about')" >About</a></li>
+    <li><a (click)="goTo('arch')" >Architecture</a></li>
+    <li><a (click)="goTo('about')" >Data Tab</a></li>
+    <li><a (click)="goTo('about')" >ConfigurationTab</a></li>
+    <li><a (click)="goTo('about')" >FieldDefinitionTab</a></li>
+    <li><a (click)="goTo('about')" >Web Console Tab</a></li>
+  </ul>
+</div>
+<!--
+<div class="divider-vertical">
+</div> -->
+
+<div class="content">
+
+  <section id="about">
+    <h6>ABOUT</h6>
+    <p>This is implementation of iso8583 standard. we can use this tool to generate iso8583 message,
+      send and receive to/from any server that understand iso8583. End user of this tool will use
+      standard web interface provide by browser. This tool has been designed and developed from end user
+      percpective. we will see technical and function aspect in subsequent chapter.Below are some striking
+      point of this tool.
+      </p>
+      <ul>
+        <li>Full of feature</li>
+        <li>simple and clean UI</li>
+        <li>Highly configurable</li>
+        <li>Multiuser</li>
+        <li>Easy plugin of future feature request</li>
+        <li>No deployable to enduser, just http url</li>
+        <li>deploy backend at centralized server</li>
+      </ul>
+  </section>
+
+  <section id="arch">
+    <h6>ARCHITECTURE</h6>
+    <p>Understanding architecture does not only help in getting knwoledge, but also help in resolving or
+      anlaysing the issue(if any) within reasonable time. In this tool, two diffrent architecture has
+      used to accomplish diffrent feature.webconsole realted feature has been implemented with
+      diffrent architectrue than other feature. webconsole uses websocket for full-duplex persistent
+      connection, while other uses normal http connection. we will see both the diagram below.</p>
+      <!-- <img src="app/public/image/iso8583_arch_1.svg" alt="iso8583_architectue_image1" height="42" width="42"> -->
+      <object style="margin-top:-120px" data="app/public/image/iso8583_arch_1.svg" type="image/svg+xml"></object>
+  </section>
+
+</div>
+
+</div>
