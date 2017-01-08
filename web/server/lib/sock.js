@@ -22,12 +22,14 @@ function createNewSockConnAndSend(iso8583_msg) {
     var client = new net.Socket();
     client.connect(PORT, HOST, function() {
         logService.logEvent("socklib.createNewSockConnAndSend...CONNECTED!")
+        logService.print_bin_asci_msg(iso8583_msg.request.final_buffer,"Sent")
         client.write(iso8583_msg.request.final_buffer);
         logService.logEvent("socklib.createNewSockConnAndSend...Wrote "+iso8583_msg.request.final_buffer.length+" Bytes..")
         client.setTimeout(timeout*1000)
     });
     client.on('data', function(data) {
         var buffer_data = Buffer.from(data);
+        logService.print_bin_asci_msg(buffer_data,"Received")
         logService.logEvent("socklib.createNewSockConnAndSend..."+buffer_data.length+" BYTE RECEVIED FROM SERVER: , WILL END CONNECTION NOW...");
         iso8583_msg.response.final_buffer = buffer_data;
         client.end();

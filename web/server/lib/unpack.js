@@ -62,7 +62,7 @@ function parse_header(iso){
     iso.response.field_no_present.push("header");
     iso.response.string_data.header = fvalue ;
     iso.response.pointer = ptr;
-    logService.logInfo("unpacklib.res_decode_response_fields...response after decoding header:\n", iso.response);
+    logService.logInfo("unpacklib.res_decode_response_fields...response after decoding header:\n", iso.response.string_data);
   }
 }
 
@@ -101,7 +101,7 @@ function parse_mti(iso){
   iso.response.field_no_present.push(0);
   iso.response.string_data.f0 = fvalue;
   iso.response.pointer = ptr;
-  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding MTI:\n", iso.response);
+  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding MTI:\n", iso.response.string_data);
 }
 
 function parse_bitmap(iso){
@@ -138,7 +138,7 @@ function parse_bitmap(iso){
       iso.response.field_no_present.push(i+1);
     }
   }
-  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding BITMAP:\n", iso.response);
+  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding BITMAP:\n",iso.response.field_no_present, iso.response.string_data);
   // console.log("unpacklib.res_decode_response_fields...response after decoding BITMAP:\n", iso.response);
 }
 
@@ -171,5 +171,5 @@ function parse_fields(iso){
     }
   }
   iso.response.pointer = ptr;
-  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding data fields:\n",iso.response);
+  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding data fields:\n",iso.response.string_data);
 }

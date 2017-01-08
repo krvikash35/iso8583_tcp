@@ -16,6 +16,14 @@ const CLRCLASS = {
   browserSideMessage: {
     type: 'text-indigo text-darken-4',
     log: 'text-indigo text-darken-1'
+  },
+  isomsgbytes: {
+    type: 'text-red text-darken-4',
+    log: 'text-red text-darken-1'
+  },
+  default: {
+    type: 'text-teal text-darken-4',
+    log: 'text-teal text-darken-1'
   }
 }
 @Component({
@@ -33,7 +41,12 @@ export class LogComponent implements OnInit{
     }
 
     getcssclass(type){
-      return CLRCLASS[type]
+      if(CLRCLASS[type]){
+        return CLRCLASS[type]
+      }else{
+        return CLRCLASS["default"]
+      }
+
     }
 
     closeWebSocket(){

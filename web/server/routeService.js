@@ -31,8 +31,10 @@ function getDefaultData(req, res){
 }
 
 function transrecieve(req, res){
+  // console.log("Befor: ", configlib.read_config("per_log_level") );
+  configlib.update_prop(req.body);
   let logService = wslogService(req.body.wsid);
-  logService.logEvent("routeService.transrecieve...Gor transrecieve request from http client!")
+  logService.logEvent("routeService.transrecieve...Gor transrecieve request from http client, set user specific profile/properties!")
   packlib.init_gen_bitmap(req.body)
     .then(function(data){
       return packlib.encode_request_fields(data)

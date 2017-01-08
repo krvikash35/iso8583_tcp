@@ -18,6 +18,7 @@ module.exports = configlib;
 var config_mapping = {
   'per_req_data': 'personal.reqData',
   'per_theme_type': 'personal.theme',
+  'per_log_enable': 'personal.enable_log',
   'per_log_level': 'personal.loglevel',
   'per_http_timeout': 'personal.http_timeout',
   'per_tcp_timeout': 'personal.tcp_timeout',
@@ -84,6 +85,7 @@ function read_config(cmkey, fn){
     }
     // loglib.print_debug_msg("read_config[cmvalue]: " + cmvalue)
       var result = defaultProp;
+      // console.log(result);
       // console.log("result: \n\n", result.client.field_def.f0);
       cmvalue = cmvalue.split('.');
       for( var i=0; i<cmvalue.length; i++ ){

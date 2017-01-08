@@ -34,7 +34,7 @@ function init_gen_bitmap(prop) {
     return new Promise(function(fulfill, reject) {
         logService.logEvent("packlib.init_gen_bitmap..set user specific profile/properties");
         // console.log("Befor: ", configlib.read_config("per_log_level") );
-        configlib.update_prop(prop);
+        // configlib.update_prop(prop);
         // console.log("After: ", configlib.read_config("per_log_level") );
         iso8583_msg.request.string_data = configlib.read_config('per_req_data');
         let bitmap_bin = "";

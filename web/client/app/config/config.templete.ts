@@ -9,6 +9,9 @@ export const PROP: any = {
       title: "PORT",
       hint: "ENTER PORT NO..."
     },
+    enable_log: {
+      title: "ENABLE LOG"
+    },
     loglevel: {
       title: "LOG TYPE",
       allowdValue: [{name: "ERROR LOG ONLY", value: 1}, {name: "EVENT LOG ONLY", value: 2}, {name: "INFO LOG ONLY", value: 3}, {name: "HTTP LOG ONLY", value: 4}, {name: "ISO MSG LOG ONLY", value: 5}, {name: "ALL THE LOGS", value: 6}]

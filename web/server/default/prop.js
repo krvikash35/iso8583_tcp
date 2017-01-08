@@ -1,5 +1,6 @@
 var prop = {
     personal:{
+      enable_log: false,//true, false
       loglevel: 2,//1,2,3,4
       reqData: '',
       theme: 'dark', //dark, light
