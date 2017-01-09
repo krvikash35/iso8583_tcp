@@ -2438,6 +2438,7 @@ input::-webkit-inner-spin-button {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 
 .book > .content > section .title {
+  padding-top: 10px;
   color: #F50057;
   text-transform: uppercase;
   font-size: 18px; }
@@ -2445,6 +2446,10 @@ input::-webkit-inner-spin-button {
 .book > .content > section .body {
   font-size: 12px;
   font-family: sans-serif; }
+
+.book > .content > section .body p {
+  margin-top: 0px;
+  padding-top: 0px; }
 
 /*
 1. center
