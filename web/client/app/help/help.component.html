@@ -1,41 +1,41 @@
 <div class="book">
 
 <div class="preface">
-  <h6>CHAPTER</h6>
-  <ul>
-    <li><a (click)="goTo('important')" >Important</a></li>
-    <li><a (click)="goTo('about')" >About</a></li>
-    <li><a (click)="goTo('arch')" >Architecture</a></li>
-    <li><a (click)="goTo('data')" >Data Tab</a></li>
-    <li><a (click)="goTo('config')" >ConfigurationTab</a></li>
-    <li><a (click)="goTo('field')" >FieldDefinitionTab</a></li>
-    <li><a (click)="goTo('webconsole')" >Web Console Tab</a></li>
-  </ul>
+  <div class="title">chapter</div>
+  <div class="body">
+    <div (click)="goTo('important')"> Important </div>
+    <div (click)="goTo('about')"> About </div>
+    <div (click)="goTo('arch')"> Architecture </div>
+    <div (click)="goTo('data')"> Data Tab </div>
+    <div (click)="goTo('config')"> Configuration Tab </div>
+    <div (click)="goTo('field')"> Field Definition Tab </div>
+    <div (click)="goTo('webconsole')"> Web Console Tab </div>
+  </div>
 </div>
-<!--
-<div class="divider-vertical">
-</div> -->
 
 <div class="content">
-
+<h4>[WIP]</h4>
   <section id="important">
-    <h6>IMPORTANT</h6>
-    <p>Please make a note of below point</p>
-    <ul>
-      <li>Use Google Chrome Browser version 53.0 or above, as this tool has been tested for this plateform only.
-        Some functionaliy might break or/and appearence might change on other browser</li>
-      <li>If you suspect, some processing issue on backend server, then use WEBCONSOLE feature to analyse the same,
-      which might help you fix the issue from your end if any</li>
-      <li>If you suspect, some processing issue at browser side, then use GOOGLE browser console to see the log,
-        which might help you fixing the issue from your end if any.</li>
-      <li>If you suspect some issue after importing any data, then try clearing browser cache then enter main http url
-      then enter those data manually. Such issue might be due to unexpected imported data</li>
-      <li>If are you not using WEBCONSOLE then, make enable_log false in CONFIGURATION TAB, to save little backend load</li>
-    </ul>
+    <div class="title">IMPORTANT</div>
+    <div class="body">
+      <p>Please make a note of below point</p>
+      <ul>
+        <li>Use Google Chrome Browser version 53.0 or above, as this tool has been tested for this plateform only.
+          Some functionaliy might break or/and appearence might change on other browser</li>
+        <li>If you suspect, some processing issue on backend server, then use WEBCONSOLE feature to analyse the same,
+        which might help you fix the issue from your end if any</li>
+        <li>If you suspect, some processing issue at browser side, then use GOOGLE browser console to see the log,
+          which might help you fixing the issue from your end if any.</li>
+        <li>If you suspect some issue after importing any data, then try clearing browser cache then enter main http url
+        then enter those data manually. Such issue might be due to unexpected imported data</li>
+        <li>If are you not using WEBCONSOLE then, make enable_log false in CONFIGURATION TAB, to save little backend load</li>
+      </ul>
+    </div>
     </section>
 
   <section id="about">
-    <h6>ABOUT</h6>
+    <div class="title">ABOUT</div>
+    <div class="body">
     <p>This is implementation of iso8583 standard. we can use this tool to generate iso8583 message,
       send and receive to/from any server that understand iso8583. End user of this tool will use
       standard web interface provide by browser. This tool has been designed and developed from end user
@@ -50,17 +50,20 @@
         <li>Easy plugin of future feature request</li>
         <li>No deployable to enduser, just http url</li>
         <li>deploy backend at centralized server</li>
+        <li>ISO8583 1987 and 1993 both version supported</li>
       </ul>
+    </div>
   </section>
 
   <section id="arch">
+
     <h6>ARCHITECTURE</h6>
     <p>Understanding architecture does not only help in getting knwoledge, but also help in resolving or
       anlaysing the issue(if any) within reasonable time. In this tool, two diffrent architecture has
       used to accomplish diffrent feature.webconsole realted feature has been implemented with
       diffrent architectrue than other feature. webconsole uses websocket for full-duplex persistent
       connection, while other uses normal http connection. we will see both the diagram below.</p>
-      <!-- <img src="app/public/image/iso8583_arch_1.svg" alt="iso8583_architectue_image1" height="42" width="42"> -->
+      <!-- <img style="width:100%" src="app/public/image/iso8583_arch_1.png" alt="iso8583_architectue_image1" > -->
       <object style="margin-top:-120px" data="app/public/image/iso8583_arch_1.svg" type="image/svg+xml"></object>
   </section>
 

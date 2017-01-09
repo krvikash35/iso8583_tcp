@@ -2411,16 +2411,40 @@ input::-webkit-inner-spin-button {
   position: fixed;
   width: 200px;
   height: 92vh;
+  padding: 10px 0px 0px 10px;
   border-right: 2px solid rgba(255, 255, 255, 0.12); }
+
+.book > .preface > .title {
+  text-transform: uppercase;
+  font-size: 18px;
+  padding-bottom: 10px; }
+
+.book > .preface > .body div {
+  font-size: 12px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  text-decoration: underline; }
 
 .book > .content {
   margin-left: 200px;
-  padding: 10px;
+  padding-left: 20px;
   height: 89vh;
   width: auto;
   position: relative;
   overflow: auto;
   z-index: 1; }
+
+.book > .content > section {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+
+.book > .content > section .title {
+  color: #F50057;
+  text-transform: uppercase;
+  font-size: 18px; }
+
+.book > .content > section .body {
+  font-size: 12px;
+  font-family: sans-serif; }
 
 /*
 1. center

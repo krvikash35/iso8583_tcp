@@ -434,7 +434,7 @@ var fielddef =
             "desc": "Message Type Indicator"
         }
     },
-    "ATM 123": {
+    "ATM": {
         "f1": {
             "maxlen": 16,
             "lentype": "CONTVAR",
