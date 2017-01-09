@@ -1,7 +1,7 @@
 var prop = {
     personal:{
       enable_log: false,//true, false
-      loglevel: 2,//1,2,3,4
+      // loglevel: 2,//1,2,3,4
       reqData: '',
       theme: 'dark', //dark, light
       http_timeout: 4, //2, 4, 6 second
@@ -10,7 +10,7 @@ var prop = {
       port: "6969", //6969 16902
     },
     server: {
-        field_def: "iso8583_1993_cmn", //this is just default value
+        field_def: "CMN", //this is just default value
         encode: {
           header_encode: 'ascii', //  hex, ascii,chexehex,chexeascii
           bitmap_encode: 'hex', //  hex, ascii
@@ -23,7 +23,7 @@ var prop = {
         }
     },
     client: {
-        field_def: 'iso8583_1993_cmn', //this is just default value,
+        field_def: 'CMN', //this is just default value,
         encode: {
             header_encode: 'ascii', //  hex, ascii,chexehex,chexeascii
             bitmap_encode: 'hex', //  hex, ascii

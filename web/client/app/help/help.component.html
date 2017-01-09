@@ -3,12 +3,13 @@
 <div class="preface">
   <h6>CHAPTER</h6>
   <ul>
+    <li><a (click)="goTo('important')" >Important</a></li>
     <li><a (click)="goTo('about')" >About</a></li>
     <li><a (click)="goTo('arch')" >Architecture</a></li>
-    <li><a (click)="goTo('about')" >Data Tab</a></li>
-    <li><a (click)="goTo('about')" >ConfigurationTab</a></li>
-    <li><a (click)="goTo('about')" >FieldDefinitionTab</a></li>
-    <li><a (click)="goTo('about')" >Web Console Tab</a></li>
+    <li><a (click)="goTo('data')" >Data Tab</a></li>
+    <li><a (click)="goTo('config')" >ConfigurationTab</a></li>
+    <li><a (click)="goTo('field')" >FieldDefinitionTab</a></li>
+    <li><a (click)="goTo('webconsole')" >Web Console Tab</a></li>
   </ul>
 </div>
 <!--
@@ -16,6 +17,22 @@
 </div> -->
 
 <div class="content">
+
+  <section id="important">
+    <h6>IMPORTANT</h6>
+    <p>Please make a note of below point</p>
+    <ul>
+      <li>Use Google Chrome Browser version 53.0 or above, as this tool has been tested for this plateform only.
+        Some functionaliy might break or/and appearence might change on other browser</li>
+      <li>If you suspect, some processing issue on backend server, then use WEBCONSOLE feature to analyse the same,
+      which might help you fix the issue from your end if any</li>
+      <li>If you suspect, some processing issue at browser side, then use GOOGLE browser console to see the log,
+        which might help you fixing the issue from your end if any.</li>
+      <li>If you suspect some issue after importing any data, then try clearing browser cache then enter main http url
+      then enter those data manually. Such issue might be due to unexpected imported data</li>
+      <li>If are you not using WEBCONSOLE then, make enable_log false in CONFIGURATION TAB, to save little backend load</li>
+    </ul>
+    </section>
 
   <section id="about">
     <h6>ABOUT</h6>
@@ -45,6 +62,26 @@
       connection, while other uses normal http connection. we will see both the diagram below.</p>
       <!-- <img src="app/public/image/iso8583_arch_1.svg" alt="iso8583_architectue_image1" height="42" width="42"> -->
       <object style="margin-top:-120px" data="app/public/image/iso8583_arch_1.svg" type="image/svg+xml"></object>
+  </section>
+
+  <section id="data">
+    <h6>DATA TAB</h6>
+    <p>[WIP]</p>
+  </section>
+
+  <section id="config">
+    <h6>CONFIGURATION TAB</h6>
+    <p>[WIP]</p>
+  </section>
+
+  <section id="field">
+    <h6>FIELD DEFINITION TAB</h6>
+    <p>[WIP]</p>
+  </section>
+
+  <section id="webconsole">
+    <h6>WEB CONSOLE TAB</h6>
+    <p>[WIP]</p>
   </section>
 
 </div>

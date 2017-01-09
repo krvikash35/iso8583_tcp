@@ -2407,17 +2407,20 @@ input::-webkit-inner-spin-button {
     background-color: #dc004e;
     cursor: pointer; }
 
-.book {
-  margin: 10px;
-  display: flex; }
-
 .book > .preface {
-  padding: 5px 10px 5px 5px;
-  height: 80vh;
+  position: fixed;
+  width: 200px;
+  height: 92vh;
   border-right: 2px solid rgba(255, 255, 255, 0.12); }
 
 .book > .content {
-  padding: 5px 5px 5px 10px; }
+  margin-left: 200px;
+  padding: 10px;
+  height: 89vh;
+  width: auto;
+  position: relative;
+  overflow: auto;
+  z-index: 1; }
 
 /*
 1. center
