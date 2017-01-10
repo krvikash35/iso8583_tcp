@@ -187,7 +187,7 @@ let logService = wslogService(iso8583_msg.wsid)
             }else {
               logService.logEvent("packlib.add_header..only msg length included in header value, so header value is "+hdr_value);
             }
-            let fdet = getFieldDetForEnc(-1, msg_buffer_len);
+            let fdet = getFieldDetForEnc(-1, hdr_value);
             logService.logEvent("packlib.add_header...encoding header " + "and value is "+fdet.fvalue+" and encoding is "+fdet.fenc+" and length is "+hdrlen+"  and pointer is "+ptr)
             let hdrbuf = Buffer.from(fdet.fvalue, fdet.fenc);
             ptr = ptr + hdrbuf.length;

@@ -1,6 +1,7 @@
 'use strict'
 require('./lib/global');
 global.__proot = __dirname + "/../..";
+var os = require('os');
 var WebSocketServer = require("ws").Server;
 var exp = require('express');
 var app = exp();
@@ -31,9 +32,24 @@ app.post('/service/transrecieve', routeService.transrecieve);
 // app.get('/service/wstester', routeService.wstester)
 
 app.use(routeService.catchAllHandler)
-httpserver.listen(3000, function() {
-    console.log('listening on *:3000');
+
+process.on('uncaughtException', function(err) {
+    if(err.errno === 'EADDRINUSE')
+         console.log("Could not bind http server to given port ", err.port, " this port is already in use, please use free port");
+    else
+         console.log(err);
+    process.exit(1);
 });
+
+httpserver.listen(3000, function(err) {
+    let httpAddress = httpserver.address()
+    console.log("http server listening on");
+    console.log("HOSTNAME: ", os.hostname());
+    console.log("PORT: ", httpAddress.port);
+    console.log("IP: ", httpAddress.address);
+    console.log("IP Family: ",httpAddress.family);
+});
+
 
 var wss = new WebSocketServer({
     server: httpserver
