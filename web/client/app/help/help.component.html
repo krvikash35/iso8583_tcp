@@ -72,13 +72,40 @@
   </section>
 
   <section id="data">
-    <h6>DATA TAB</h6>
-    <p>[WIP]</p>
+    <div class="title">DATA TAB</div>
+    <div class="body">
+      <p>We can use this tab to send iso8583 request and recive iso8583 response. In order to frame request,
+      we have to enter field number and field value. Once data entry of request is done, then click button 'SEND REQUEST
+      TO SERVER' for reciveing response. Some basic validation on entry of field data will be done, and corresponding
+      validation message will be shown at top of data page, few of them are listed below.</p>
+      <ul>
+        <li>We can edit the exisitng field value by clicking or double-clicking on Field Value Column</li>
+        <li>Field number must start with char 'f'</li>
+        <li>Make sure that field numbe that you want to enter, is present in field definition</li>
+        <li>We can remove the field that we dont want in request, by clicking on corresponding delete button</li>
+        <li>Number of character in field value can not be more than specified FieldMaxLength properites value</li>
+        <li>We can export the request data, to reuse in future and save time from re-entrying data by importing request data</li>
+        <li>Once we send the request, time counter will be shown till response is received. Value of time counter is determined from http_recive_timout and tcp_recieve_timeout in configuration TAB</li>
+        <li>If response is success, ie. response has been disassembled properly as iso8583, then it will be shown as field number and field value along with field description</li>
+        <li>If response is not success, then proper error will be shown, we can use WEBCONSOLE TAB to find more details like at what stage, this error occured etc.</li>
+      </ul>
+    </div>
   </section>
 
   <section id="config">
-    <h6>CONFIGURATION TAB</h6>
-    <p>[WIP]</p>
+    <div class="title">CONFIGURATION TAB</div>
+    <div class="body">
+      <p>
+        We can use this tab to provide various configuration parameter that will decide how the request and response
+        is processed. If we have multiple setup to test, we can export those specific configuration  to reuse latter.
+        Below are the details of each configuration field. each configuration field has been categorized in 3 section.
+      </p>
+
+      <!-- <p>COMMON SECION:</p>
+      <ul>
+
+      </ul> -->
+    </div>
   </section>
 
   <section id="field">

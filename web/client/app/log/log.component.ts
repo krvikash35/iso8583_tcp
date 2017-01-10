@@ -95,22 +95,22 @@ export class LogComponent implements OnInit{
       let host = window.location.hostname;
       let port = window.location.port;
       let sock_url = "ws://"+host+":"+port;
+      console.log("LogComponent.createWebSocket...websocket connection will be created to ", sock_url)
       this.wsService
       .connect(sock_url)
-      .map((response: MessageEvent) => {
-        return JSON.parse(response.data);
-      })
-      .subscribe((res) =>{
+      .subscribe((response) =>{
         // console.log("response: ", res)
+        let res = JSON.parse(response.data);
         if(res.type == MSGTYPE.HANDSAKE){
           this.dataService.writeToLocalStorage("wsid", res.data.wsid)
+          console.log("LogComponent.createWebSocket...got handsake reply")
         }
         if(res.type == MSGTYPE.LOG){
           this.logmsgs.push(res.data)
         }
 
       }, (err) => {
-        console.log("error: ",err)
+        console.log("LogComponent.createWebSocket...got error: ",err)
       })
 
     }

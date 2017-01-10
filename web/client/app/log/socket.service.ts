@@ -57,7 +57,6 @@ export class WebSocketService {
 	}
 
 	private create(url): Subject<MessageEvent> {
-		console.log("creating")
 		let ws = new WebSocket(url);
 		this.websocket = ws;
 

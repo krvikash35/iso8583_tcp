@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }))
 
+
 app.use(bodyParser.json())
 app.use('/node_modules', exp.static(__proot + '/node_modules'));
 app.use('/', exp.static(__proot + '/web/client'));
