@@ -18,7 +18,6 @@ function decode_response_fields(iso8583_msg){
     parse_mti(iso8583_msg);
     parse_bitmap(iso8583_msg);
     parse_fields(iso8583_msg);
-    console.log("iso8583_msg", iso8583_msg.wsid);
     fulfill(iso8583_msg.response.string_data);
   })
 }

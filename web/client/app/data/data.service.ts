@@ -19,7 +19,7 @@ export class DataService {
 
     getReqData(): Observable<any> {
         let reqData = this.readFromLocalStorage('reqData');
-        if (!isObjEmtpy(reqData)) {
+        if (reqData  && reqData.length >= 0) {
           this.logService.logEvent('DataService.getReqData...requested data found in cache, no need to fetch from server!')
           let prop = this.readFromLocalStorage('prop');
           let reqFieldDef = this.getFieldDefinition(prop.client.field_def);

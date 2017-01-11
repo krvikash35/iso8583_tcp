@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class LogService {
-    logLevel: number = 3; //1,2,3,4
+    logLevel: number = 2; //1,2,3,4
 
     logError(err, msg) {
         if (this.logLevel == 1 || this.logLevel == 4) {

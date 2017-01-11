@@ -63,7 +63,6 @@ function wslogService(wsid){
     }
     res.data.log = data_ascii
     websoklib.send_msg(wsid, res);
-    console.log("exited print_bin_asci_msg");
   }
   return logobj;
 }

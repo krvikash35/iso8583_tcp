@@ -75,7 +75,7 @@ export class DataComponent implements OnInit {
             return this.reqProcStatus.msg = "field no must start with char 'f' ";
         }
         let fnoi = fno.substr(1, fno.length - 1);
-        if (!isnum(fnoi)) {
+        if (fnoi.length==0 || isNaN(fnoi)) {
             return this.reqProcStatus.msg = "character after 'f' should be number";
         }
         if (fnoi == 1) {
@@ -96,7 +96,7 @@ export class DataComponent implements OnInit {
 
     setOrToggleFlag(key: any, value?: any) {
         this.logService.logInfo("DataComponent.setOrToggleFlag.key:value " + key + ":" + value)
-        if (iszerolen(value)) {
+        if (value === undefined || value === null || value.length==0) {
             this.flagObj[key] = !this.flagObj[key];
         } else {
             this.flagObj[key] = value;
