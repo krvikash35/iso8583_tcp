@@ -59,13 +59,8 @@
 </div>
 
 <div *ngIf="flagObj.responseDataStatus==3 " class="label-error ">
-  <!-- <pre>{{resErrorData.name}}\n</pre> -->
-  <!-- <pre>{{resErrorData.message}}\n</pre> -->
   <label class="center">Got error response!</label>
   <pre ><span *ngFor="let err of resErrorData">{{err.key}}: {{err.value}}<br/></span></pre>
-  <!-- <pre>Message: {{resErrorData.message}}</pre>
-  <pre>Stack: {{resErrorData.stack}}</pre> -->
-  <!-- <pre>Name: {{resErrorData.name}}<br/>Message: {{resErrorData.message}}<br/>Stack: {{resErrorData.stack}}</pre> -->
 </div>
 
 <div *ngIf="flagObj.responseDataStatus==4">

@@ -1,4 +1,15 @@
+<div *ngIf="showErrorDiv" class="label-error ">
+  <div class="label-error-header">
+    <div (click)="showErrorDiv=false" class="clickable"><i style="font-size:40px;" class="material-icons">highlight_off</i></div>
+    <div >Some Error occured..see the detail below!</div>
+  </div>
+  <!-- <span>
+    <label (click)="showErrorDiv=false" class="clickable"><i class="material-icons">highlight_off</i></label>
+    <label (click)="showErrorDiv=false" class="center">Some Error occured..see the detail below!</label>
+  </span> -->
 
+  <pre style="margin-top:0px;padding-top:0px;"><span >name: {{errorDetail?.name}}<br/></span><span >message: {{errorDetail?.message}}<br/></span><span >stack: {{errorDetail?.stack}}<br/></span></pre>
+</div>
 
 
 <div class="right">

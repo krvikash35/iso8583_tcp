@@ -43,10 +43,14 @@ function parse_header(iso){
             ptr = ptr + flen;
             break;
         case "nbo":
+            if(flen > 6)
+              throw new Error("unpacklib.res_decode_response_fields...parsing header, maximum header length allowed for given header encoding netowrk byte order is 6 but current header length is "+flen)
             fvalue = buff_data.readIntBE(0, flen).toString(10)
             ptr = ptr + flen;
             break;
         case "hbo":
+            if(flen > 6)
+              throw new Error("unpacklib.res_decode_response_fields...parsing header, maximum header length allowed for given header encoding host byte order is 6 but current header length is "+flen)
             fvalue = buff_data.readIntLE(0, flen).toString(10)
             ptr = ptr + flen;
             break;

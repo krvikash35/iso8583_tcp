@@ -2485,9 +2485,14 @@ input::-webkit-inner-spin-button {
   background: rgba(255, 255, 255, 0.12); }
 
 .label-error {
-  padding: 10px;
+  padding: 0px 10px 10px 10px;
   margin: 0px 10px 0px 10px;
   border-radius: 5px; }
+
+.label-error-header {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .label-success {
   padding: 5px;
@@ -2537,7 +2542,7 @@ pre {
 
 .center-equal-space {
   display: flex;
-  justify-content: space-around; }
+  justify-content: center; }
 
 .center-equal-space > * {
   margin: 5px auto 5px auto; }

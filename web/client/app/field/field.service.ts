@@ -26,7 +26,13 @@ export class FieldService {
     }
 
     convertCDCIToJson(cdcicfg: any){
-      return getFieldSpecForCtrlId(cdcicfg)
+      let cdcicfg_in_json;
+      try{
+        cdcicfg_in_json = getFieldSpecForCtrlId(cdcicfg)
+      }catch(e){
+        throw e
+      }
+      return cdcicfg_in_json
     }
 
     cnvrtReqDataObjToArray(obj: any){
@@ -41,7 +47,12 @@ export class FieldService {
 
 
 function getFieldSpecForCtrlId(cfgContent){
-  let contrlrList = getListOfContrlr(cfgContent)
+  let contrlrList;
+  try {
+    contrlrList = getListOfContrlr(cfgContent)
+  } catch (e) {
+    throw e;
+  }
   let fspecList = [];
   let out = {};
   fspecList = cfgContent.split("<Controller_Id>");
@@ -64,7 +75,7 @@ function getListOfContrlr(cfgContent){
   let result = cfgContent.match(search);
   console.log("getListOfContrlr: ", result);
   if(!result){
-    throw new Error("no Controller_Id found in cdci.cfg ");
+    throw new Error("fieldService.getListOfContrlr...not a single Controller_Id found in cdci.cfg, make sure you are importing valid cdci.cfg file ");
   }
   for(var i=0; i<result.length; i++){
     let ctrl = result[i].split(">")[1].trim();

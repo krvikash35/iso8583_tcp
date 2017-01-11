@@ -10,7 +10,8 @@ import { DomSanitizer} from '@angular/platform-browser';
   providers: [FieldService]
 })
 export class FieldComponent{
-
+  showErrorDiv = false;
+  errorDetail = {};
   fdlistArr = [];
   fdlistObj = {};
   fdlistKeyArr = [];
@@ -68,7 +69,21 @@ export class FieldComponent{
     this.logService.logInfo("FieldComponent:importFieldDefData:fileList ", fileList);
     let freader = new FileReader();
     freader.onload = function(event: any) {
-        let fileContent = JSON.parse(event.target.result)
+      let fileContent;
+      try {
+        fileContent = JSON.parse(event.target.result)
+      } catch (e) {
+        that.showErrorDiv=true;
+        e.message = "FieldComponent.importFieldDefData...Not a valid json data..please make sure the file data is in proper json format before importing..if you importing cdci.cfg, use other right side button "
+        that.errorDetail = e;
+        //
+
+        // console.log("name", e.name)
+        // console.log("message", e.message)
+        // console.log("stack", e.stack)
+        return
+      }
+
         that.fdlistObj = fileContent;
         that.fdlistKeyArr = Object.keys(that.fdlistObj);
         that.logService.logInfo("FieldComponent:importFieldDefData:fileContent ", fileContent);
@@ -92,9 +107,20 @@ export class FieldComponent{
     let freader = new FileReader();
     freader.onload = function(event: any) {
         // let fileContent = JSON.parse(event.target.result)
+
+
         let fileContent = event.target.result
         that.logService.logInfo("FieldComponent:importUsingCDCIData:fileContent ", fileContent);
-        that.fdlistObj = that.fieldService.convertCDCIToJson(fileContent);
+        // that.fdlistObj = that.fieldService.convertCDCIToJson(fileContent);
+
+        try {
+          that.fdlistObj = that.fieldService.convertCDCIToJson(fileContent);
+        } catch (e) {
+          that.showErrorDiv=true;
+          that.errorDetail = e;
+          return
+        }
+
         that.logService.logInfo("FieldComponent:importUsingCDCIData: after converting cdci.cfg to json: ", that.fdlistObj);
         that.fieldService.writeToLocalStorage("fieldDefList", that.fdlistObj);
         that.logService.logEvent("FieldComponent.importUsingCDCIData...updated cache!");
