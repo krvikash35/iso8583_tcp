@@ -36,32 +36,27 @@ function parse_header(iso){
     let buff_data = iso.response.final_buffer;
     let ptr = iso.response.pointer;
     logService.logEvent("unpacklib.res_decode_response_fields...header length is "+flen+" and header encoding is "+fenc + " and pointer is "+ptr);
+
     switch (fenc) {
         case "ascii":
             fvalue = buff_data.toString("ascii", ptr, flen);
             ptr = ptr + flen;
             break;
-        case "hex":
-            fvalue = buff_data.toString("hex", ptr, flen);
+        case "nbo":
+            fvalue = buff_data.readIntBE(0, flen).toString(10)
             ptr = ptr + flen;
             break;
-        case "chexehex":
-            fvalue = buff_data.toString("hex", ptr, flen);
+        case "hbo":
+            fvalue = buff_data.readIntLE(0, flen).toString(10)
             ptr = ptr + flen;
-            fvalue = convlib.hextodeci(fvalue);
-            break;
-        case "chexeascii":
-            fvalue = buff_data.toString("ascii", ptr, flen);
-            ptr = ptr + flen;
-            fvalue = convlib.hextodeci(fvalue);
             break;
         default:
             throw new Error("unpacklib.res_decode_response_fields...given encoding type '"+ fenc+"' for header is not supported!");
     }
-    iso.response.field_no_present.push("header");
-    iso.response.string_data.header = fvalue ;
+    // iso.response.field_no_present.push("header");
+    // iso.response.string_data.header = fvalue ;
     iso.response.pointer = ptr;
-    logService.logInfo("unpacklib.res_decode_response_fields...response after decoding header:\n", iso.response.string_data);
+    logService.logInfo("unpacklib.res_decode_response_fields...header value after decoding header: ", fvalue);
   }
 }
 
@@ -100,7 +95,7 @@ function parse_mti(iso){
   iso.response.field_no_present.push(0);
   iso.response.string_data.f0 = fvalue;
   iso.response.pointer = ptr;
-  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding MTI:\n", iso.response.string_data);
+  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding MTI: ", iso.response.string_data);
 }
 
 function parse_bitmap(iso){
@@ -137,7 +132,7 @@ function parse_bitmap(iso){
       iso.response.field_no_present.push(i+1);
     }
   }
-  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding BITMAP:\n",iso.response.field_no_present, iso.response.string_data);
+  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding BITMAP: ",iso.response.field_no_present, iso.response.string_data);
   // console.log("unpacklib.res_decode_response_fields...response after decoding BITMAP:\n", iso.response);
 }
 
@@ -170,5 +165,5 @@ function parse_fields(iso){
     }
   }
   iso.response.pointer = ptr;
-  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding data fields:\n",iso.response.string_data);
+  logService.logInfo("unpacklib.res_decode_response_fields...response after decoding data fields: ",iso.response.string_data);
 }

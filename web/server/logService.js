@@ -49,7 +49,7 @@ function logRequest(req, res, next){
       'body': req.body
     }
     // console.log(util.inspect(reqobj, false, null))
-    console.log('Got request from http client: ', reqobj);
+    console.log('\n\n\nGot request from http client: ', reqobj);
 
   }
   next()
@@ -57,7 +57,7 @@ function logRequest(req, res, next){
 
 function logResponse(resobj){
   if(logLevel == 4){
-    console.log('Sent response to http client: ', resobj);
+    console.log('\n\n\nSent response to http client: ', JSON.stringify(resobj, null, '   '));
     // console.log('Sent response to http client: ');
     // console.log(util.inspect(resobj, false, null))
   }

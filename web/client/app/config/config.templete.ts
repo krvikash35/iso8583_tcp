@@ -38,7 +38,7 @@ export const PROP: any = {
     encode: {
       header: {
         title: "HEADER ENCODING",
-        allowdValue: [{name: "ENCODE TO HEX", value: "hex"}, {name: "ENCODE TO ASCII", value: "ascii"}, {name: "ENCODE TO CHEXEHEX", value: "chexehex"}, {name: "ENCODE TO CHEXEASCII", value: "chexeascii"}]
+        allowdValue: [{name: "ENCODE TO ASCII", value: "ascii"}, {name: "BIG-ENDIAN/NETWORK BYTE ORDER", value: "nbo"}, {name: "LITTLE-ENDIAN/HOST BYTE ORDER", value: "hbo"}]
       },
       bitmap: {
         title: "BITMAP ENCODING",
@@ -71,7 +71,7 @@ export const PROP: any = {
     encode: {
       header: {
         title: "HEADER ENCODING",
-        allowdValue: [{name: "ENCODE TO HEX", value: "hex"}, {name: "ENCODE TO ASCII", value: "ascii"}, {name: "ENCODE TO CHEXEHEX", value: "chexehex"}, {name: "CONVERT TO CHEXEASCII", value: "chexeascii"}]
+        allowdValue: [{name: "ENCODE TO ASCII", value: "ascii"}, {name: "BIG-ENDIAN/NETWORK BYTE ORDER", value: "nbo"}, {name: "LITTLE-ENDIAN/HOST BYTE ORDER", value: "hbo"}]
       },
       bitmap: {
         title: "BITMAP ENCODING",

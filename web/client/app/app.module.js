@@ -8,35 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
-var forms_1 = require('@angular/forms');
-var http_1 = require('@angular/http');
-var app_routing_module_1 = require('./app-routing.module');
-var app_component_1 = require('./app.component');
-var data_component_1 = require('./data/data.component');
-var config_component_1 = require('./config/config.component');
-var field_component_1 = require('./field/field.component');
-var log_component_1 = require('./log/log.component');
-var help_component_1 = require('./help/help.component');
-var data_directive_1 = require('./data/data.directive');
-var data_service_1 = require('./data/data.service');
-var log_service_1 = require('./data/log.service');
-var socket_service_1 = require('./log/socket.service');
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var app_routing_module_1 = require("./app-routing.module");
+var app_component_1 = require("./app.component");
+var data_component_1 = require("./data/data.component");
+var config_component_1 = require("./config/config.component");
+var field_component_1 = require("./field/field.component");
+var log_component_1 = require("./log/log.component");
+var help_component_1 = require("./help/help.component");
+var data_directive_1 = require("./data/data.directive");
+var data_service_1 = require("./data/data.service");
+var log_service_1 = require("./data/log.service");
+var socket_service_1 = require("./log/socket.service");
 var AppModule = (function () {
     function AppModule() {
     }
-    AppModule = __decorate([
-        core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule],
-            declarations: [app_component_1.AppComponent, data_component_1.DataComponent, config_component_1.ConfigComponent, field_component_1.FieldComponent, log_component_1.LogComponent, help_component_1.HelpComponent, data_directive_1.FocusOnInit],
-            providers: [data_service_1.DataService, log_service_1.LogService, socket_service_1.WebSocketService],
-            //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-            bootstrap: [app_component_1.AppComponent]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppModule);
     return AppModule;
 }());
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule],
+        declarations: [app_component_1.AppComponent, data_component_1.DataComponent, config_component_1.ConfigComponent, field_component_1.FieldComponent, log_component_1.LogComponent, help_component_1.HelpComponent, data_directive_1.FocusOnInit],
+        providers: [data_service_1.DataService, log_service_1.LogService, socket_service_1.WebSocketService],
+        //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+        bootstrap: [app_component_1.AppComponent]
+    }),
+    __metadata("design:paramtypes", [])
+], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map

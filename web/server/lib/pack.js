@@ -89,38 +89,7 @@ function getFieldDetForEnc(fn, fvalue) {
         fdet.fenc = fenc;
         fdet.flentype = flentype;
         return fdet;
-    } else if (fn == -1) {
-        fenc = configlib.read_config("cli_enc_hdr");
-        flen = configlib.read_config("cli_hdr_len");
-        switch (fenc) {
-            case "ascii":
-                fvalue = pad(fvalue, flen, 'l', '0');
-                fdet.fvalue = fvalue;
-                fdet.fenc = "ascii";
-                return fdet;
-                break;
-            case "hex":
-                fvalue = pad(fvalue, flen * 2, 'l', '0');
-                fdet.fvalue = fvalue;
-                fdet.fenc = "hex";
-                return fdet;
-                break;
-            case "chexehex":
-                fvalue = convlib.decitohex(fvalue);
-                fvalue = pad(fvalue, flen * 2, 'l', '0');
-                fdet.fvalue = fvalue;
-                fdet.fenc = "hex";
-                return fdet;
-                break;
-            case "chexeascii":
-                fvalue = convlib.decitohex(fvalue);
-                fvalue = pad(fvalue, flen, 'l', '0');
-                fdet.fvalue = fvalue;
-                fdet.fenc = "ascii";
-                return fdet;
-                break;
-        }
-    } else if (fn == 1) {
+    }else if (fn == 1) {
         fenc = configlib.read_config("cli_enc_bit");
         fdet.fvalue = fvalue;
         fdet.fenc = fenc;
@@ -142,7 +111,7 @@ function encode_request_fields(iso8583_msg) {
     return new Promise(function(fulfill, reject) {
         for (var i = 0; i < flist.length; i++) {
             let fdet = getFieldDetForEnc(flist[i], fdata["f" + flist[i]]);
-            logService.logEvent("packlib.encode_request_fields...encoding field " + flist[i] + "and value is "+fdet.fvalue+" and encoding is "+fdet.fenc+" and length type is "+fdet.flentype+" and pointer is "+ptr)
+            logService.logEvent("packlib.encode_request_fields...encoding field " + flist[i] + " and value is "+fdet.fvalue+" and encoding is "+fdet.fenc+" and length type is "+fdet.flentype+" and pointer is "+ptr)
             logService.logInfo("packlib.encode_request_fields...encoding detail for field '" + flist[i] + "':", fdet)
             let buff = Buffer.from(fdet.fvalue, fdet.fenc);
             ptr = ptr + buff.length;
@@ -154,7 +123,7 @@ function encode_request_fields(iso8583_msg) {
 }
 
 function add_header(iso8583_msg) {
-let logService = wslogService(iso8583_msg.wsid)
+  let logService = wslogService(iso8583_msg.wsid)
     return new Promise(function(fulfill, reject) {
       logService.logEvent("packlib.add_header...add header and prepare final buffer msg!")
         let msg_buffer = [];
@@ -174,22 +143,50 @@ let logService = wslogService(iso8583_msg.wsid)
             msg_buffer[sindex] = fdatabuf["f" + flist[i]]
             sindex = sindex + 1;
         }
-        logService.logEvent("packlib.add_header...msg buffer length is "+msg_buffer_len+" Bytes!");
 
         if (ishdrincl) {
           let hdrlen = configlib.read_config("cli_hdr_len");
+          logService.logEvent("packlib.add_header...header length is "+hdrlen)
+          hdrlen = parseInt(hdrlen);
           let hdr_value = msg_buffer_len;
+          logService.logEvent("packlib.add_header...Message length is "+msg_buffer_len)
           msg_buffer_len = msg_buffer_len + hdrlen;
-          logService.logEvent("packlib.add_header...as per configuration header has to be included, so calculating header value!")
-            if (configlib.read_config("cli_hdr_msg")) {
+          if (configlib.read_config("cli_hdr_msg")) {
                 hdr_value = hdr_value + hdrlen;
-                logService.logEvent("packlib.add_header...header length also included in header value, so header value is "+hdr_value);
+                logService.logEvent("packlib.add_header...header length also included in header as per configuration value, so header value is "+hdr_value);
             }else {
-              logService.logEvent("packlib.add_header..only msg length included in header value, so header value is "+hdr_value);
+              logService.logEvent("packlib.add_header..only msg length included in header value as per configuration, so header value is "+hdr_value);
             }
-            let fdet = getFieldDetForEnc(-1, hdr_value);
-            logService.logEvent("packlib.add_header...encoding header " + "and value is "+fdet.fvalue+" and encoding is "+fdet.fenc+" and length is "+hdrlen+"  and pointer is "+ptr)
-            let hdrbuf = Buffer.from(fdet.fvalue, fdet.fenc);
+            let hdr_enc = configlib.read_config("cli_enc_hdr");
+            logService.logEvent("packlib.add_header...encoding header " + " and value is "+hdr_value+" and encoding is "+hdr_enc+" and length is "+hdrlen+"  and pointer is "+ptr)
+            let hdrbuf;
+            switch (hdr_enc) {
+              case "ascii":
+                hdr_value = pad(hdr_value, hdrlen, 'l', '0');
+                hdrbuf = Buffer.from(hdr_value, 'ascii');
+                break;
+              case "nbo":
+                if(hdrlen > 6)
+                  throw new Error("packlib.add_header..maximum header length allowed for given header encoding 'network byte order' is 6 but current header length is "+hdrlen)
+                hdr_value = convlib.decitohex(hdr_value);
+                // hdr_value = pad(hdr_value, hdrlen*2, 'l', '0');
+                hdr_value = "0x"+hdr_value;
+                hdrbuf = Buffer.alloc(hdrlen)
+                hdrbuf.writeIntBE(hdr_value, 0, hdrlen)
+                break;
+              case "hbo":
+                if(hdrlen > 6)
+                  throw new Error("packlib.add_header..maximum header length allowed for given header encoding host byte order is 6 but current header length is "+hdrlen)
+                hdr_value = convlib.decitohex(hdr_value);
+                // hdr_value = pad(hdr_value, hdrlen*2, 'l', '0');
+                hdr_value = "0x"+hdr_value;
+                hdrbuf = Buffer.alloc(hdrlen)
+                hdrbuf.writeIntLE(hdr_value, 0, hdrlen)
+                break;
+              default:
+                throw new Error("packlib.add_header..given header encoding "+hdr_enc+"is not supported ")
+            }
+            // let hdrbuf = Buffer.from(fdet.fvalue, fdet.fenc);
             ptr = ptr + hdrbuf.length;
             msg_buffer[0] = hdrbuf;
             iso.request.pointer = ptr;

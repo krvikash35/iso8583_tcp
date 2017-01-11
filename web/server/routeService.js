@@ -109,7 +109,6 @@ function catchAllHandler(err, req, res, next) {
             data: errObj
         }
     }
-    console.log(err);
     logService.logResponse(resObj)
     res.status(resObj.status).send(resObj.response);
 }

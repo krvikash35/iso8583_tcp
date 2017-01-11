@@ -12,7 +12,7 @@ var prop = {
     server: {
         field_def: "CMN", //this is just default value
         encode: {
-          header_encode: 'ascii', //  hex, ascii,chexehex,chexeascii
+          header_encode: 'ascii', //  ascii, nbo(BIG-ENDIAN/NETWORK BYTE ORDER), hbo(LITTLE-ENDIAN/HOST BYTE ORDER)
           bitmap_encode: 'hex', //  hex, ascii
           field_encode: 'ascii' //  ascii
         },
@@ -25,7 +25,7 @@ var prop = {
     client: {
         field_def: 'CMN', //this is just default value,
         encode: {
-            header_encode: 'ascii', //  hex, ascii,chexehex,chexeascii
+            header_encode: 'ascii', //  ascii, nbo(BIG-ENDIAN/NETWORK BYTE ORDER), hbo(LITTLE-ENDIAN/HOST BYTE ORDER)
             bitmap_encode: 'hex', //  hex, ascii
             field_encode: 'ascii' //  ascii
         },

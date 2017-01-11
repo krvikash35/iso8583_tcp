@@ -7,7 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc -w -p web/client",
     "nodemon": "nodemon --ignore client/  --ignore web/client web/server/app.js",
-    "dev": " concurrently --kill-others \"npm run tsc \" \"npm run nodemon\" "
+    "dev": " concurrently --kill-others \"npm run tsc \" \"npm run nodemon\" ",
+    "prod": "",
+    "copy-dist": "node web/client/copy-dist-files.js",
+    "copycss": "cp -r web/client/app/public/css/mycss/dist/ web/client/aot/style/",
+    "copyshim": "cp node_modules/core-js/client/shim.min.js node_modules/zone.js/dist/zone.min.js web/client/aot/",
+    "ngc": "node_modules/.bin/ngc -p web/client/tsconfig-aot.json"
   },
   "repository": {
     "type": "git",
@@ -27,30 +32,33 @@
   },
   "homepage": "https://github.com/krvikash35/iso8583_tcp#readme",
   "dependencies": {
-    "@angular/common": "~2.3.0",
-    "@angular/compiler": "~2.3.0",
-    "@angular/core": "~2.3.0",
-    "@angular/forms": "~2.3.0",
-    "@angular/http": "~2.3.0",
-    "@angular/platform-browser": "~2.3.0",
-    "@angular/platform-browser-dynamic": "~2.3.0",
-    "@angular/router": "~3.3.0",
-    "angular-in-memory-web-api": "~0.2.1",
+    "@angular/common": "^2.4.2",
+    "@angular/compiler": "^2.4.2",
+    "@angular/compiler-cli": "^2.4.2",
+    "@angular/core": "^2.4.2",
+    "@angular/forms": "^2.4.2",
+    "@angular/http": "^2.4.2",
+    "@angular/platform-browser": "^2.4.2",
+    "@angular/platform-browser-dynamic": "^2.4.2",
+    "@angular/platform-server": "^2.4.2",
+    "@angular/router": "^3.4.2",
+    "angular-in-memory-web-api": "^0.2.4",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "express": "^4.14.0",
     "font-awesome": "^4.7.0",
     "reflect-metadata": "^0.1.8",
-    "rxjs": "5.0.0-rc.4",
+    "rxjs": "^5.0.3",
     "socket.io": "^1.7.1",
-    "systemjs": "0.19.40",
+    "systemjs": "^0.19.41",
+    "typescript": "^2.1.4",
     "ws": "^1.1.1",
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
     "concurrently": "^3.1.0",
     "nodemon": "^1.11.0",
-    "typescript": "~2.0.10"
+    "typescript": "^2.0.10"
   }
 }
