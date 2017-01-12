@@ -4,27 +4,30 @@ var HOST = 'localhost';
 var PORT = 6969;
 net.createServer(function(sock) {
     var clientClosedConn= false;
-    console.log('CONNECTED: ' + sock.remoteAddress + ':' + sock.remotePort);
+    console.log("\nTHIS IS FROM TEST TCP SERVER");
+    console.log('ONE CLIENT GOT CONNECTED TO ME...WELCOME: ' + sock.remoteAddress + ':' + sock.remotePort);
     sock.on('data', function(data) {
       var buffer_data = Buffer.from(data);
       print_bin_asci_msg(buffer_data)
       // console.log("BYTE RECEVIED FROM CLIENT: %d",buffer_data.length);
       setTimeout( function(){
         if(clientClosedConn){
-          console.log("CLIENT ALREADY CLOSED CONNECTION...DATA LOST");
+          console.log("THIS IS FROM TEST TCP SERVER\nCLIENT ALREADY CLOSED CONNECTION...DATA LOST SORRY");
         }else{
+          console.log("THIS IS FROM TEST TCP SERVER\nSENT SAME DATA BACK TO CLIENT..WOW");
           sock.write(data);//send data after 5 second
+
         }
       }, 1000);
 
     });
     sock.on('close', function(data) {
         clientClosedConn = true;
-        console.log('CLOSED: ' + sock.remoteAddress + ' ' + sock.remotePort);
+        console.log('THIS IS FROM TEST TCP SERVER\nNOW CLIENT HAS CLOSED THE CONNECTION...GOOD BYE: ' + sock.remoteAddress + ' ' + sock.remotePort);
     });
     sock.on('error', function(data) {
         clientClosedConn = false;
-        console.log('ERROR: ' + sock.remoteAddress + ' ' + sock.remotePort);
+        console.log('THIS IS FROM TEST TCP SERVER\nGOT CONNECTION ERROR...OMG: ' + sock.remoteAddress + ' ' + sock.remotePort);
     });
 
 }).listen(PORT, HOST);
