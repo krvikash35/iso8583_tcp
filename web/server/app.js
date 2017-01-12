@@ -24,7 +24,7 @@ app.use('/public', exp.static(__proot + '/web/server/public'));
 let HTTP_PORT;
 if(process.env.NODE_ENV_ISO8583_BUILD=='prod'){
   console.log("\nTHIS BUILD IS RUNNING IN PRODUCTION MODE");
-  HTTP_PORT = 3001
+  HTTP_PORT = process.env.PORT || 3001
   app.use('/', exp.static(__proot + '/web/client/aot'));
   app.use('/app/*', exp.static(__proot + '/web/client/aot'));
 }else{
