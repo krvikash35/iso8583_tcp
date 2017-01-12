@@ -2,6 +2,6 @@ node_modules
 web/client/app/**/*.map
 web/client/app/**/*.js
 web/client/aot/app/*
-web/client/aot/dist/*
+web/client/aot/dist/build.js.map
 
 npm-debug*
