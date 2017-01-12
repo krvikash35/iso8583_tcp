@@ -14,7 +14,7 @@
     "ngc": "node_modules/.bin/ngc -p web/client/tsconfig-aot.json",
     "rollup": "rollup -c web/client/rollup-config.js",
     "copy-to-dist-cp": "cp -r web/client/app/style/css web/client/app/style/fonts web/client/aot/dist/",
-    "prod": "set NODE_ENV_ISO8583_BUILD=prod&& npm run ngc && npm run rollup && npm run copy-to-dist-cp && node web/server/app.js && node web/test_server/app.js",
+    "prod": "set NODE_ENV_ISO8583_BUILD=prod&& npm run ngc && npm run rollup && npm run copy-to-dist-cp && concurrently --kill-others \"node web/server/app.js\" \"node web/test_server/app.js\" ",
     "start": "npm run prod",
     "prestart": "npm install ---d"
   },
@@ -58,16 +58,16 @@
     "systemjs": "^0.19.41",
     "typescript": "^2.1.4",
     "ws": "^1.1.1",
-    "zone.js": "^0.7.2"
-  },
-  "devDependencies": {
+    "zone.js": "^0.7.2",
     "@types/node": "^7.0.0",
     "concurrently": "^3.1.0",
     "nodemon": "^1.11.0",
     "rollup": "^0.41.1",
     "rollup-plugin-commonjs": "^7.0.0",
     "rollup-plugin-node-resolve": "^2.0.0",
-    "rollup-plugin-uglify": "^1.0.1",
-    "typescript": "^2.0.10"
+    "rollup-plugin-uglify": "^1.0.1"
+  },
+  "devDependencies": {
+
   }
 }
