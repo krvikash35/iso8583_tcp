@@ -96,7 +96,11 @@ export class LogComponent implements OnInit{
     createWebSocket(){
       let host = window.location.hostname;
       let port = window.location.port;
-      let sock_url = "ws://"+host+":"+port;
+      let protocol = "ws://";
+      if(location.protocol == 'https:'){
+        protocol = "wss://"
+      }
+      let sock_url = protocol+host+":"+port;
       console.log("LogComponent.createWebSocket...websocket connection will be created to ", sock_url)
       this.wsService
       .connect(sock_url)
