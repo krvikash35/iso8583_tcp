@@ -4,12 +4,16 @@ import { LogService } from '../data/log.service'
 import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
+  moduleId: module.id,
   selector: 'field',
-  templateUrl: 'app/field/field.component.html',
+  // templateUrl: 'app/field/field.component.html',
+  templateUrl: 'field.component.html',
   styleUrls: [],
   providers: [FieldService]
 })
 export class FieldComponent{
+  showExportFileName: boolean;
+  bindExportData: boolean;
   showErrorDiv = false;
   errorDetail = {};
   fdlistArr = [];

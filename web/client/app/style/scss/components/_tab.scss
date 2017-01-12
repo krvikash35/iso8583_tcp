@@ -1,0 +1,37 @@
+.tab-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  //flex-flow: ''; //shorthand for flex-wrap and flex-direction
+  // align-items: '';
+  // align-content: '';
+  justify-content: space-around;
+  height: 48px;
+}
+
+.tab-item{
+  @extend .ripple;
+  text-transform: uppercase;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 24px;
+  padding-right: 24px;
+  cursor: pointer;
+  // min-width: 72px;
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 0.30)
+  }
+  @else{
+    color: rgba($text-color, 0.26)
+  }
+}
+
+.tab-item-active{
+  color: $text-color;
+  border-bottom: 2px solid $accent-color;
+}

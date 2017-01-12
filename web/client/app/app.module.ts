@@ -17,6 +17,7 @@ import { DataService } from './data/data.service';
 import { LogService } from './data/log.service';
 import { WebSocketService } from './log/socket.service'
 
+
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule, AppRoutingModule ],
   declarations: [ AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent,  HelpComponent, FocusOnInit ],

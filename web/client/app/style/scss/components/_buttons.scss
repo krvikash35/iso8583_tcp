@@ -1,0 +1,124 @@
+/*
+1. btn
+2. btn-flat
+3. btn-raised
+4. btn-fab
+*/
+//btn shared style
+.btn {
+    min-width: $btn-min-width;
+    height: $btn-height;
+    line-height: $btn-height;
+    border: $btn-border;
+    border-radius: $btn-radius;
+    padding: $btn-padding;
+    display: inline-block;
+    outline: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    color: $text-color;
+}
+//btn-flat style
+.btn-flat {
+    @extend .btn;
+    background-color: transparent;
+    color: $text-color;
+    box-shadow: none;
+    transition: all 1s;
+
+    &:active,
+    &:focus,
+    &[active=true] {
+        @if $theme-type == "dark" {
+            background-color: rgba(#CCCCCC, 0.25);
+        }
+        @else {
+            background-color: rgba(#999999, 0.40);
+        }
+    }
+
+    &:hover {
+        @if $theme-type == "dark" {
+            background-color: rgba(#CCCCCC, 0.15);
+        }
+        @else {
+            background-color: rgba(#999999, 0.30);
+        }
+    }
+}
+
+.btn-flat.disabled,
+.btn-flat:disabled,
+.btn-flat[disabled] {
+    @extend .disabled-text;
+    background-color: transparent !important;
+}
+
+.btn-flat-disabled {
+  pointer-events: none;
+  @extend .disabled-text;
+  background-color: transparent !important;
+}
+//btn-raised style
+.btn-raised {
+    @extend .btn;
+    background-color: $accent-color;
+    @extend .z-depth-1;
+    transition: all 1s;
+
+    &:active,
+    &:focus {
+        @extend .z-depth-3;
+        background-color: darken($accent-color, 10%);
+    }
+
+    &:hover {
+        @extend .z-depth-1-half;
+        background-color: darken($accent-color, 5%);
+    }
+}
+
+.btn-raised.disabled,
+.btn-raised:disabled,
+.btn-raised[disabled] {
+    background-color: rgba($text-color, 0.12);
+    @extend .z-depth-0;
+    @extend .disabled-text;
+}
+
+.btn-raised-disabled {
+    pointer-events: none;
+    background-color: rgba($text-color, 0.12) !important;
+    @extend .z-depth-0;
+    @extend .disabled-text;
+}
+
+.btn-fab {
+    outline: 0;
+    border: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: uppercase;
+    background-color: $accent-color;
+    color: $text-color;
+    @extend .z-depth-1;
+    transition: all 1s;
+
+    &:active,
+    &:focus {
+        @extend .z-depth-3;
+        background-color: darken($accent-color, 10%);
+    }
+
+    &:hover {
+        @extend .z-depth-1-half;
+        background-color: darken($accent-color, 5%);
+        cursor: pointer;
+    }
+}

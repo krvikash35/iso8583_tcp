@@ -1,0 +1,240 @@
+/*
+1. center
+2. text-primary
+3. text-secondary
+4. text-disabled
+5. z-depth-x
+*/
+.webconsole{
+  margin: 10px;
+  padding: 10px;
+  height: 500px;
+  display: block;
+  overflow-y: scroll;
+  background: black;
+  border-radius: 10px;
+  // color: red;
+}
+.disabled{
+  pointer-events:none;
+  background-color: rgba($text-color, 0.12) ;
+}
+
+.enabled{
+  pointer-events: auto;
+}
+
+.divider{
+  width:100%;
+  height:1px;
+  @if $theme-type == "dark"{
+    background: rgba(#FFFFFF, 0.12);
+  }
+  @else{
+    background: rgba(#000000, 0.12);
+  }
+
+}
+
+.divider-vertical{
+  width:1px;
+  height:100vh;
+  @if $theme-type == "dark"{
+    background: rgba(#FFFFFF, 0.12);
+  }
+  @else{
+    background: rgba(#000000, 0.12);
+  }
+
+}
+
+.label-error{
+  @extend .bg-red;
+  @extend .bg-lighten-3;
+  @extend .text-red;
+  @extend .text-darken-1;
+  padding:0px 10px 10px 10px;
+  margin: 0px 10px 0px 10px;
+  border-radius: 5px;
+  // overflow-x: hidden;
+  // overflow: hidden;
+}
+
+.label-error-header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label-error-header > *{
+
+}
+
+.label-success{
+  @extend .bg-green;
+  @extend .bg-lighten-3;
+  @extend .text-green;
+  @extend .text-darken-1;
+  padding:5px;
+  border-radius: 5px;
+}
+
+.full-width{
+    width: 100%;
+}
+
+.clickable{
+    cursor: pointer;
+}
+
+.hide{
+  visibility: hidden;
+}
+
+.show{
+  visibility: visible;
+}
+
+.display-none
+{
+  display: none;
+}
+
+.pre-ws{
+    white-space: pre;
+}
+
+pre{
+  white-space: pre-wrap;
+}
+.center{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.left{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+.right{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+.left > *, .right > *, .center > *{
+  margin: 5px 5px 5px 5px;
+}
+
+.center-equal-space{
+  display: flex;
+  justify-content:center;
+
+}
+
+ .center-equal-space > *{
+   margin: 5px auto 5px auto;
+
+ }
+
+//all chidren element will be of equal width, center horizontly and vertically
+.center-equal-size{
+  display: flex;
+  justify-content: space-around;
+}
+
+.center-equal-size > *{
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.equal{
+  display: flex;
+}
+.equal > *{
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.text-primary{
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 1);
+  }else{
+    color: rgba($text-color, 0.87);
+  }
+}
+
+.text-secondary{
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 0.70);
+  }else{
+    color: rgba($text-color, 0.54);
+  }
+}
+
+.text-disabled{
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 0.50);
+  }else{
+    color: rgba($text-color, 0.38);
+  }
+}
+
+// Z-levels
+.z-depth-0 {
+  box-shadow: none !important;
+}
+.z-depth-1 {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.z-depth-1-half {
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -1px rgba(0, 0, 0, 0.2);
+}
+.z-depth-2 {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+.z-depth-3 {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+}
+.z-depth-4 {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.3);
+}
+.z-depth-5 {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.3);
+}
+
+
+[hidden]{
+  display: none;
+}
+
+
+.circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  // font-size: 50px;
+  color: $text-color;
+  line-height: 70px;
+  text-align: center;
+  // background-color: transparent;
+  // background: #000
+  // border-color: #0000ff;
+  border: 3px solid $accent-color;
+}

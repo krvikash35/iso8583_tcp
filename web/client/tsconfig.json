@@ -8,17 +8,15 @@
         "experimentalDecorators": true,
         "removeComments": false,
         "noImplicitAny": false,
+        "suppressImplicitAnyIndexErrors": true,
         "lib": [ "es2015", "dom" ],
-        "typeRoots": [
-            "../../node_modules/@types/"
-        ]
+        "typeRoots": ["../../node_modules1/@types/"],
+        "types" : ["node"]
     },
     "compileOnSave": false,
     "exclude": [
-    "node_modules/*",
-    "**/*-aot.ts"
-  ]
+        "node_modules",
+        "app/main-aot.ts",
+        "aot/"
+    ]
 }
-
-/*"typeRoots": ["../../node_modules/@types"],
-"types": ["core-js", "jasmine", "node" ]*/

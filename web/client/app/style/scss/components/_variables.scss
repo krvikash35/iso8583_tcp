@@ -1,0 +1,66 @@
+/* ==========================================================================
+   variables
+   ========================================================================== */
+/**
+ * Table of Contents:
+ *
+ *  1. Typography
+ *  2. Colors
+ *  3. Fonts
+ *  4. Buttons
+ */
+
+
+ /* 1. Typography
+    ========================================================================== */
+ $small-screen-up: 601px !default;
+ $medium-screen-up: 993px !default;
+ $large-screen-up: 1201px !default;
+ $small-screen: 600px !default;
+ $medium-screen: 992px !default;
+ $large-screen: 1200px !default;
+ $range : $large-screen - $small-screen !default;
+ $intervals: 20 !default;
+ $interval-size: $range / $intervals !default;
+ $off-black: rgba(0, 0, 0, 0.87) !default;
+ // Header Styles
+ $h1-fontsize: 4.2rem !default;
+ $h2-fontsize: 3.56rem !default;
+ $h3-fontsize: 2.92rem !default;
+ $h4-fontsize: 2.28rem !default;
+ $h5-fontsize: 1.64rem !default;
+ $h6-fontsize: 1rem !default;
+
+/* 2. Colors
+   ========================================================================== */
+$theme-type: "dark" !default; // dark(teal) or light(grey)
+$theme-color: "teal" !default;
+$primary-color: color($theme-color, "darken-3") !default;
+$secondary-color: color($theme-color, "darken-2") !default;
+$accent-color: #F50057 !default; //pink F50057 red: FF1744, D50000, green: 1DE9B6, 00C853,
+$text-color: #FFFFFF !default; //white
+
+@if $theme-type != "dark" {
+  $primary-color: color($theme-color, "lighten-3") ;
+  $secondary-color: color($theme-color, "lighten-4") ;
+  $accent-color: #00BFA5 ;//green 00C853 teal 00BFA5 blue 0091EA
+  $text-color: #000000 ; //black
+}
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$link-color: color("light-blue", "darken-1") !default;
+
+
+ /* 3. Fonts
+  ========================================================================== */
+$roboto-font-path: "../fonts/roboto/" !default;
+$icon-font-path: "../fonts/icon/" !default;
+
+/* 4. Buttons
+    ========================================================================== */
+//btn Shared styles
+$btn-min-width: 88px !default;
+$btn-height: 36px !default;
+$btn-border: none !default;
+$btn-radius: 2px !default;
+$btn-padding: 0 10px !default;

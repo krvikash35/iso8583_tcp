@@ -3,17 +3,22 @@ import { Router } from '@angular/router'
 import { ConfigService } from './config.service'
 import { LogService } from '../data/log.service'
 import { DomSanitizer} from '@angular/platform-browser';
+import { Profile } from './config.spec'
 
 @Component({
+    moduleId: module.id,
     selector: 'config',
-    templateUrl: 'app/config/config.component.html',
+    // templateUrl: 'app/config/config.component.html',
+    templateUrl: 'config.component.html',
     styleUrls: [],
     providers: [ConfigService]
 })
 export class ConfigComponent implements OnInit {
-    prop = {};
-    config = {};
+    prop: any;
+    config: Profile;
     fdlist = [];
+    showExportFileName: boolean;
+    bindExportData: boolean;
     exportFileName = "7x_chalukya_setup.json"
 
 

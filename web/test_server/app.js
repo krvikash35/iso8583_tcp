@@ -28,7 +28,7 @@ net.createServer(function(sock) {
     });
 
 }).listen(PORT, HOST);
-console.log('TCP Server listening on ' + HOST + ':' + PORT);
+console.log('\nTEST TCP SERVER LISTENING ON ' + HOST + ':' + PORT);
 
 
 function print_bin_asci_msg(buf){

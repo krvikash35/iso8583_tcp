@@ -1,0 +1,66 @@
+.book{
+ // margin: 10px;
+ // border: 1px solid white;
+ // display: flex;
+}
+
+.book > .preface{
+  position: fixed;
+  width: 200px;
+  height: 92vh;
+  padding: 10px 0px 0px 10px;
+  @if $theme-type == "dark"{
+    border-right: 2px solid rgba(#FFFFFF, 0.12)
+  }
+  @else{
+    border-right: 2px solid rgba(#000000, 0.12)
+  }
+}
+
+.book > .preface > .title{
+  text-transform: uppercase;
+  font-size: 18px;
+  // font-style: italic;
+  padding-bottom: 10px
+}
+
+.book > .preface > .body div{
+  // text-transform: lowercase;
+  font-size: 12px;
+  // font-style: italic;
+  padding-bottom: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.book > .content{
+     margin-left: 200px;
+     padding-left: 20px;
+     height: 89vh;
+     width: auto;
+     position: relative;
+     overflow: auto;
+     z-index: 1;
+}
+
+.book > .content > section{
+  border-bottom: 1px solid rgba(#FFFFFF, 0.12)
+}
+
+.book > .content > section .title{
+  padding-top: 10px;
+  color: $accent-color;
+  text-transform: uppercase;
+  font-size: 18px;
+  // text-decoration: underline;
+}
+
+.book > .content > section .body{
+  font-size: 12px;
+  font-family: sans-serif;
+}
+
+.book > .content > section  .body p{
+  margin-top: 0px;
+  padding-top: 0px;
+}

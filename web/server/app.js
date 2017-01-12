@@ -19,8 +19,20 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json())
 app.use('/node_modules', exp.static(__proot + '/node_modules'));
-app.use('/', exp.static(__proot + '/web/client'));
-app.use('/app/*', exp.static(__proot + '/web/client'));
+app.use('/public', exp.static(__proot + '/web/server/public'));
+
+let HTTP_PORT;
+if(process.env.NODE_ENV_ISO8583_BUILD=='prod'){
+  console.log("\nTHIS BUILD IS RUNNING IN PRODUCTION MODE");
+  HTTP_PORT = 3001
+  app.use('/', exp.static(__proot + '/web/client/aot'));
+  app.use('/app/*', exp.static(__proot + '/web/client/aot'));
+}else{
+  console.log("\nTHIS BUILD IS RUNNING IN DEVELOPMENT MODE");
+  HTTP_PORT = 3002
+  app.use('/', exp.static(__proot + '/web/client'));
+  app.use('/app/*', exp.static(__proot + '/web/client'));
+}
 // process.on('uncaughtException', (err) => {
 //   console.log('uncaughtException', err);
 // })
@@ -41,9 +53,9 @@ process.on('uncaughtException', function(err) {
     process.exit(1);
 });
 
-httpserver.listen(3000, function(err) {
+httpserver.listen(HTTP_PORT, function(err) {
     let httpAddress = httpserver.address()
-    console.log("http server listening on");
+    console.log("\nHTTP SERVER LISTENING ON ");
     console.log("HOSTNAME: ", os.hostname());
     console.log("PORT: ", httpAddress.port);
     console.log("IP: ", httpAddress.address);
@@ -63,4 +75,4 @@ wss.on("connection", (ws) => {
       websoklib.receive_msg(ws.id, data)
   })
 });
-console.log("websocket server created");
+console.log("\nWEBSOCKET SERVER LISTENING ON HTTP SERVER PORT");

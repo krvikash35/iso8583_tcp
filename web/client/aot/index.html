@@ -5,11 +5,11 @@
     <title>ISO 8583 Simulator</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="app/public/css/mycss/dist/css/material.css">
+    <link rel="stylesheet" href="dist/css/style.css">
 
     <!-- Polyfill(s) for older browsers -->
-    <script src="shim.min.js"></script>
-    <script src="zone.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
     <script>window.module = 'aot';</script>
   </head>
 
@@ -17,5 +17,5 @@
     <my-app>Loading ...</my-app>
   </body>
   <script src="dist/build.js"></script>
-  <script>document.write('<base href="' + document.location + '" />');</script>
+  <!-- <script>document.write('<base href="' + document.location + '" />');</script> -->
 </html>

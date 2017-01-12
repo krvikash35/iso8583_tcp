@@ -1,0 +1,28 @@
+.table{
+  width: 100%;
+  font-size: 13px;
+}
+.table td,
+.table th{
+  text-align: left;
+  padding: 5px 10px 5px 10px;
+}
+.table td{
+  color: rgba($text-color, 0.87);
+  // word-wrap: normal;
+  white-space: nowrap;
+}
+.table th{
+  color: rgba($text-color, 0.54)
+}
+.table tr{
+  @if $theme-type == "dark"{
+    border-bottom: 1px solid rgba(#FFFFFF, 0.12);
+  }
+  @else{
+    border-bottom: 1px solid rgba(#000000, 0.12);
+  }
+}
+// .table-last-col-full th:last-child {
+//     width: 100%;
+// }

@@ -31,8 +31,10 @@ const CLRCLASS = {
   }
 }
 @Component({
+  moduleId: module.id,
   selector: 'log',
-  templateUrl: 'app/log/log.component.html',
+  // templateUrl: 'app/log/log.component.html',
+  templateUrl: 'log.component.html',
   styleUrls: [],
   providers: []
 })

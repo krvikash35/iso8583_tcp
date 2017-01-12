@@ -1,8 +1,10 @@
 import { Component } from '@angular/core'
 
 @Component({
+  moduleId: module.id,
   selector: 'help',
-  templateUrl: 'app/help/help.component.html',
+  // templateUrl: 'app/help/help.component.html',
+  templateUrl: 'help.component.html',
   styleUrls: []
 })
 export class HelpComponent{

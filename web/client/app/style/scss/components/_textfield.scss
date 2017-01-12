@@ -1,0 +1,97 @@
+.primary-text{
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 1);
+  }
+  @else{
+    color: rgba($text-color, 0.87);
+  }
+}
+
+.secondary-text{
+  // text-decoration: line-through;
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 0.70);
+  }
+  @else{
+    color: rgba($text-color, 0.54);
+  }
+}
+
+.disabled-text{
+  @if $theme-type == "dark"{
+    color: rgba($text-color, 0.50);
+  }
+  @else{
+    color: rgba($text-color, 0.38);
+  }
+}
+
+
+
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 15px;
+}
+.switch input {display:none;}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(#000000, 0.38);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 0px;
+  bottom: -1px;
+  background-color: rgba(#FAFAFA, 1);
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: rgba($accent-color, 0.50);
+}
+input:checked + .slider:before {
+  transform: translateX(17px);
+  background-color: rgba($accent-color, 1);
+}
+
+
+select {
+   background-color: $secondary-color;
+  //  color: $text-color;
+  @extend .primary-text;
+   border-radius: 5px;
+   width: 185px;
+  //  min-width: 185px;
+  //  max-width: 190px;
+}
+
+input[type="text"], input[type="number"]{
+  @extend .primary-text;
+  // @extend .secondary-text;
+  border: none;
+  border-bottom: 1px solid $accent-color;
+  outline: none;
+  background-color: transparent;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}

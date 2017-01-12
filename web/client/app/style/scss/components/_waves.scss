@@ -1,0 +1,24 @@
+.ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.ripple:after {
+    content: "";
+    background: rgba(255,255,255,0.3);
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transition: all 1s;
+}
+
+.ripple:active:after {
+    opacity: 1;
+    transform: scale(50);
+    transition: 0s;
+}

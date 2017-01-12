@@ -6,7 +6,8 @@ import { FocusOnInit } from './data.directive'
 
 @Component({
     selector: 'data',
-    templateUrl: 'app/data/data.component.html',
+    moduleId: module.id,
+    templateUrl: 'data.component.html',
     styleUrls: []
     // providers: [DataService]
 })
