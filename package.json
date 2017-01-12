@@ -15,7 +15,8 @@
     "rollup": "rollup -c web/client/rollup-config.js",
     "copy-to-dist-cp": "cp -r web/client/app/style/css web/client/app/style/fonts web/client/aot/dist/",
     "prod": "set NODE_ENV_ISO8583_BUILD=prod&& npm run ngc && npm run rollup && npm run copy-to-dist-cp && node web/server/app.js && node web/test_server/app.js",
-    "start": "npm run prod"
+    "start": "npm run prod",
+    "prestart": "npm install ---d"
   },
   "repository": {
     "type": "git",
