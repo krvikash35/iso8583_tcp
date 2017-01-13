@@ -3,5 +3,5 @@ web/client/app/**/*.map
 web/client/app/**/*.js
 web/client/aot/app/*
 web/client/aot/dist/build.js.map
-
+.sass-cache
 npm-debug*
