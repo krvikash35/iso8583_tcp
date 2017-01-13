@@ -1,1 +1,6 @@
-#web implementation of iso8583, angular2 in front-end and nodejs in back-end
+#web branch
+
+implementation of ISO8583 <br/>
+web-based UI <br/>
+front-end in angular2 <br/>
+back-end in node.js <br/>
