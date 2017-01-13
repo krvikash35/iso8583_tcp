@@ -1,1 +1,3 @@
-# tcp/ip iso8583 implementation  using nodejs 
+#Implementation of ISO8583
+#Command line interface
+#Based on nodejs
