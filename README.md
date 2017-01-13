@@ -1,3 +1,5 @@
-#Implementation of ISO8583
-#Command line interface
-#Based on nodejs
+#cli branch
+
+implementation of ISO8583 </br>
+command line interface </br>
+based on nodejs </br>
