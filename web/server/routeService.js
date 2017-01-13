@@ -53,7 +53,7 @@ function transrecieve(req, res){
       responseHandler(200, data, res);
     })
     .catch(function(err){
-      logService.logEvent("routeService.transrecieve...Sent ERROR response to http client!")
+      logService.logEvent("routeService.transrecieve...Sent BELOW ERROR response to http client! \n"+err.message)
       errorHandler(400, err, res);
     })
 }
@@ -72,7 +72,7 @@ function responseHandler(status, data, res){
 
 function errorHandler(status, err, res){
   console.log("init_gen_bitmap");
-  logService.logEvent("routeService.errorHandler...Sent ERROR response to http client!")
+  logService.logEvent("routeService.errorHandler...Sent ERROR response to http client! ")
   var errObj = {
     'name':  err.name,
     'message': err.message,
@@ -90,7 +90,7 @@ function errorHandler(status, err, res){
 }
 
 function catchAllHandler(err, req, res, next) {
-  logService.logEvent("routeService.catchAllHandler...Sent ERROR response (STATUS_CODE 500) to http client!")
+  logService.logEvent("routeService.catchAllHandler...Sent ERROR response (STATUS_CODE 500) to http client! ")
     var errObj = {
       'method': req['method'],
       'url': req['originalUrl'],

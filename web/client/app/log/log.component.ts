@@ -14,8 +14,8 @@ const CLRCLASS = {
     log: 'text-light-green text-darken-1'
   },
   browserSideMessage: {
-    type: 'text-indigo text-darken-4',
-    log: 'text-indigo text-darken-1'
+    type: 'text-purple text-darken-4',
+    log: 'text-purple text-darken-1'
   },
   isomsgbytes: {
     type: 'text-red text-darken-4',
