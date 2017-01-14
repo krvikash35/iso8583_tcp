@@ -53482,8 +53482,8 @@ var CLRCLASS = {
         log: 'text-light-green text-darken-1'
     },
     browserSideMessage: {
-        type: 'text-indigo text-darken-4',
-        log: 'text-indigo text-darken-1'
+        type: 'text-purple text-darken-4',
+        log: 'text-purple text-darken-1'
     },
     isomsgbytes: {
         type: 'text-red text-darken-4',
@@ -53686,6 +53686,21 @@ FocusOnInit = __decorate$13([
     }),
     __metadata$8("design:paramtypes", [ElementRef])
 ], FocusOnInit);
+var ScrollIntoView = (function () {
+    function ScrollIntoView(elementRef) {
+        this.elementRef = elementRef;
+    }
+    ScrollIntoView.prototype.ngAfterViewInit = function () {
+        this.elementRef.nativeElement.scrollIntoView();
+    };
+    return ScrollIntoView;
+}());
+ScrollIntoView = __decorate$13([
+    Directive({
+        selector: '[scrollIntoView]'
+    }),
+    __metadata$8("design:paramtypes", [ElementRef])
+], ScrollIntoView);
 
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -53701,7 +53716,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     NgModule({
         imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
-        declarations: [AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent, HelpComponent, FocusOnInit],
+        declarations: [AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent, HelpComponent, FocusOnInit, ScrollIntoView],
         providers: [DataService, LogService, WebSocketService],
         //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
         bootstrap: [AppComponent]
@@ -53932,6 +53947,31 @@ var Wrapper_FocusOnInit = (function () {
         this._eventHandler = _eventHandler;
     };
     return Wrapper_FocusOnInit;
+}());
+var Wrapper_ScrollIntoView = (function () {
+    function Wrapper_ScrollIntoView(p0) {
+        this._changed = false;
+        this.context = new ScrollIntoView(p0);
+    }
+    Wrapper_ScrollIntoView.prototype.ngOnDetach = function (view, componentView, el) {
+    };
+    Wrapper_ScrollIntoView.prototype.ngOnDestroy = function () {
+    };
+    Wrapper_ScrollIntoView.prototype.ngDoCheck = function (view, el, throwOnChange) {
+        var changed = this._changed;
+        this._changed = false;
+        return changed;
+    };
+    Wrapper_ScrollIntoView.prototype.checkHost = function (view, componentView, el, throwOnChange) {
+    };
+    Wrapper_ScrollIntoView.prototype.handleEvent = function (eventName, $event) {
+        var result = true;
+        return result;
+    };
+    Wrapper_ScrollIntoView.prototype.subscribe = function (view, _eventHandler) {
+        this._eventHandler = _eventHandler;
+    };
+    return Wrapper_ScrollIntoView;
 }());
 
 /**
@@ -59547,7 +59587,8 @@ var View_LogComponent1 = (function (_super) {
         return _super.call(this, View_LogComponent1, renderType_LogComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
     }
     View_LogComponent1.prototype.createInternal = function (rootSelector) {
-        this._el_0 = createRenderElement(this.renderer, null, 'span', EMPTY_INLINE_ARRAY, null);
+        this._el_0 = createRenderElement(this.renderer, null, 'span', new InlineArray2(2, 'scrollIntoView', ''), null);
+        this._ScrollIntoView_0_3 = new Wrapper_ScrollIntoView(new ElementRef(this._el_0));
         this._anchor_1 = this.renderer.createTemplateAnchor(this._el_0, null);
         this._vc_1 = new ViewContainer(1, 0, this, this._anchor_1);
         this._TemplateRef_1_5 = new TemplateRef_(this, 1, this._anchor_1);
@@ -59565,13 +59606,22 @@ var View_LogComponent1 = (function (_super) {
         if (((token === NgIf) && (1 === requestNodeIndex))) {
             return this._NgIf_1_6.context;
         }
+        if (((token === ScrollIntoView) && ((0 <= requestNodeIndex) && (requestNodeIndex <= 1)))) {
+            return this._ScrollIntoView_0_3.context;
+        }
         return notFoundResult;
     };
     View_LogComponent1.prototype.detectChangesInternal = function (throwOnChange) {
+        this._ScrollIntoView_0_3.ngDoCheck(this, this._el_0, throwOnChange);
         var currVal_1_0_0 = (((this.parentView.context.showlogtype == this.context.$implicit.type) || (this.parentView.context.showlogtype == 'all')) || ('browserSideMessage' == this.context.$implicit.type));
         this._NgIf_1_6.check_ngIf(currVal_1_0_0, throwOnChange, false);
         this._NgIf_1_6.ngDoCheck(this, this._anchor_1, throwOnChange);
         this._vc_1.detectChangesInNestedViews(throwOnChange);
+        if (!throwOnChange) {
+            if ((this.numberOfChecks === 0)) {
+                this._ScrollIntoView_0_3.context.ngAfterViewInit();
+            }
+        }
     };
     View_LogComponent1.prototype.destroyInternal = function () {
         this._vc_1.destroyNestedViews();
