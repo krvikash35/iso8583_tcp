@@ -58,6 +58,7 @@ function logRequest(req, res, next){
 function logResponse(resobj){
   if(logLevel == 4){
     console.log('\n\n\nSent response to http client: ', JSON.stringify(resobj, null, '   '));
+    // console.log(resobj.response.data.stack);
     // console.log('Sent response to http client: ');
     // console.log(util.inspect(resobj, false, null))
   }

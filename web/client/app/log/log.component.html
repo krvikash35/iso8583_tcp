@@ -16,5 +16,5 @@
     <button (click)="logmsgs=[]" class="btn-raised ripple">CLEAR LOG</button>
 </div>
 <div class="webconsole">
-    <pre ><span *ngFor="let msg of logmsgs"><span *ngIf="showlogtype==msg.type || showlogtype=='all' || 'browserSideMessage'==msg.type"> <label [class]="getcssclass(msg.type).type" >[{{msg.type}}:]</label> <label [class]="getcssclass(msg.type).log"  >{{msg.log}}</label><br/></span></span></pre>
+    <pre ><span  scrollIntoView *ngFor="let msg of logmsgs"><span *ngIf="showlogtype==msg.type || showlogtype=='all' || 'browserSideMessage'==msg.type"> <label [class]="getcssclass(msg.type).type" >[{{msg.type}}:]</label> <label [class]="getcssclass(msg.type).log"  >{{msg.log}}</label><br/></span></span></pre>
 </div>
