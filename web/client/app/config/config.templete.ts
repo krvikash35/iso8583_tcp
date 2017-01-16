@@ -22,11 +22,11 @@ export const PROP: any = {
     },
     tcp_timeout: {
       title: "TCP TIMEOUT",
-      allowdValue: [{name: "20 SECOND", value: 20}, {name: "30 SECOND", value: 30}, {name: "40 SECOND", value: 40}]
+      allowdValue: [{name: "20 SECOND", value: 20}, {name: "30 SECOND", value: 30}, {name: "40 SECOND", value: 40}, {name: "80 SECOND", value: 80}]
     },
     http_timeout:{
       title: "HTTP TIMEOUT",
-      allowdValue: [{name: "2 SECOND", value: 2}, {name: "4 SECOND", value: 4}, {name: "6 SECOND", value: 6}]
+      allowdValue: [{name: "2 SECOND", value: 2}, {name: "4 SECOND", value: 4}, {name: "6 SECOND", value: 6}, {name: "10 SECOND", value: 10}]
     }
   },
   server: {

@@ -18,6 +18,7 @@
     <th>FieldNo</th>
     <th>FieldLengthType</th>
     <th>FieldMaxLenght</th>
+    <th>CurrentLength</th>
     <th >FieldDescritption</th>
     <th class="full-width">FieldValue</th>
   </tr>
@@ -26,6 +27,7 @@
     <td>{{req?.key}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.lentype}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.maxlen}}</td>
+    <td *ngIf="reqFieldDef">{{req?.value?.length}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.desc}}</td>
     <td *ngIf="!req.showEditField" (click)="req.showEditField=true;" class="pre-ws clickable">"{{req?.value}}"</td>
     <td *ngIf="req.showEditField">  <input focusOnInit  [attr.maxlength]="reqFieldDef[req?.key]?.maxlen" (ngModelChange)="onReqDataFVModelChange(req?.key, $event)" (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
@@ -34,6 +36,7 @@
     <td  colspan="2"> <input  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
     <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
     <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
+    <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqDataEdit?.fvalue?.length}}</td>
     <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>
     <td *ngIf="flagObj.isreqDataEditFnoValid"> <input (keyup.enter)="addReqDataEditRow(reqDataEdit)"  class="full-width" type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="Enter Field Value..Then Hit Enter to add new record!" /></td>
   </tr>

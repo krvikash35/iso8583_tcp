@@ -54285,7 +54285,7 @@ var View_DataComponent7 = (function (_super) {
         return null;
     };
     View_DataComponent7.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.context.reqFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.context.reqFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].desc), '');
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.context.$implicit == null) ? null : ((this.parentView.context.$implicit.value == null) ? null : this.parentView.context.$implicit.value.length)), '');
         if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
             this.renderer.setText(this._text_1, currVal_2);
             this._expr_2 = currVal_2;
@@ -54304,6 +54304,34 @@ var View_DataComponent8 = (function (_super) {
         return _this;
     }
     View_DataComponent8.prototype.createInternal = function (rootSelector) {
+        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
+        this._text_1 = this.renderer.createText(this._el_0, '', null);
+        this.init(this._el_0, (this.renderer.directRenderer ? null : [
+            this._el_0,
+            this._text_1
+        ]), null);
+        return null;
+    };
+    View_DataComponent8.prototype.detectChangesInternal = function (throwOnChange) {
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.context.reqFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.context.reqFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].desc), '');
+        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
+            this.renderer.setText(this._text_1, currVal_2);
+            this._expr_2 = currVal_2;
+        }
+    };
+    View_DataComponent8.prototype.visitRootNodesInternal = function (cb, ctx) {
+        cb(this._el_0, ctx);
+    };
+    return View_DataComponent8;
+}(AppView));
+var View_DataComponent9 = (function (_super) {
+    __extends$183(View_DataComponent9, _super);
+    function View_DataComponent9(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent9, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        _this._expr_2 = UNINITIALIZED;
+        return _this;
+    }
+    View_DataComponent9.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'td', new InlineArray2(2, 'class', 'pre-ws clickable'), null);
         this._text_1 = this.renderer.createText(this._el_0, '', null);
         var disposable_0 = subscribeToRenderElement(this, this._el_0, new InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_0));
@@ -54313,17 +54341,17 @@ var View_DataComponent8 = (function (_super) {
         ]), [disposable_0]);
         return null;
     };
-    View_DataComponent8.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent9.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_2 = inlineInterpolate(1, '"', ((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.value), '"');
         if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
             this.renderer.setText(this._text_1, currVal_2);
             this._expr_2 = currVal_2;
         }
     };
-    View_DataComponent8.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent9.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent8.prototype.handleEvent_0 = function (eventName, $event) {
+    View_DataComponent9.prototype.handleEvent_0 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         if ((eventName == 'click')) {
@@ -54332,16 +54360,16 @@ var View_DataComponent8 = (function (_super) {
         }
         return result;
     };
-    return View_DataComponent8;
+    return View_DataComponent9;
 }(AppView));
-var View_DataComponent9 = (function (_super) {
-    __extends$183(View_DataComponent9, _super);
-    function View_DataComponent9(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent9, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent10 = (function (_super) {
+    __extends$183(View_DataComponent10, _super);
+    function View_DataComponent10(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent10, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
         _this._expr_9 = UNINITIALIZED;
         return _this;
     }
-    View_DataComponent9.prototype.createInternal = function (rootSelector) {
+    View_DataComponent10.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, '  ', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'input', new InlineArray8(8, 'class', 'full-width', 'focusOnInit', '', 'placeholder', 'Enter Field Value..Then Hit Enter to update value!', 'type', 'text'), null);
@@ -54360,7 +54388,7 @@ var View_DataComponent9 = (function (_super) {
         ]), [disposable_0]);
         return null;
     };
-    View_DataComponent9.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent10.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === DefaultValueAccessor) && (2 === requestNodeIndex))) {
             return this._DefaultValueAccessor_2_3.context;
         }
@@ -54381,7 +54409,7 @@ var View_DataComponent9 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent9.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent10.prototype.detectChangesInternal = function (throwOnChange) {
         this._DefaultValueAccessor_2_3.ngDoCheck(this, this._el_2, throwOnChange);
         var currVal_2_1_0 = this.parentView.context.$implicit.value;
         this._NgModel_2_5.check_model(currVal_2_1_0, throwOnChange, false);
@@ -54400,13 +54428,13 @@ var View_DataComponent9 = (function (_super) {
             }
         }
     };
-    View_DataComponent9.prototype.destroyInternal = function () {
+    View_DataComponent10.prototype.destroyInternal = function () {
         this._NgModel_2_5.ngOnDestroy();
     };
-    View_DataComponent9.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent10.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent9.prototype.handleEvent_2 = function (eventName, $event) {
+    View_DataComponent10.prototype.handleEvent_2 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         result = (this._DefaultValueAccessor_2_3.handleEvent(eventName, $event) && result);
@@ -54428,13 +54456,13 @@ var View_DataComponent9 = (function (_super) {
         }
         return result;
     };
-    return View_DataComponent9;
+    return View_DataComponent10;
 }(AppView));
 var View_DataComponent4 = (function (_super) {
     __extends$183(View_DataComponent4, _super);
     function View_DataComponent4(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
         var _this = _super.call(this, View_DataComponent4, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_34 = UNINITIALIZED;
+        _this._expr_39 = UNINITIALIZED;
         return _this;
     }
     View_DataComponent4.prototype.createInternal = function (rootSelector) {
@@ -54471,7 +54499,12 @@ var View_DataComponent4 = (function (_super) {
         this._vc_17 = new ViewContainer(17, 0, this, this._anchor_17);
         this._TemplateRef_17_5 = new TemplateRef_(this, 17, this._anchor_17);
         this._NgIf_17_6 = new Wrapper_NgIf(this._vc_17.vcRef, this._TemplateRef_17_5);
-        this._text_18 = this.renderer.createText(this._el_0, '\n  ', null);
+        this._text_18 = this.renderer.createText(this._el_0, '\n    ', null);
+        this._anchor_19 = this.renderer.createTemplateAnchor(this._el_0, null);
+        this._vc_19 = new ViewContainer(19, 0, this, this._anchor_19);
+        this._TemplateRef_19_5 = new TemplateRef_(this, 19, this._anchor_19);
+        this._NgIf_19_6 = new Wrapper_NgIf(this._vc_19.vcRef, this._TemplateRef_19_5);
+        this._text_20 = this.renderer.createText(this._el_0, '\n  ', null);
         var disposable_0 = subscribeToRenderElement(this, this._el_2, new InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_2));
         this.init(this._el_0, (this.renderer.directRenderer ? null : [
             this._el_0,
@@ -54492,7 +54525,9 @@ var View_DataComponent4 = (function (_super) {
             this._anchor_15,
             this._text_16,
             this._anchor_17,
-            this._text_18
+            this._text_18,
+            this._anchor_19,
+            this._text_20
         ]), [disposable_0]);
         return null;
     };
@@ -54527,6 +54562,12 @@ var View_DataComponent4 = (function (_super) {
         if (((token === NgIf) && (17 === requestNodeIndex))) {
             return this._NgIf_17_6.context;
         }
+        if (((token === TemplateRef) && (19 === requestNodeIndex))) {
+            return this._TemplateRef_19_5;
+        }
+        if (((token === NgIf) && (19 === requestNodeIndex))) {
+            return this._NgIf_19_6.context;
+        }
         return notFoundResult;
     };
     View_DataComponent4.prototype.detectChangesInternal = function (throwOnChange) {
@@ -54539,21 +54580,25 @@ var View_DataComponent4 = (function (_super) {
         var currVal_13_0_0 = this.parentView.parentView.context.reqFieldDef;
         this._NgIf_13_6.check_ngIf(currVal_13_0_0, throwOnChange, false);
         this._NgIf_13_6.ngDoCheck(this, this._anchor_13, throwOnChange);
-        var currVal_15_0_0 = !this.context.$implicit.showEditField;
+        var currVal_15_0_0 = this.parentView.parentView.context.reqFieldDef;
         this._NgIf_15_6.check_ngIf(currVal_15_0_0, throwOnChange, false);
         this._NgIf_15_6.ngDoCheck(this, this._anchor_15, throwOnChange);
-        var currVal_17_0_0 = this.context.$implicit.showEditField;
+        var currVal_17_0_0 = !this.context.$implicit.showEditField;
         this._NgIf_17_6.check_ngIf(currVal_17_0_0, throwOnChange, false);
         this._NgIf_17_6.ngDoCheck(this, this._anchor_17, throwOnChange);
+        var currVal_19_0_0 = this.context.$implicit.showEditField;
+        this._NgIf_19_6.check_ngIf(currVal_19_0_0, throwOnChange, false);
+        this._NgIf_19_6.ngDoCheck(this, this._anchor_19, throwOnChange);
         this._vc_9.detectChangesInNestedViews(throwOnChange);
         this._vc_11.detectChangesInNestedViews(throwOnChange);
         this._vc_13.detectChangesInNestedViews(throwOnChange);
         this._vc_15.detectChangesInNestedViews(throwOnChange);
         this._vc_17.detectChangesInNestedViews(throwOnChange);
-        var currVal_34 = inlineInterpolate(1, '', ((this.context.$implicit == null) ? null : this.context.$implicit.key), '');
-        if (checkBinding(throwOnChange, this._expr_34, currVal_34)) {
-            this.renderer.setText(this._text_7, currVal_34);
-            this._expr_34 = currVal_34;
+        this._vc_19.detectChangesInNestedViews(throwOnChange);
+        var currVal_39 = inlineInterpolate(1, '', ((this.context.$implicit == null) ? null : this.context.$implicit.key), '');
+        if (checkBinding(throwOnChange, this._expr_39, currVal_39)) {
+            this.renderer.setText(this._text_7, currVal_39);
+            this._expr_39 = currVal_39;
         }
     };
     View_DataComponent4.prototype.destroyInternal = function () {
@@ -54562,6 +54607,7 @@ var View_DataComponent4 = (function (_super) {
         this._vc_13.destroyNestedViews();
         this._vc_15.destroyNestedViews();
         this._vc_17.destroyNestedViews();
+        this._vc_19.destroyNestedViews();
     };
     View_DataComponent4.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
@@ -54582,6 +54628,9 @@ var View_DataComponent4 = (function (_super) {
         if ((nodeIndex == 17)) {
             return new View_DataComponent9(this.viewUtils, this, 17, this._anchor_17, this._vc_17);
         }
+        if ((nodeIndex == 19)) {
+            return new View_DataComponent10(this.viewUtils, this, 19, this._anchor_19, this._vc_19);
+        }
         return null;
     };
     View_DataComponent4.prototype.handleEvent_2 = function (eventName, $event) {
@@ -54594,34 +54643,6 @@ var View_DataComponent4 = (function (_super) {
         return result;
     };
     return View_DataComponent4;
-}(AppView));
-var View_DataComponent10 = (function (_super) {
-    __extends$183(View_DataComponent10, _super);
-    function View_DataComponent10(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent10, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_2 = UNINITIALIZED;
-        return _this;
-    }
-    View_DataComponent10.prototype.createInternal = function (rootSelector) {
-        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
-        this._text_1 = this.renderer.createText(this._el_0, '', null);
-        this.init(this._el_0, (this.renderer.directRenderer ? null : [
-            this._el_0,
-            this._text_1
-        ]), null);
-        return null;
-    };
-    View_DataComponent10.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)] == null) ? null : this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)].lentype), '');
-        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
-            this.renderer.setText(this._text_1, currVal_2);
-            this._expr_2 = currVal_2;
-        }
-    };
-    View_DataComponent10.prototype.visitRootNodesInternal = function (cb, ctx) {
-        cb(this._el_0, ctx);
-    };
-    return View_DataComponent10;
 }(AppView));
 var View_DataComponent11 = (function (_super) {
     __extends$183(View_DataComponent11, _super);
@@ -54640,7 +54661,7 @@ var View_DataComponent11 = (function (_super) {
         return null;
     };
     View_DataComponent11.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)] == null) ? null : this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)].maxlen), '');
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)] == null) ? null : this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)].lentype), '');
         if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
             this.renderer.setText(this._text_1, currVal_2);
             this._expr_2 = currVal_2;
@@ -54668,7 +54689,7 @@ var View_DataComponent12 = (function (_super) {
         return null;
     };
     View_DataComponent12.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)] == null) ? null : this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)].desc), '');
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)] == null) ? null : this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)].maxlen), '');
         if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
             this.renderer.setText(this._text_1, currVal_2);
             this._expr_2 = currVal_2;
@@ -54682,9 +54703,65 @@ var View_DataComponent12 = (function (_super) {
 var View_DataComponent13 = (function (_super) {
     __extends$183(View_DataComponent13, _super);
     function View_DataComponent13(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        return _super.call(this, View_DataComponent13, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        var _this = _super.call(this, View_DataComponent13, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        _this._expr_2 = UNINITIALIZED;
+        return _this;
     }
     View_DataComponent13.prototype.createInternal = function (rootSelector) {
+        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
+        this._text_1 = this.renderer.createText(this._el_0, '', null);
+        this.init(this._el_0, (this.renderer.directRenderer ? null : [
+            this._el_0,
+            this._text_1
+        ]), null);
+        return null;
+    };
+    View_DataComponent13.prototype.detectChangesInternal = function (throwOnChange) {
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqDataEdit == null) ? null : ((this.parentView.parentView.context.reqDataEdit.fvalue == null) ? null : this.parentView.parentView.context.reqDataEdit.fvalue.length)), '');
+        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
+            this.renderer.setText(this._text_1, currVal_2);
+            this._expr_2 = currVal_2;
+        }
+    };
+    View_DataComponent13.prototype.visitRootNodesInternal = function (cb, ctx) {
+        cb(this._el_0, ctx);
+    };
+    return View_DataComponent13;
+}(AppView));
+var View_DataComponent14 = (function (_super) {
+    __extends$183(View_DataComponent14, _super);
+    function View_DataComponent14(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent14, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        _this._expr_2 = UNINITIALIZED;
+        return _this;
+    }
+    View_DataComponent14.prototype.createInternal = function (rootSelector) {
+        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
+        this._text_1 = this.renderer.createText(this._el_0, '', null);
+        this.init(this._el_0, (this.renderer.directRenderer ? null : [
+            this._el_0,
+            this._text_1
+        ]), null);
+        return null;
+    };
+    View_DataComponent14.prototype.detectChangesInternal = function (throwOnChange) {
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)] == null) ? null : this.parentView.parentView.context.reqFieldDef[((this.parentView.parentView.context.reqDataEdit == null) ? null : this.parentView.parentView.context.reqDataEdit.fno)].desc), '');
+        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
+            this.renderer.setText(this._text_1, currVal_2);
+            this._expr_2 = currVal_2;
+        }
+    };
+    View_DataComponent14.prototype.visitRootNodesInternal = function (cb, ctx) {
+        cb(this._el_0, ctx);
+    };
+    return View_DataComponent14;
+}(AppView));
+var View_DataComponent15 = (function (_super) {
+    __extends$183(View_DataComponent15, _super);
+    function View_DataComponent15(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        return _super.call(this, View_DataComponent15, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+    }
+    View_DataComponent15.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, ' ', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'input', new InlineArray8(6, 'class', 'full-width', 'placeholder', 'Enter Field Value..Then Hit Enter to add new record!', 'type', 'text'), null);
@@ -54702,7 +54779,7 @@ var View_DataComponent13 = (function (_super) {
         ]), [disposable_0]);
         return null;
     };
-    View_DataComponent13.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent15.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === DefaultValueAccessor) && (2 === requestNodeIndex))) {
             return this._DefaultValueAccessor_2_3.context;
         }
@@ -54720,7 +54797,7 @@ var View_DataComponent13 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent13.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent15.prototype.detectChangesInternal = function (throwOnChange) {
         this._DefaultValueAccessor_2_3.ngDoCheck(this, this._el_2, throwOnChange);
         var currVal_2_1_0 = this.parentView.parentView.context.reqDataEdit.fvalue;
         this._NgModel_2_5.check_model(currVal_2_1_0, throwOnChange, false);
@@ -54728,13 +54805,13 @@ var View_DataComponent13 = (function (_super) {
         this._NgControlStatus_2_7.ngDoCheck(this, this._el_2, throwOnChange);
         this._NgControlStatus_2_7.checkHost(this, this, this._el_2, throwOnChange);
     };
-    View_DataComponent13.prototype.destroyInternal = function () {
+    View_DataComponent15.prototype.destroyInternal = function () {
         this._NgModel_2_5.ngOnDestroy();
     };
-    View_DataComponent13.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent15.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent13.prototype.handleEvent_2 = function (eventName, $event) {
+    View_DataComponent15.prototype.handleEvent_2 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         result = (this._DefaultValueAccessor_2_3.handleEvent(eventName, $event) && result);
@@ -54748,14 +54825,14 @@ var View_DataComponent13 = (function (_super) {
         }
         return result;
     };
-    return View_DataComponent13;
+    return View_DataComponent15;
 }(AppView));
-var View_DataComponent14 = (function (_super) {
-    __extends$183(View_DataComponent14, _super);
-    function View_DataComponent14(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        return _super.call(this, View_DataComponent14, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent16 = (function (_super) {
+    __extends$183(View_DataComponent16, _super);
+    function View_DataComponent16(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        return _super.call(this, View_DataComponent16, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
     }
-    View_DataComponent14.prototype.createInternal = function (rootSelector) {
+    View_DataComponent16.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'input', new InlineArray8(6, 'focusOnInit', '', 'placeholder', 'ENTER FILE NAME...!', 'type', 'text'), null);
         this._DefaultValueAccessor_0_3 = new Wrapper_DefaultValueAccessor(this.renderer, new ElementRef(this._el_0));
         this._NG_VALUE_ACCESSOR_0_4 = [this._DefaultValueAccessor_0_3.context];
@@ -54768,7 +54845,7 @@ var View_DataComponent14 = (function (_super) {
         this.init(this._el_0, (this.renderer.directRenderer ? null : [this._el_0]), [disposable_0]);
         return null;
     };
-    View_DataComponent14.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent16.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === DefaultValueAccessor) && (0 === requestNodeIndex))) {
             return this._DefaultValueAccessor_0_3.context;
         }
@@ -54789,7 +54866,7 @@ var View_DataComponent14 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent14.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent16.prototype.detectChangesInternal = function (throwOnChange) {
         this._DefaultValueAccessor_0_3.ngDoCheck(this, this._el_0, throwOnChange);
         var currVal_0_1_0 = this.parentView.parentView.context.exportFileName;
         this._NgModel_0_5.check_model(currVal_0_1_0, throwOnChange, false);
@@ -54803,13 +54880,13 @@ var View_DataComponent14 = (function (_super) {
             }
         }
     };
-    View_DataComponent14.prototype.destroyInternal = function () {
+    View_DataComponent16.prototype.destroyInternal = function () {
         this._NgModel_0_5.ngOnDestroy();
     };
-    View_DataComponent14.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent16.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent14.prototype.handleEvent_0 = function (eventName, $event) {
+    View_DataComponent16.prototype.handleEvent_0 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         result = (this._DefaultValueAccessor_0_3.handleEvent(eventName, $event) && result);
@@ -54823,16 +54900,16 @@ var View_DataComponent14 = (function (_super) {
         }
         return result;
     };
-    return View_DataComponent14;
+    return View_DataComponent16;
 }(AppView));
 var View_DataComponent3 = (function (_super) {
     __extends$183(View_DataComponent3, _super);
     function View_DataComponent3(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
         var _this = _super.call(this, View_DataComponent3, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_83 = UNINITIALIZED;
-        _this._expr_84 = UNINITIALIZED;
-        _this._expr_85 = UNINITIALIZED;
-        _this._expr_86 = UNINITIALIZED;
+        _this._expr_91 = UNINITIALIZED;
+        _this._expr_92 = UNINITIALIZED;
+        _this._expr_93 = UNINITIALIZED;
+        _this._expr_94 = UNINITIALIZED;
         return _this;
     }
     View_DataComponent3.prototype.createInternal = function (rootSelector) {
@@ -54856,74 +54933,82 @@ var View_DataComponent3 = (function (_super) {
         this._text_17 = this.renderer.createText(this._el_16, 'FieldMaxLenght', null);
         this._text_18 = this.renderer.createText(this._el_5, '\n    ', null);
         this._el_19 = createRenderElement(this.renderer, this._el_5, 'th', EMPTY_INLINE_ARRAY, null);
-        this._text_20 = this.renderer.createText(this._el_19, 'FieldDescritption', null);
+        this._text_20 = this.renderer.createText(this._el_19, 'CurrentLength', null);
         this._text_21 = this.renderer.createText(this._el_5, '\n    ', null);
-        this._el_22 = createRenderElement(this.renderer, this._el_5, 'th', new InlineArray2(2, 'class', 'full-width'), null);
-        this._text_23 = this.renderer.createText(this._el_22, 'FieldValue', null);
-        this._text_24 = this.renderer.createText(this._el_5, '\n  ', null);
-        this._text_25 = this.renderer.createText(this._el_4, '\n  ', null);
-        this._anchor_26 = this.renderer.createTemplateAnchor(this._el_4, null);
-        this._vc_26 = new ViewContainer(26, 4, this, this._anchor_26);
-        this._TemplateRef_26_5 = new TemplateRef_(this, 26, this._anchor_26);
-        this._NgFor_26_6 = new Wrapper_NgFor(this._vc_26.vcRef, this._TemplateRef_26_5, this.parentView.injectorGet(IterableDiffers, this.parentIndex), this.parentView.ref);
-        this._text_27 = this.renderer.createText(this._el_4, '\n  ', null);
-        this._el_28 = createRenderElement(this.renderer, this._el_4, 'tr', EMPTY_INLINE_ARRAY, null);
-        this._text_29 = this.renderer.createText(this._el_28, '\n    ', null);
-        this._el_30 = createRenderElement(this.renderer, this._el_28, 'td', new InlineArray2(2, 'colspan', '2'), null);
-        this._text_31 = this.renderer.createText(this._el_30, ' ', null);
-        this._el_32 = createRenderElement(this.renderer, this._el_30, 'input', new InlineArray4(4, 'placeholder', 'Enter Field No(e.g f123)', 'type', 'text'), null);
-        this._DefaultValueAccessor_32_3 = new Wrapper_DefaultValueAccessor(this.renderer, new ElementRef(this._el_32));
-        this._NG_VALUE_ACCESSOR_32_4 = [this._DefaultValueAccessor_32_3.context];
-        this._NgModel_32_5 = new Wrapper_NgModel(null, null, null, this._NG_VALUE_ACCESSOR_32_4);
-        this._NgControl_32_6 = this._NgModel_32_5.context;
-        this._NgControlStatus_32_7 = new Wrapper_NgControlStatus(this._NgControl_32_6);
-        this._text_33 = this.renderer.createText(this._el_28, '\n    ', null);
-        this._anchor_34 = this.renderer.createTemplateAnchor(this._el_28, null);
-        this._vc_34 = new ViewContainer(34, 28, this, this._anchor_34);
-        this._TemplateRef_34_5 = new TemplateRef_(this, 34, this._anchor_34);
-        this._NgIf_34_6 = new Wrapper_NgIf(this._vc_34.vcRef, this._TemplateRef_34_5);
-        this._text_35 = this.renderer.createText(this._el_28, '\n    ', null);
-        this._anchor_36 = this.renderer.createTemplateAnchor(this._el_28, null);
-        this._vc_36 = new ViewContainer(36, 28, this, this._anchor_36);
-        this._TemplateRef_36_5 = new TemplateRef_(this, 36, this._anchor_36);
-        this._NgIf_36_6 = new Wrapper_NgIf(this._vc_36.vcRef, this._TemplateRef_36_5);
-        this._text_37 = this.renderer.createText(this._el_28, '\n    ', null);
-        this._anchor_38 = this.renderer.createTemplateAnchor(this._el_28, null);
-        this._vc_38 = new ViewContainer(38, 28, this, this._anchor_38);
-        this._TemplateRef_38_5 = new TemplateRef_(this, 38, this._anchor_38);
-        this._NgIf_38_6 = new Wrapper_NgIf(this._vc_38.vcRef, this._TemplateRef_38_5);
-        this._text_39 = this.renderer.createText(this._el_28, '\n    ', null);
-        this._anchor_40 = this.renderer.createTemplateAnchor(this._el_28, null);
-        this._vc_40 = new ViewContainer(40, 28, this, this._anchor_40);
-        this._TemplateRef_40_5 = new TemplateRef_(this, 40, this._anchor_40);
-        this._NgIf_40_6 = new Wrapper_NgIf(this._vc_40.vcRef, this._TemplateRef_40_5);
-        this._text_41 = this.renderer.createText(this._el_28, '\n  ', null);
-        this._text_42 = this.renderer.createText(this._el_4, '\n', null);
-        this._text_43 = this.renderer.createText(this._el_0, '\n', null);
-        this._el_44 = createRenderElement(this.renderer, this._el_0, 'div', new InlineArray2(2, 'class', 'right'), null);
-        this._text_45 = this.renderer.createText(this._el_44, '\n  ', null);
-        this._anchor_46 = this.renderer.createTemplateAnchor(this._el_44, null);
-        this._vc_46 = new ViewContainer(46, 44, this, this._anchor_46);
-        this._TemplateRef_46_5 = new TemplateRef_(this, 46, this._anchor_46);
-        this._NgIf_46_6 = new Wrapper_NgIf(this._vc_46.vcRef, this._TemplateRef_46_5);
-        this._text_47 = this.renderer.createText(this._el_44, '\n  ', null);
-        this._el_48 = createRenderElement(this.renderer, this._el_44, 'a', new InlineArray2(2, 'class', 'btn-raised ripple  clickable'), null);
-        this._text_49 = this.renderer.createText(this._el_48, 'Export request Data', null);
-        this._text_50 = this.renderer.createText(this._el_44, '\n  ', null);
-        this._el_51 = createRenderElement(this.renderer, this._el_44, 'label', new InlineArray4(4, 'class', 'btn-raised ripple clickable', 'for', 'importReqData'), null);
-        this._text_52 = this.renderer.createText(this._el_51, 'Import Request Data', null);
-        this._text_53 = this.renderer.createText(this._el_44, '\n  ', null);
-        this._el_54 = createRenderElement(this.renderer, this._el_44, 'input', new InlineArray4(4, 'id', 'importReqData', 'type', 'file'), null);
-        this._text_55 = this.renderer.createText(this._el_44, '\n  ', null);
-        this._el_56 = createRenderElement(this.renderer, this._el_44, 'button', new InlineArray2(2, 'class', 'btn-raised ripple'), null);
-        this._text_57 = this.renderer.createText(this._el_56, 'Send REQUEST to Server', null);
-        this._text_58 = this.renderer.createText(this._el_44, '\n', null);
-        this._text_59 = this.renderer.createText(this._el_0, '\n', null);
-        var disposable_0 = subscribeToRenderElement(this, this._el_32, new InlineArray8(8, 'keyup', null, 'ngModelChange', null, 'input', null, 'blur', null), this.eventHandler(this.handleEvent_32));
-        this._NgModel_32_5.subscribe(this, this.eventHandler(this.handleEvent_32), true);
-        var disposable_1 = subscribeToRenderElement(this, this._el_48, new InlineArray8(6, 'mouseover', null, 'click', null, 'blur', null), this.eventHandler(this.handleEvent_48));
-        var disposable_2 = subscribeToRenderElement(this, this._el_54, new InlineArray2(2, 'change', null), this.eventHandler(this.handleEvent_54));
-        var disposable_3 = subscribeToRenderElement(this, this._el_56, new InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_56));
+        this._el_22 = createRenderElement(this.renderer, this._el_5, 'th', EMPTY_INLINE_ARRAY, null);
+        this._text_23 = this.renderer.createText(this._el_22, 'FieldDescritption', null);
+        this._text_24 = this.renderer.createText(this._el_5, '\n    ', null);
+        this._el_25 = createRenderElement(this.renderer, this._el_5, 'th', new InlineArray2(2, 'class', 'full-width'), null);
+        this._text_26 = this.renderer.createText(this._el_25, 'FieldValue', null);
+        this._text_27 = this.renderer.createText(this._el_5, '\n  ', null);
+        this._text_28 = this.renderer.createText(this._el_4, '\n  ', null);
+        this._anchor_29 = this.renderer.createTemplateAnchor(this._el_4, null);
+        this._vc_29 = new ViewContainer(29, 4, this, this._anchor_29);
+        this._TemplateRef_29_5 = new TemplateRef_(this, 29, this._anchor_29);
+        this._NgFor_29_6 = new Wrapper_NgFor(this._vc_29.vcRef, this._TemplateRef_29_5, this.parentView.injectorGet(IterableDiffers, this.parentIndex), this.parentView.ref);
+        this._text_30 = this.renderer.createText(this._el_4, '\n  ', null);
+        this._el_31 = createRenderElement(this.renderer, this._el_4, 'tr', EMPTY_INLINE_ARRAY, null);
+        this._text_32 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._el_33 = createRenderElement(this.renderer, this._el_31, 'td', new InlineArray2(2, 'colspan', '2'), null);
+        this._text_34 = this.renderer.createText(this._el_33, ' ', null);
+        this._el_35 = createRenderElement(this.renderer, this._el_33, 'input', new InlineArray4(4, 'placeholder', 'Enter Field No(e.g f123)', 'type', 'text'), null);
+        this._DefaultValueAccessor_35_3 = new Wrapper_DefaultValueAccessor(this.renderer, new ElementRef(this._el_35));
+        this._NG_VALUE_ACCESSOR_35_4 = [this._DefaultValueAccessor_35_3.context];
+        this._NgModel_35_5 = new Wrapper_NgModel(null, null, null, this._NG_VALUE_ACCESSOR_35_4);
+        this._NgControl_35_6 = this._NgModel_35_5.context;
+        this._NgControlStatus_35_7 = new Wrapper_NgControlStatus(this._NgControl_35_6);
+        this._text_36 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._anchor_37 = this.renderer.createTemplateAnchor(this._el_31, null);
+        this._vc_37 = new ViewContainer(37, 31, this, this._anchor_37);
+        this._TemplateRef_37_5 = new TemplateRef_(this, 37, this._anchor_37);
+        this._NgIf_37_6 = new Wrapper_NgIf(this._vc_37.vcRef, this._TemplateRef_37_5);
+        this._text_38 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._anchor_39 = this.renderer.createTemplateAnchor(this._el_31, null);
+        this._vc_39 = new ViewContainer(39, 31, this, this._anchor_39);
+        this._TemplateRef_39_5 = new TemplateRef_(this, 39, this._anchor_39);
+        this._NgIf_39_6 = new Wrapper_NgIf(this._vc_39.vcRef, this._TemplateRef_39_5);
+        this._text_40 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._anchor_41 = this.renderer.createTemplateAnchor(this._el_31, null);
+        this._vc_41 = new ViewContainer(41, 31, this, this._anchor_41);
+        this._TemplateRef_41_5 = new TemplateRef_(this, 41, this._anchor_41);
+        this._NgIf_41_6 = new Wrapper_NgIf(this._vc_41.vcRef, this._TemplateRef_41_5);
+        this._text_42 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._anchor_43 = this.renderer.createTemplateAnchor(this._el_31, null);
+        this._vc_43 = new ViewContainer(43, 31, this, this._anchor_43);
+        this._TemplateRef_43_5 = new TemplateRef_(this, 43, this._anchor_43);
+        this._NgIf_43_6 = new Wrapper_NgIf(this._vc_43.vcRef, this._TemplateRef_43_5);
+        this._text_44 = this.renderer.createText(this._el_31, '\n    ', null);
+        this._anchor_45 = this.renderer.createTemplateAnchor(this._el_31, null);
+        this._vc_45 = new ViewContainer(45, 31, this, this._anchor_45);
+        this._TemplateRef_45_5 = new TemplateRef_(this, 45, this._anchor_45);
+        this._NgIf_45_6 = new Wrapper_NgIf(this._vc_45.vcRef, this._TemplateRef_45_5);
+        this._text_46 = this.renderer.createText(this._el_31, '\n  ', null);
+        this._text_47 = this.renderer.createText(this._el_4, '\n', null);
+        this._text_48 = this.renderer.createText(this._el_0, '\n', null);
+        this._el_49 = createRenderElement(this.renderer, this._el_0, 'div', new InlineArray2(2, 'class', 'right'), null);
+        this._text_50 = this.renderer.createText(this._el_49, '\n  ', null);
+        this._anchor_51 = this.renderer.createTemplateAnchor(this._el_49, null);
+        this._vc_51 = new ViewContainer(51, 49, this, this._anchor_51);
+        this._TemplateRef_51_5 = new TemplateRef_(this, 51, this._anchor_51);
+        this._NgIf_51_6 = new Wrapper_NgIf(this._vc_51.vcRef, this._TemplateRef_51_5);
+        this._text_52 = this.renderer.createText(this._el_49, '\n  ', null);
+        this._el_53 = createRenderElement(this.renderer, this._el_49, 'a', new InlineArray2(2, 'class', 'btn-raised ripple  clickable'), null);
+        this._text_54 = this.renderer.createText(this._el_53, 'Export request Data', null);
+        this._text_55 = this.renderer.createText(this._el_49, '\n  ', null);
+        this._el_56 = createRenderElement(this.renderer, this._el_49, 'label', new InlineArray4(4, 'class', 'btn-raised ripple clickable', 'for', 'importReqData'), null);
+        this._text_57 = this.renderer.createText(this._el_56, 'Import Request Data', null);
+        this._text_58 = this.renderer.createText(this._el_49, '\n  ', null);
+        this._el_59 = createRenderElement(this.renderer, this._el_49, 'input', new InlineArray4(4, 'id', 'importReqData', 'type', 'file'), null);
+        this._text_60 = this.renderer.createText(this._el_49, '\n  ', null);
+        this._el_61 = createRenderElement(this.renderer, this._el_49, 'button', new InlineArray2(2, 'class', 'btn-raised ripple'), null);
+        this._text_62 = this.renderer.createText(this._el_61, 'Send REQUEST to Server', null);
+        this._text_63 = this.renderer.createText(this._el_49, '\n', null);
+        this._text_64 = this.renderer.createText(this._el_0, '\n', null);
+        var disposable_0 = subscribeToRenderElement(this, this._el_35, new InlineArray8(8, 'keyup', null, 'ngModelChange', null, 'input', null, 'blur', null), this.eventHandler(this.handleEvent_35));
+        this._NgModel_35_5.subscribe(this, this.eventHandler(this.handleEvent_35), true);
+        var disposable_1 = subscribeToRenderElement(this, this._el_53, new InlineArray8(6, 'mouseover', null, 'click', null, 'blur', null), this.eventHandler(this.handleEvent_53));
+        var disposable_2 = subscribeToRenderElement(this, this._el_59, new InlineArray2(2, 'change', null), this.eventHandler(this.handleEvent_59));
+        var disposable_3 = subscribeToRenderElement(this, this._el_61, new InlineArray2(2, 'click', null), this.eventHandler(this.handleEvent_61));
         this.init(this._el_0, (this.renderer.directRenderer ? null : [
             this._el_0,
             this._text_1,
@@ -54950,41 +55035,46 @@ var View_DataComponent3 = (function (_super) {
             this._el_22,
             this._text_23,
             this._text_24,
-            this._text_25,
-            this._anchor_26,
+            this._el_25,
+            this._text_26,
             this._text_27,
-            this._el_28,
-            this._text_29,
-            this._el_30,
-            this._text_31,
-            this._el_32,
-            this._text_33,
-            this._anchor_34,
-            this._text_35,
-            this._anchor_36,
-            this._text_37,
-            this._anchor_38,
-            this._text_39,
-            this._anchor_40,
-            this._text_41,
+            this._text_28,
+            this._anchor_29,
+            this._text_30,
+            this._el_31,
+            this._text_32,
+            this._el_33,
+            this._text_34,
+            this._el_35,
+            this._text_36,
+            this._anchor_37,
+            this._text_38,
+            this._anchor_39,
+            this._text_40,
+            this._anchor_41,
             this._text_42,
-            this._text_43,
-            this._el_44,
-            this._text_45,
-            this._anchor_46,
+            this._anchor_43,
+            this._text_44,
+            this._anchor_45,
+            this._text_46,
             this._text_47,
-            this._el_48,
-            this._text_49,
+            this._text_48,
+            this._el_49,
             this._text_50,
-            this._el_51,
+            this._anchor_51,
             this._text_52,
-            this._text_53,
-            this._el_54,
+            this._el_53,
+            this._text_54,
             this._text_55,
             this._el_56,
             this._text_57,
             this._text_58,
-            this._text_59
+            this._el_59,
+            this._text_60,
+            this._el_61,
+            this._text_62,
+            this._text_63,
+            this._text_64
         ]), [
             disposable_0,
             disposable_1,
@@ -54994,148 +55084,162 @@ var View_DataComponent3 = (function (_super) {
         return null;
     };
     View_DataComponent3.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
-        if (((token === TemplateRef) && (26 === requestNodeIndex))) {
-            return this._TemplateRef_26_5;
+        if (((token === TemplateRef) && (29 === requestNodeIndex))) {
+            return this._TemplateRef_29_5;
         }
-        if (((token === NgFor) && (26 === requestNodeIndex))) {
-            return this._NgFor_26_6.context;
+        if (((token === NgFor) && (29 === requestNodeIndex))) {
+            return this._NgFor_29_6.context;
         }
-        if (((token === DefaultValueAccessor) && (32 === requestNodeIndex))) {
-            return this._DefaultValueAccessor_32_3.context;
+        if (((token === DefaultValueAccessor) && (35 === requestNodeIndex))) {
+            return this._DefaultValueAccessor_35_3.context;
         }
-        if (((token === NG_VALUE_ACCESSOR) && (32 === requestNodeIndex))) {
-            return this._NG_VALUE_ACCESSOR_32_4;
+        if (((token === NG_VALUE_ACCESSOR) && (35 === requestNodeIndex))) {
+            return this._NG_VALUE_ACCESSOR_35_4;
         }
-        if (((token === NgModel) && (32 === requestNodeIndex))) {
-            return this._NgModel_32_5.context;
+        if (((token === NgModel) && (35 === requestNodeIndex))) {
+            return this._NgModel_35_5.context;
         }
-        if (((token === NgControl) && (32 === requestNodeIndex))) {
-            return this._NgControl_32_6;
+        if (((token === NgControl) && (35 === requestNodeIndex))) {
+            return this._NgControl_35_6;
         }
-        if (((token === NgControlStatus) && (32 === requestNodeIndex))) {
-            return this._NgControlStatus_32_7.context;
+        if (((token === NgControlStatus) && (35 === requestNodeIndex))) {
+            return this._NgControlStatus_35_7.context;
         }
-        if (((token === TemplateRef) && (34 === requestNodeIndex))) {
-            return this._TemplateRef_34_5;
+        if (((token === TemplateRef) && (37 === requestNodeIndex))) {
+            return this._TemplateRef_37_5;
         }
-        if (((token === NgIf) && (34 === requestNodeIndex))) {
-            return this._NgIf_34_6.context;
+        if (((token === NgIf) && (37 === requestNodeIndex))) {
+            return this._NgIf_37_6.context;
         }
-        if (((token === TemplateRef) && (36 === requestNodeIndex))) {
-            return this._TemplateRef_36_5;
+        if (((token === TemplateRef) && (39 === requestNodeIndex))) {
+            return this._TemplateRef_39_5;
         }
-        if (((token === NgIf) && (36 === requestNodeIndex))) {
-            return this._NgIf_36_6.context;
+        if (((token === NgIf) && (39 === requestNodeIndex))) {
+            return this._NgIf_39_6.context;
         }
-        if (((token === TemplateRef) && (38 === requestNodeIndex))) {
-            return this._TemplateRef_38_5;
+        if (((token === TemplateRef) && (41 === requestNodeIndex))) {
+            return this._TemplateRef_41_5;
         }
-        if (((token === NgIf) && (38 === requestNodeIndex))) {
-            return this._NgIf_38_6.context;
+        if (((token === NgIf) && (41 === requestNodeIndex))) {
+            return this._NgIf_41_6.context;
         }
-        if (((token === TemplateRef) && (40 === requestNodeIndex))) {
-            return this._TemplateRef_40_5;
+        if (((token === TemplateRef) && (43 === requestNodeIndex))) {
+            return this._TemplateRef_43_5;
         }
-        if (((token === NgIf) && (40 === requestNodeIndex))) {
-            return this._NgIf_40_6.context;
+        if (((token === NgIf) && (43 === requestNodeIndex))) {
+            return this._NgIf_43_6.context;
         }
-        if (((token === TemplateRef) && (46 === requestNodeIndex))) {
-            return this._TemplateRef_46_5;
+        if (((token === TemplateRef) && (45 === requestNodeIndex))) {
+            return this._TemplateRef_45_5;
         }
-        if (((token === NgIf) && (46 === requestNodeIndex))) {
-            return this._NgIf_46_6.context;
+        if (((token === NgIf) && (45 === requestNodeIndex))) {
+            return this._NgIf_45_6.context;
+        }
+        if (((token === TemplateRef) && (51 === requestNodeIndex))) {
+            return this._TemplateRef_51_5;
+        }
+        if (((token === NgIf) && (51 === requestNodeIndex))) {
+            return this._NgIf_51_6.context;
         }
         return notFoundResult;
     };
     View_DataComponent3.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_26_0_0 = this.parentView.context.reqData;
-        this._NgFor_26_6.check_ngForOf(currVal_26_0_0, throwOnChange, false);
-        this._NgFor_26_6.ngDoCheck(this, this._anchor_26, throwOnChange);
-        this._DefaultValueAccessor_32_3.ngDoCheck(this, this._el_32, throwOnChange);
-        var currVal_32_1_0 = this.parentView.context.reqDataEdit.fno;
-        this._NgModel_32_5.check_model(currVal_32_1_0, throwOnChange, false);
-        this._NgModel_32_5.ngDoCheck(this, this._el_32, throwOnChange);
-        this._NgControlStatus_32_7.ngDoCheck(this, this._el_32, throwOnChange);
-        var currVal_34_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
-        this._NgIf_34_6.check_ngIf(currVal_34_0_0, throwOnChange, false);
-        this._NgIf_34_6.ngDoCheck(this, this._anchor_34, throwOnChange);
-        var currVal_36_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
-        this._NgIf_36_6.check_ngIf(currVal_36_0_0, throwOnChange, false);
-        this._NgIf_36_6.ngDoCheck(this, this._anchor_36, throwOnChange);
-        var currVal_38_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
-        this._NgIf_38_6.check_ngIf(currVal_38_0_0, throwOnChange, false);
-        this._NgIf_38_6.ngDoCheck(this, this._anchor_38, throwOnChange);
-        var currVal_40_0_0 = this.parentView.context.flagObj.isreqDataEditFnoValid;
-        this._NgIf_40_6.check_ngIf(currVal_40_0_0, throwOnChange, false);
-        this._NgIf_40_6.ngDoCheck(this, this._anchor_40, throwOnChange);
-        var currVal_46_0_0 = this.parentView.context.showExportFileName;
-        this._NgIf_46_6.check_ngIf(currVal_46_0_0, throwOnChange, false);
-        this._NgIf_46_6.ngDoCheck(this, this._anchor_46, throwOnChange);
-        this._vc_26.detectChangesInNestedViews(throwOnChange);
-        this._vc_34.detectChangesInNestedViews(throwOnChange);
-        this._vc_36.detectChangesInNestedViews(throwOnChange);
-        this._vc_38.detectChangesInNestedViews(throwOnChange);
-        this._vc_40.detectChangesInNestedViews(throwOnChange);
-        this._vc_46.detectChangesInNestedViews(throwOnChange);
-        this._NgControlStatus_32_7.checkHost(this, this, this._el_32, throwOnChange);
-        var currVal_83 = (this.parentView.context.bindExportData ? this.parentView.context.exportReqData() : '');
-        if (checkBinding(throwOnChange, this._expr_83, currVal_83)) {
-            this.renderer.setElementProperty(this._el_48, 'href', this.viewUtils.sanitizer.sanitize(SecurityContext.URL, currVal_83));
-            this._expr_83 = currVal_83;
+        var currVal_29_0_0 = this.parentView.context.reqData;
+        this._NgFor_29_6.check_ngForOf(currVal_29_0_0, throwOnChange, false);
+        this._NgFor_29_6.ngDoCheck(this, this._anchor_29, throwOnChange);
+        this._DefaultValueAccessor_35_3.ngDoCheck(this, this._el_35, throwOnChange);
+        var currVal_35_1_0 = this.parentView.context.reqDataEdit.fno;
+        this._NgModel_35_5.check_model(currVal_35_1_0, throwOnChange, false);
+        this._NgModel_35_5.ngDoCheck(this, this._el_35, throwOnChange);
+        this._NgControlStatus_35_7.ngDoCheck(this, this._el_35, throwOnChange);
+        var currVal_37_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
+        this._NgIf_37_6.check_ngIf(currVal_37_0_0, throwOnChange, false);
+        this._NgIf_37_6.ngDoCheck(this, this._anchor_37, throwOnChange);
+        var currVal_39_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
+        this._NgIf_39_6.check_ngIf(currVal_39_0_0, throwOnChange, false);
+        this._NgIf_39_6.ngDoCheck(this, this._anchor_39, throwOnChange);
+        var currVal_41_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
+        this._NgIf_41_6.check_ngIf(currVal_41_0_0, throwOnChange, false);
+        this._NgIf_41_6.ngDoCheck(this, this._anchor_41, throwOnChange);
+        var currVal_43_0_0 = (this.parentView.context.reqFieldDef && this.parentView.context.flagObj.isreqDataEditFnoValid);
+        this._NgIf_43_6.check_ngIf(currVal_43_0_0, throwOnChange, false);
+        this._NgIf_43_6.ngDoCheck(this, this._anchor_43, throwOnChange);
+        var currVal_45_0_0 = this.parentView.context.flagObj.isreqDataEditFnoValid;
+        this._NgIf_45_6.check_ngIf(currVal_45_0_0, throwOnChange, false);
+        this._NgIf_45_6.ngDoCheck(this, this._anchor_45, throwOnChange);
+        var currVal_51_0_0 = this.parentView.context.showExportFileName;
+        this._NgIf_51_6.check_ngIf(currVal_51_0_0, throwOnChange, false);
+        this._NgIf_51_6.ngDoCheck(this, this._anchor_51, throwOnChange);
+        this._vc_29.detectChangesInNestedViews(throwOnChange);
+        this._vc_37.detectChangesInNestedViews(throwOnChange);
+        this._vc_39.detectChangesInNestedViews(throwOnChange);
+        this._vc_41.detectChangesInNestedViews(throwOnChange);
+        this._vc_43.detectChangesInNestedViews(throwOnChange);
+        this._vc_45.detectChangesInNestedViews(throwOnChange);
+        this._vc_51.detectChangesInNestedViews(throwOnChange);
+        this._NgControlStatus_35_7.checkHost(this, this, this._el_35, throwOnChange);
+        var currVal_91 = (this.parentView.context.bindExportData ? this.parentView.context.exportReqData() : '');
+        if (checkBinding(throwOnChange, this._expr_91, currVal_91)) {
+            this.renderer.setElementProperty(this._el_53, 'href', this.viewUtils.sanitizer.sanitize(SecurityContext.URL, currVal_91));
+            this._expr_91 = currVal_91;
         }
-        var currVal_84 = (((this.parentView.context.reqData == null) ? null : this.parentView.context.reqData.length) == 0);
-        if (checkBinding(throwOnChange, this._expr_84, currVal_84)) {
-            this.renderer.setElementClass(this._el_48, 'btn-raised-disabled', currVal_84);
-            this._expr_84 = currVal_84;
+        var currVal_92 = (((this.parentView.context.reqData == null) ? null : this.parentView.context.reqData.length) == 0);
+        if (checkBinding(throwOnChange, this._expr_92, currVal_92)) {
+            this.renderer.setElementClass(this._el_53, 'btn-raised-disabled', currVal_92);
+            this._expr_92 = currVal_92;
         }
-        var currVal_85 = this.parentView.context.getExportFileName();
-        if (checkBinding(throwOnChange, this._expr_85, currVal_85)) {
-            this.renderer.setElementAttribute(this._el_48, 'download', ((currVal_85 == null) ? null : currVal_85.toString()));
-            this._expr_85 = currVal_85;
+        var currVal_93 = this.parentView.context.getExportFileName();
+        if (checkBinding(throwOnChange, this._expr_93, currVal_93)) {
+            this.renderer.setElementAttribute(this._el_53, 'download', ((currVal_93 == null) ? null : currVal_93.toString()));
+            this._expr_93 = currVal_93;
         }
-        var currVal_86 = ((((this.parentView.context.reqData == null) ? null : this.parentView.context.reqData.length) == 0) || this.parentView.context.flagObj.isSendBtnDisabled);
-        if (checkBinding(throwOnChange, this._expr_86, currVal_86)) {
-            this.renderer.setElementClass(this._el_56, 'btn-raised-disabled', currVal_86);
-            this._expr_86 = currVal_86;
+        var currVal_94 = ((((this.parentView.context.reqData == null) ? null : this.parentView.context.reqData.length) == 0) || this.parentView.context.flagObj.isSendBtnDisabled);
+        if (checkBinding(throwOnChange, this._expr_94, currVal_94)) {
+            this.renderer.setElementClass(this._el_61, 'btn-raised-disabled', currVal_94);
+            this._expr_94 = currVal_94;
         }
     };
     View_DataComponent3.prototype.destroyInternal = function () {
-        this._vc_26.destroyNestedViews();
-        this._vc_34.destroyNestedViews();
-        this._vc_36.destroyNestedViews();
-        this._vc_38.destroyNestedViews();
-        this._vc_40.destroyNestedViews();
-        this._vc_46.destroyNestedViews();
-        this._NgModel_32_5.ngOnDestroy();
+        this._vc_29.destroyNestedViews();
+        this._vc_37.destroyNestedViews();
+        this._vc_39.destroyNestedViews();
+        this._vc_41.destroyNestedViews();
+        this._vc_43.destroyNestedViews();
+        this._vc_45.destroyNestedViews();
+        this._vc_51.destroyNestedViews();
+        this._NgModel_35_5.ngOnDestroy();
     };
     View_DataComponent3.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
     View_DataComponent3.prototype.createEmbeddedViewInternal = function (nodeIndex) {
-        if ((nodeIndex == 26)) {
-            return new View_DataComponent4(this.viewUtils, this, 26, this._anchor_26, this._vc_26);
+        if ((nodeIndex == 29)) {
+            return new View_DataComponent4(this.viewUtils, this, 29, this._anchor_29, this._vc_29);
         }
-        if ((nodeIndex == 34)) {
-            return new View_DataComponent10(this.viewUtils, this, 34, this._anchor_34, this._vc_34);
+        if ((nodeIndex == 37)) {
+            return new View_DataComponent11(this.viewUtils, this, 37, this._anchor_37, this._vc_37);
         }
-        if ((nodeIndex == 36)) {
-            return new View_DataComponent11(this.viewUtils, this, 36, this._anchor_36, this._vc_36);
+        if ((nodeIndex == 39)) {
+            return new View_DataComponent12(this.viewUtils, this, 39, this._anchor_39, this._vc_39);
         }
-        if ((nodeIndex == 38)) {
-            return new View_DataComponent12(this.viewUtils, this, 38, this._anchor_38, this._vc_38);
+        if ((nodeIndex == 41)) {
+            return new View_DataComponent13(this.viewUtils, this, 41, this._anchor_41, this._vc_41);
         }
-        if ((nodeIndex == 40)) {
-            return new View_DataComponent13(this.viewUtils, this, 40, this._anchor_40, this._vc_40);
+        if ((nodeIndex == 43)) {
+            return new View_DataComponent14(this.viewUtils, this, 43, this._anchor_43, this._vc_43);
         }
-        if ((nodeIndex == 46)) {
-            return new View_DataComponent14(this.viewUtils, this, 46, this._anchor_46, this._vc_46);
+        if ((nodeIndex == 45)) {
+            return new View_DataComponent15(this.viewUtils, this, 45, this._anchor_45, this._vc_45);
+        }
+        if ((nodeIndex == 51)) {
+            return new View_DataComponent16(this.viewUtils, this, 51, this._anchor_51, this._vc_51);
         }
         return null;
     };
-    View_DataComponent3.prototype.handleEvent_32 = function (eventName, $event) {
+    View_DataComponent3.prototype.handleEvent_35 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
-        result = (this._DefaultValueAccessor_32_3.handleEvent(eventName, $event) && result);
+        result = (this._DefaultValueAccessor_35_3.handleEvent(eventName, $event) && result);
         if ((eventName == 'keyup')) {
             var pd_sub_0 = (this.parentView.context.validateReqDataEditFno(this.parentView.context.reqDataEdit.fno) !== false);
             result = (pd_sub_0 && result);
@@ -55146,7 +55250,7 @@ var View_DataComponent3 = (function (_super) {
         }
         return result;
     };
-    View_DataComponent3.prototype.handleEvent_48 = function (eventName, $event) {
+    View_DataComponent3.prototype.handleEvent_53 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         if ((eventName == 'mouseover')) {
@@ -55163,7 +55267,7 @@ var View_DataComponent3 = (function (_super) {
         }
         return result;
     };
-    View_DataComponent3.prototype.handleEvent_54 = function (eventName, $event) {
+    View_DataComponent3.prototype.handleEvent_59 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         if ((eventName == 'change')) {
@@ -55172,7 +55276,7 @@ var View_DataComponent3 = (function (_super) {
         }
         return result;
     };
-    View_DataComponent3.prototype.handleEvent_56 = function (eventName, $event) {
+    View_DataComponent3.prototype.handleEvent_61 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         if ((eventName == 'click')) {
@@ -55183,12 +55287,12 @@ var View_DataComponent3 = (function (_super) {
     };
     return View_DataComponent3;
 }(AppView));
-var View_DataComponent15 = (function (_super) {
-    __extends$183(View_DataComponent15, _super);
-    function View_DataComponent15(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        return _super.call(this, View_DataComponent15, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent17 = (function (_super) {
+    __extends$183(View_DataComponent17, _super);
+    function View_DataComponent17(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        return _super.call(this, View_DataComponent17, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
     }
-    View_DataComponent15.prototype.createInternal = function (rootSelector) {
+    View_DataComponent17.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'div', new InlineArray2(2, 'class', 'center'), null);
         this._text_1 = this.renderer.createText(this._el_0, '\n  ', null);
         this._text_2 = this.renderer.createText(this._el_0, '\n  ', null);
@@ -55205,19 +55309,19 @@ var View_DataComponent15 = (function (_super) {
         ]), null);
         return null;
     };
-    View_DataComponent15.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent17.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    return View_DataComponent15;
+    return View_DataComponent17;
 }(AppView));
-var View_DataComponent16 = (function (_super) {
-    __extends$183(View_DataComponent16, _super);
-    function View_DataComponent16(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent16, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent18 = (function (_super) {
+    __extends$183(View_DataComponent18, _super);
+    function View_DataComponent18(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent18, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
         _this._expr_6 = UNINITIALIZED;
         return _this;
     }
-    View_DataComponent16.prototype.createInternal = function (rootSelector) {
+    View_DataComponent18.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'div', new InlineArray2(2, 'class', 'center'), null);
         this._text_1 = this.renderer.createText(this._el_0, '\n  ', null);
         this._text_2 = this.renderer.createText(this._el_0, '\n  ', null);
@@ -55234,26 +55338,26 @@ var View_DataComponent16 = (function (_super) {
         ]), null);
         return null;
     };
-    View_DataComponent16.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent18.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_6 = inlineInterpolate(1, '', this.parentView.context.resTimeoutCntr, ' Sec..');
         if (checkBinding(throwOnChange, this._expr_6, currVal_6)) {
             this.renderer.setText(this._text_4, currVal_6);
             this._expr_6 = currVal_6;
         }
     };
-    View_DataComponent16.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent18.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    return View_DataComponent16;
+    return View_DataComponent18;
 }(AppView));
-var View_DataComponent18 = (function (_super) {
-    __extends$183(View_DataComponent18, _super);
-    function View_DataComponent18(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent18, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent20 = (function (_super) {
+    __extends$183(View_DataComponent20, _super);
+    function View_DataComponent20(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent20, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
         _this._expr_3 = UNINITIALIZED;
         return _this;
     }
-    View_DataComponent18.prototype.createInternal = function (rootSelector) {
+    View_DataComponent20.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'span', EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, '', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'br', EMPTY_INLINE_ARRAY, null);
@@ -55264,24 +55368,24 @@ var View_DataComponent18 = (function (_super) {
         ]), null);
         return null;
     };
-    View_DataComponent18.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent20.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_3 = inlineInterpolate(2, '', this.context.$implicit.key, ': ', this.context.$implicit.value, '');
         if (checkBinding(throwOnChange, this._expr_3, currVal_3)) {
             this.renderer.setText(this._text_1, currVal_3);
             this._expr_3 = currVal_3;
         }
     };
-    View_DataComponent18.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent20.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    return View_DataComponent18;
+    return View_DataComponent20;
 }(AppView));
-var View_DataComponent17 = (function (_super) {
-    __extends$183(View_DataComponent17, _super);
-    function View_DataComponent17(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        return _super.call(this, View_DataComponent17, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent19 = (function (_super) {
+    __extends$183(View_DataComponent19, _super);
+    function View_DataComponent19(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        return _super.call(this, View_DataComponent19, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
     }
-    View_DataComponent17.prototype.createInternal = function (rootSelector) {
+    View_DataComponent19.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'div', new InlineArray2(2, 'class', 'label-error '), null);
         this._text_1 = this.renderer.createText(this._el_0, '\n  ', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'label', new InlineArray2(2, 'class', 'center'), null);
@@ -55305,7 +55409,7 @@ var View_DataComponent17 = (function (_super) {
         ]), null);
         return null;
     };
-    View_DataComponent17.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent19.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === TemplateRef) && (6 === requestNodeIndex))) {
             return this._TemplateRef_6_5;
         }
@@ -55314,81 +55418,25 @@ var View_DataComponent17 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent17.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent19.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_6_0_0 = this.parentView.context.resErrorData;
         this._NgFor_6_6.check_ngForOf(currVal_6_0_0, throwOnChange, false);
         this._NgFor_6_6.ngDoCheck(this, this._anchor_6, throwOnChange);
         this._vc_6.detectChangesInNestedViews(throwOnChange);
     };
-    View_DataComponent17.prototype.destroyInternal = function () {
+    View_DataComponent19.prototype.destroyInternal = function () {
         this._vc_6.destroyNestedViews();
     };
-    View_DataComponent17.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent19.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent17.prototype.createEmbeddedViewInternal = function (nodeIndex) {
+    View_DataComponent19.prototype.createEmbeddedViewInternal = function (nodeIndex) {
         if ((nodeIndex == 6)) {
-            return new View_DataComponent18(this.viewUtils, this, 6, this._anchor_6, this._vc_6);
+            return new View_DataComponent20(this.viewUtils, this, 6, this._anchor_6, this._vc_6);
         }
         return null;
     };
-    return View_DataComponent17;
-}(AppView));
-var View_DataComponent22 = (function (_super) {
-    __extends$183(View_DataComponent22, _super);
-    function View_DataComponent22(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent22, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_2 = UNINITIALIZED;
-        return _this;
-    }
-    View_DataComponent22.prototype.createInternal = function (rootSelector) {
-        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
-        this._text_1 = this.renderer.createText(this._el_0, '', null);
-        this.init(this._el_0, (this.renderer.directRenderer ? null : [
-            this._el_0,
-            this._text_1
-        ]), null);
-        return null;
-    };
-    View_DataComponent22.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].lentype), '');
-        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
-            this.renderer.setText(this._text_1, currVal_2);
-            this._expr_2 = currVal_2;
-        }
-    };
-    View_DataComponent22.prototype.visitRootNodesInternal = function (cb, ctx) {
-        cb(this._el_0, ctx);
-    };
-    return View_DataComponent22;
-}(AppView));
-var View_DataComponent23 = (function (_super) {
-    __extends$183(View_DataComponent23, _super);
-    function View_DataComponent23(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent23, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
-        _this._expr_2 = UNINITIALIZED;
-        return _this;
-    }
-    View_DataComponent23.prototype.createInternal = function (rootSelector) {
-        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
-        this._text_1 = this.renderer.createText(this._el_0, '', null);
-        this.init(this._el_0, (this.renderer.directRenderer ? null : [
-            this._el_0,
-            this._text_1
-        ]), null);
-        return null;
-    };
-    View_DataComponent23.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].maxlen), '');
-        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
-            this.renderer.setText(this._text_1, currVal_2);
-            this._expr_2 = currVal_2;
-        }
-    };
-    View_DataComponent23.prototype.visitRootNodesInternal = function (cb, ctx) {
-        cb(this._el_0, ctx);
-    };
-    return View_DataComponent23;
+    return View_DataComponent19;
 }(AppView));
 var View_DataComponent24 = (function (_super) {
     __extends$183(View_DataComponent24, _super);
@@ -55407,7 +55455,7 @@ var View_DataComponent24 = (function (_super) {
         return null;
     };
     View_DataComponent24.prototype.detectChangesInternal = function (throwOnChange) {
-        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].desc), '');
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].lentype), '');
         if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
             this.renderer.setText(this._text_1, currVal_2);
             this._expr_2 = currVal_2;
@@ -55418,15 +55466,71 @@ var View_DataComponent24 = (function (_super) {
     };
     return View_DataComponent24;
 }(AppView));
-var View_DataComponent21 = (function (_super) {
-    __extends$183(View_DataComponent21, _super);
-    function View_DataComponent21(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent21, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent25 = (function (_super) {
+    __extends$183(View_DataComponent25, _super);
+    function View_DataComponent25(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent25, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        _this._expr_2 = UNINITIALIZED;
+        return _this;
+    }
+    View_DataComponent25.prototype.createInternal = function (rootSelector) {
+        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
+        this._text_1 = this.renderer.createText(this._el_0, '', null);
+        this.init(this._el_0, (this.renderer.directRenderer ? null : [
+            this._el_0,
+            this._text_1
+        ]), null);
+        return null;
+    };
+    View_DataComponent25.prototype.detectChangesInternal = function (throwOnChange) {
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].maxlen), '');
+        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
+            this.renderer.setText(this._text_1, currVal_2);
+            this._expr_2 = currVal_2;
+        }
+    };
+    View_DataComponent25.prototype.visitRootNodesInternal = function (cb, ctx) {
+        cb(this._el_0, ctx);
+    };
+    return View_DataComponent25;
+}(AppView));
+var View_DataComponent26 = (function (_super) {
+    __extends$183(View_DataComponent26, _super);
+    function View_DataComponent26(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent26, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+        _this._expr_2 = UNINITIALIZED;
+        return _this;
+    }
+    View_DataComponent26.prototype.createInternal = function (rootSelector) {
+        this._el_0 = createRenderElement(this.renderer, null, 'td', EMPTY_INLINE_ARRAY, null);
+        this._text_1 = this.renderer.createText(this._el_0, '', null);
+        this.init(this._el_0, (this.renderer.directRenderer ? null : [
+            this._el_0,
+            this._text_1
+        ]), null);
+        return null;
+    };
+    View_DataComponent26.prototype.detectChangesInternal = function (throwOnChange) {
+        var currVal_2 = inlineInterpolate(1, '', ((this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)] == null) ? null : this.parentView.parentView.parentView.parentView.context.resFieldDef[((this.parentView.context.$implicit == null) ? null : this.parentView.context.$implicit.key)].desc), '');
+        if (checkBinding(throwOnChange, this._expr_2, currVal_2)) {
+            this.renderer.setText(this._text_1, currVal_2);
+            this._expr_2 = currVal_2;
+        }
+    };
+    View_DataComponent26.prototype.visitRootNodesInternal = function (cb, ctx) {
+        cb(this._el_0, ctx);
+    };
+    return View_DataComponent26;
+}(AppView));
+var View_DataComponent23 = (function (_super) {
+    __extends$183(View_DataComponent23, _super);
+    function View_DataComponent23(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent23, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
         _this._expr_24 = UNINITIALIZED;
         _this._expr_25 = UNINITIALIZED;
         return _this;
     }
-    View_DataComponent21.prototype.createInternal = function (rootSelector) {
+    View_DataComponent23.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'tr', EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, '\n        ', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'td', EMPTY_INLINE_ARRAY, null);
@@ -55470,7 +55574,7 @@ var View_DataComponent21 = (function (_super) {
         ]), null);
         return null;
     };
-    View_DataComponent21.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent23.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === TemplateRef) && (6 === requestNodeIndex))) {
             return this._TemplateRef_6_5;
         }
@@ -55491,7 +55595,7 @@ var View_DataComponent21 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent21.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent23.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_6_0_0 = this.parentView.parentView.parentView.context.resFieldDef;
         this._NgIf_6_6.check_ngIf(currVal_6_0_0, throwOnChange, false);
         this._NgIf_6_6.ngDoCheck(this, this._anchor_6, throwOnChange);
@@ -55515,34 +55619,34 @@ var View_DataComponent21 = (function (_super) {
             this._expr_25 = currVal_25;
         }
     };
-    View_DataComponent21.prototype.destroyInternal = function () {
+    View_DataComponent23.prototype.destroyInternal = function () {
         this._vc_6.destroyNestedViews();
         this._vc_8.destroyNestedViews();
         this._vc_10.destroyNestedViews();
     };
-    View_DataComponent21.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent23.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent21.prototype.createEmbeddedViewInternal = function (nodeIndex) {
+    View_DataComponent23.prototype.createEmbeddedViewInternal = function (nodeIndex) {
         if ((nodeIndex == 6)) {
-            return new View_DataComponent22(this.viewUtils, this, 6, this._anchor_6, this._vc_6);
+            return new View_DataComponent24(this.viewUtils, this, 6, this._anchor_6, this._vc_6);
         }
         if ((nodeIndex == 8)) {
-            return new View_DataComponent23(this.viewUtils, this, 8, this._anchor_8, this._vc_8);
+            return new View_DataComponent25(this.viewUtils, this, 8, this._anchor_8, this._vc_8);
         }
         if ((nodeIndex == 10)) {
-            return new View_DataComponent24(this.viewUtils, this, 10, this._anchor_10, this._vc_10);
+            return new View_DataComponent26(this.viewUtils, this, 10, this._anchor_10, this._vc_10);
         }
         return null;
     };
-    return View_DataComponent21;
+    return View_DataComponent23;
 }(AppView));
-var View_DataComponent20 = (function (_super) {
-    __extends$183(View_DataComponent20, _super);
-    function View_DataComponent20(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        return _super.call(this, View_DataComponent20, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent22 = (function (_super) {
+    __extends$183(View_DataComponent22, _super);
+    function View_DataComponent22(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        return _super.call(this, View_DataComponent22, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
     }
-    View_DataComponent20.prototype.createInternal = function (rootSelector) {
+    View_DataComponent22.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'div', EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, '\n    ', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'table', new InlineArray2(2, 'class', 'table'), null);
@@ -55604,7 +55708,7 @@ var View_DataComponent20 = (function (_super) {
         ]), null);
         return null;
     };
-    View_DataComponent20.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent22.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === TemplateRef) && (24 === requestNodeIndex))) {
             return this._TemplateRef_24_5;
         }
@@ -55613,35 +55717,35 @@ var View_DataComponent20 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent20.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent22.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_24_0_0 = this.parentView.parentView.context.resData;
         this._NgFor_24_6.check_ngForOf(currVal_24_0_0, throwOnChange, false);
         this._NgFor_24_6.ngDoCheck(this, this._anchor_24, throwOnChange);
         this._vc_24.detectChangesInNestedViews(throwOnChange);
     };
-    View_DataComponent20.prototype.destroyInternal = function () {
+    View_DataComponent22.prototype.destroyInternal = function () {
         this._vc_24.destroyNestedViews();
     };
-    View_DataComponent20.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent22.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent20.prototype.createEmbeddedViewInternal = function (nodeIndex) {
+    View_DataComponent22.prototype.createEmbeddedViewInternal = function (nodeIndex) {
         if ((nodeIndex == 24)) {
-            return new View_DataComponent21(this.viewUtils, this, 24, this._anchor_24, this._vc_24);
+            return new View_DataComponent23(this.viewUtils, this, 24, this._anchor_24, this._vc_24);
         }
         return null;
     };
-    return View_DataComponent20;
+    return View_DataComponent22;
 }(AppView));
-var View_DataComponent19 = (function (_super) {
-    __extends$183(View_DataComponent19, _super);
-    function View_DataComponent19(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
-        var _this = _super.call(this, View_DataComponent19, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
+var View_DataComponent21 = (function (_super) {
+    __extends$183(View_DataComponent21, _super);
+    function View_DataComponent21(viewUtils, parentView, parentIndex, parentElement, declaredViewContainer) {
+        var _this = _super.call(this, View_DataComponent21, renderType_DataComponent, ViewType.EMBEDDED, viewUtils, parentView, parentIndex, parentElement, ChangeDetectorStatus.CheckAlways, declaredViewContainer) || this;
         _this._expr_22 = UNINITIALIZED;
         _this._expr_23 = UNINITIALIZED;
         return _this;
     }
-    View_DataComponent19.prototype.createInternal = function (rootSelector) {
+    View_DataComponent21.prototype.createInternal = function (rootSelector) {
         this._el_0 = createRenderElement(this.renderer, null, 'div', EMPTY_INLINE_ARRAY, null);
         this._text_1 = this.renderer.createText(this._el_0, '\n  ', null);
         this._el_2 = createRenderElement(this.renderer, this._el_0, 'div', new InlineArray2(2, 'class', 'left '), null);
@@ -55688,7 +55792,7 @@ var View_DataComponent19 = (function (_super) {
         ]), [disposable_0]);
         return null;
     };
-    View_DataComponent19.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
+    View_DataComponent21.prototype.injectorGetInternal = function (token, requestNodeIndex, notFoundResult) {
         if (((token === TemplateRef) && (17 === requestNodeIndex))) {
             return this._TemplateRef_17_5;
         }
@@ -55697,7 +55801,7 @@ var View_DataComponent19 = (function (_super) {
         }
         return notFoundResult;
     };
-    View_DataComponent19.prototype.detectChangesInternal = function (throwOnChange) {
+    View_DataComponent21.prototype.detectChangesInternal = function (throwOnChange) {
         var currVal_17_0_0 = this.parentView.context.flagObj.isResponseDivVisible;
         this._NgIf_17_6.check_ngIf(currVal_17_0_0, throwOnChange, false);
         this._NgIf_17_6.ngDoCheck(this, this._anchor_17, throwOnChange);
@@ -55713,19 +55817,19 @@ var View_DataComponent19 = (function (_super) {
             this._expr_23 = currVal_23;
         }
     };
-    View_DataComponent19.prototype.destroyInternal = function () {
+    View_DataComponent21.prototype.destroyInternal = function () {
         this._vc_17.destroyNestedViews();
     };
-    View_DataComponent19.prototype.visitRootNodesInternal = function (cb, ctx) {
+    View_DataComponent21.prototype.visitRootNodesInternal = function (cb, ctx) {
         cb(this._el_0, ctx);
     };
-    View_DataComponent19.prototype.createEmbeddedViewInternal = function (nodeIndex) {
+    View_DataComponent21.prototype.createEmbeddedViewInternal = function (nodeIndex) {
         if ((nodeIndex == 17)) {
-            return new View_DataComponent20(this.viewUtils, this, 17, this._anchor_17, this._vc_17);
+            return new View_DataComponent22(this.viewUtils, this, 17, this._anchor_17, this._vc_17);
         }
         return null;
     };
-    View_DataComponent19.prototype.handleEvent_4 = function (eventName, $event) {
+    View_DataComponent21.prototype.handleEvent_4 = function (eventName, $event) {
         this.markPathToRootAsCheckOnce();
         var result = true;
         if ((eventName == 'click')) {
@@ -55734,7 +55838,7 @@ var View_DataComponent19 = (function (_super) {
         }
         return result;
     };
-    return View_DataComponent19;
+    return View_DataComponent21;
 }(AppView));
 var renderType_DataComponent = createRenderComponentType('', 0, ViewEncapsulation.None, styles_DataComponent, {});
 var View_DataComponent0 = (function (_super) {
@@ -55942,16 +56046,16 @@ var View_DataComponent0 = (function (_super) {
             return new View_DataComponent3(this.viewUtils, this, 22, this._anchor_22, this._vc_22);
         }
         if ((nodeIndex == 24)) {
-            return new View_DataComponent15(this.viewUtils, this, 24, this._anchor_24, this._vc_24);
+            return new View_DataComponent17(this.viewUtils, this, 24, this._anchor_24, this._vc_24);
         }
         if ((nodeIndex == 26)) {
-            return new View_DataComponent16(this.viewUtils, this, 26, this._anchor_26, this._vc_26);
+            return new View_DataComponent18(this.viewUtils, this, 26, this._anchor_26, this._vc_26);
         }
         if ((nodeIndex == 28)) {
-            return new View_DataComponent17(this.viewUtils, this, 28, this._anchor_28, this._vc_28);
+            return new View_DataComponent19(this.viewUtils, this, 28, this._anchor_28, this._vc_28);
         }
         if ((nodeIndex == 30)) {
-            return new View_DataComponent19(this.viewUtils, this, 30, this._anchor_30, this._vc_30);
+            return new View_DataComponent21(this.viewUtils, this, 30, this._anchor_30, this._vc_30);
         }
         return null;
     };
