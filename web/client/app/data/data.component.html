@@ -27,7 +27,7 @@
     <td>{{req?.key}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.lentype}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.maxlen}}</td>
-    <td *ngIf="reqFieldDef">{{req?.value?.length}}</td>
+    <td *ngIf="reqFieldDef" [ngClass]="{'text-accent-color':req.showEditField}">{{req?.value?.length}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.desc}}</td>
     <td *ngIf="!req.showEditField" (click)="req.showEditField=true;" class="pre-ws clickable">"{{req?.value}}"</td>
     <td *ngIf="req.showEditField">  <input focusOnInit  [attr.maxlength]="reqFieldDef[req?.key]?.maxlen" (ngModelChange)="onReqDataFVModelChange(req?.key, $event)" (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>

@@ -238,3 +238,11 @@ pre{
   // border-color: #0000ff;
   border: 3px solid $accent-color;
 }
+
+.text-accent-color{
+  color: $accent-color !important
+}
+
+.bg-accent-color{
+  background-color:  $accent-color !important
+}

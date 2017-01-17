@@ -2620,3 +2620,9 @@ pre {
   line-height: 70px;
   text-align: center;
   border: 3px solid #F50057; }
+
+.text-accent-color {
+  color: #F50057 !important; }
+
+.bg-accent-color {
+  background-color: #F50057 !important; }
