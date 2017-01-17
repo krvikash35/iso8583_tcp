@@ -16,7 +16,7 @@
 .text-materialize-red.text-lighten-4 {
   color: #f8c1c3 !important; }
 
-.bg-materialize-red.bg-lighten-3, .bg-materialize-red.label-error, .bg-materialize-red.label-success {
+.bg-materialize-red.bg-lighten-3, .bg-materialize-red.label-error, .bg-materialize-red.label-success, .bg-materialize-red.circle-success, .bg-materialize-red.circle-error {
   background-color: #f3989b !important; }
 
 .text-materialize-red.text-lighten-3 {
@@ -37,7 +37,7 @@
 .bg-materialize-red.bg-darken-1 {
   background-color: #d0181e !important; }
 
-.text-materialize-red.text-darken-1, .text-materialize-red.label-error, .text-materialize-red.label-success {
+.text-materialize-red.text-darken-1, .text-materialize-red.label-error, .text-materialize-red.label-success, .text-materialize-red.circle-success, .text-materialize-red.circle-error {
   color: #d0181e !important; }
 
 .bg-materialize-red.bg-darken-2 {
@@ -58,88 +58,88 @@
 .text-materialize-red.text-darken-4 {
   color: #8b1014 !important; }
 
-.bg-red, .label-error {
+.bg-red, .label-error, .circle-error {
   background-color: #F44336 !important; }
 
-.text-red, .label-error {
+.text-red, .label-error, .circle-error {
   color: #F44336 !important; }
 
-.bg-red.bg-lighten-5, .bg-lighten-5.label-error {
+.bg-red.bg-lighten-5, .bg-lighten-5.label-error, .bg-lighten-5.circle-error {
   background-color: #FFEBEE !important; }
 
-.text-red.text-lighten-5, .text-lighten-5.label-error {
+.text-red.text-lighten-5, .text-lighten-5.label-error, .text-lighten-5.circle-error {
   color: #FFEBEE !important; }
 
-.bg-red.bg-lighten-4, .bg-lighten-4.label-error {
+.bg-red.bg-lighten-4, .bg-lighten-4.label-error, .bg-lighten-4.circle-error {
   background-color: #FFCDD2 !important; }
 
-.text-red.text-lighten-4, .text-lighten-4.label-error {
+.text-red.text-lighten-4, .text-lighten-4.label-error, .text-lighten-4.circle-error {
   color: #FFCDD2 !important; }
 
-.bg-red.bg-lighten-3, .label-error, .bg-red.label-success {
+.bg-red.bg-lighten-3, .label-error, .bg-red.label-success, .bg-red.circle-success, .circle-error {
   background-color: #EF9A9A !important; }
 
-.text-red.text-lighten-3, .text-lighten-3.label-error {
+.text-red.text-lighten-3, .text-lighten-3.label-error, .text-lighten-3.circle-error {
   color: #EF9A9A !important; }
 
-.bg-red.bg-lighten-2, .bg-lighten-2.label-error {
+.bg-red.bg-lighten-2, .bg-lighten-2.label-error, .bg-lighten-2.circle-error {
   background-color: #E57373 !important; }
 
-.text-red.text-lighten-2, .text-lighten-2.label-error {
+.text-red.text-lighten-2, .text-lighten-2.label-error, .text-lighten-2.circle-error {
   color: #E57373 !important; }
 
-.bg-red.bg-lighten-1, .bg-lighten-1.label-error {
+.bg-red.bg-lighten-1, .bg-lighten-1.label-error, .bg-lighten-1.circle-error {
   background-color: #EF5350 !important; }
 
-.text-red.text-lighten-1, .text-lighten-1.label-error {
+.text-red.text-lighten-1, .text-lighten-1.label-error, .text-lighten-1.circle-error {
   color: #EF5350 !important; }
 
-.bg-red.bg-darken-1, .bg-darken-1.label-error {
+.bg-red.bg-darken-1, .bg-darken-1.label-error, .bg-darken-1.circle-error {
   background-color: #E53935 !important; }
 
-.text-red.text-darken-1, .label-error, .text-red.label-success {
+.text-red.text-darken-1, .label-error, .text-red.label-success, .text-red.circle-success, .circle-error {
   color: #E53935 !important; }
 
-.bg-red.bg-darken-2, .bg-darken-2.label-error {
+.bg-red.bg-darken-2, .bg-darken-2.label-error, .bg-darken-2.circle-error {
   background-color: #D32F2F !important; }
 
-.text-red.text-darken-2, .text-darken-2.label-error {
+.text-red.text-darken-2, .text-darken-2.label-error, .text-darken-2.circle-error {
   color: #D32F2F !important; }
 
-.bg-red.bg-darken-3, .bg-darken-3.label-error {
+.bg-red.bg-darken-3, .bg-darken-3.label-error, .bg-darken-3.circle-error {
   background-color: #C62828 !important; }
 
-.text-red.text-darken-3, .text-darken-3.label-error {
+.text-red.text-darken-3, .text-darken-3.label-error, .text-darken-3.circle-error {
   color: #C62828 !important; }
 
-.bg-red.bg-darken-4, .bg-darken-4.label-error {
+.bg-red.bg-darken-4, .bg-darken-4.label-error, .bg-darken-4.circle-error {
   background-color: #B71C1C !important; }
 
-.text-red.text-darken-4, .text-darken-4.label-error {
+.text-red.text-darken-4, .text-darken-4.label-error, .text-darken-4.circle-error {
   color: #B71C1C !important; }
 
-.bg-red.bg-accent-1, .bg-accent-1.label-error {
+.bg-red.bg-accent-1, .bg-accent-1.label-error, .bg-accent-1.circle-error {
   background-color: #FF8A80 !important; }
 
-.text-red.text-accent-1, .text-accent-1.label-error {
+.text-red.text-accent-1, .text-accent-1.label-error, .text-accent-1.circle-error {
   color: #FF8A80 !important; }
 
-.bg-red.bg-accent-2, .bg-accent-2.label-error {
+.bg-red.bg-accent-2, .bg-accent-2.label-error, .bg-accent-2.circle-error {
   background-color: #FF5252 !important; }
 
-.text-red.text-accent-2, .text-accent-2.label-error {
+.text-red.text-accent-2, .text-accent-2.label-error, .text-accent-2.circle-error {
   color: #FF5252 !important; }
 
-.bg-red.bg-accent-3, .bg-accent-3.label-error {
+.bg-red.bg-accent-3, .bg-accent-3.label-error, .bg-accent-3.circle-error {
   background-color: #FF1744 !important; }
 
-.text-red.text-accent-3, .text-accent-3.label-error {
+.text-red.text-accent-3, .text-accent-3.label-error, .text-accent-3.circle-error {
   color: #FF1744 !important; }
 
-.bg-red.bg-accent-4, .bg-accent-4.label-error {
+.bg-red.bg-accent-4, .bg-accent-4.label-error, .bg-accent-4.circle-error {
   background-color: #D50000 !important; }
 
-.text-red.text-accent-4, .text-accent-4.label-error {
+.text-red.text-accent-4, .text-accent-4.label-error, .text-accent-4.circle-error {
   color: #D50000 !important; }
 
 .bg-pink {
@@ -160,7 +160,7 @@
 .text-pink.text-lighten-4 {
   color: #f8bbd0 !important; }
 
-.bg-pink.bg-lighten-3, .bg-pink.label-error, .bg-pink.label-success {
+.bg-pink.bg-lighten-3, .bg-pink.label-error, .bg-pink.label-success, .bg-pink.circle-success, .bg-pink.circle-error {
   background-color: #f48fb1 !important; }
 
 .text-pink.text-lighten-3 {
@@ -181,7 +181,7 @@
 .bg-pink.bg-darken-1 {
   background-color: #d81b60 !important; }
 
-.text-pink.text-darken-1, .text-pink.label-error, .text-pink.label-success {
+.text-pink.text-darken-1, .text-pink.label-error, .text-pink.label-success, .text-pink.circle-success, .text-pink.circle-error {
   color: #d81b60 !important; }
 
 .bg-pink.bg-darken-2 {
@@ -244,7 +244,7 @@
 .text-purple.text-lighten-4 {
   color: #e1bee7 !important; }
 
-.bg-purple.bg-lighten-3, .bg-purple.label-error, .bg-purple.label-success {
+.bg-purple.bg-lighten-3, .bg-purple.label-error, .bg-purple.label-success, .bg-purple.circle-success, .bg-purple.circle-error {
   background-color: #ce93d8 !important; }
 
 .text-purple.text-lighten-3 {
@@ -265,7 +265,7 @@
 .bg-purple.bg-darken-1 {
   background-color: #8e24aa !important; }
 
-.text-purple.text-darken-1, .text-purple.label-error, .text-purple.label-success {
+.text-purple.text-darken-1, .text-purple.label-error, .text-purple.label-success, .text-purple.circle-success, .text-purple.circle-error {
   color: #8e24aa !important; }
 
 .bg-purple.bg-darken-2 {
@@ -328,7 +328,7 @@
 .text-deep-purple.text-lighten-4 {
   color: #d1c4e9 !important; }
 
-.bg-deep-purple.bg-lighten-3, .bg-deep-purple.label-error, .bg-deep-purple.label-success {
+.bg-deep-purple.bg-lighten-3, .bg-deep-purple.label-error, .bg-deep-purple.label-success, .bg-deep-purple.circle-success, .bg-deep-purple.circle-error {
   background-color: #b39ddb !important; }
 
 .text-deep-purple.text-lighten-3 {
@@ -349,7 +349,7 @@
 .bg-deep-purple.bg-darken-1 {
   background-color: #5e35b1 !important; }
 
-.text-deep-purple.text-darken-1, .text-deep-purple.label-error, .text-deep-purple.label-success {
+.text-deep-purple.text-darken-1, .text-deep-purple.label-error, .text-deep-purple.label-success, .text-deep-purple.circle-success, .text-deep-purple.circle-error {
   color: #5e35b1 !important; }
 
 .bg-deep-purple.bg-darken-2 {
@@ -412,7 +412,7 @@
 .text-indigo.text-lighten-4 {
   color: #c5cae9 !important; }
 
-.bg-indigo.bg-lighten-3, .bg-indigo.label-error, .bg-indigo.label-success {
+.bg-indigo.bg-lighten-3, .bg-indigo.label-error, .bg-indigo.label-success, .bg-indigo.circle-success, .bg-indigo.circle-error {
   background-color: #9fa8da !important; }
 
 .text-indigo.text-lighten-3 {
@@ -433,7 +433,7 @@
 .bg-indigo.bg-darken-1 {
   background-color: #3949ab !important; }
 
-.text-indigo.text-darken-1, .text-indigo.label-error, .text-indigo.label-success {
+.text-indigo.text-darken-1, .text-indigo.label-error, .text-indigo.label-success, .text-indigo.circle-success, .text-indigo.circle-error {
   color: #3949ab !important; }
 
 .bg-indigo.bg-darken-2 {
@@ -496,7 +496,7 @@
 .text-blue.text-lighten-4 {
   color: #BBDEFB !important; }
 
-.bg-blue.bg-lighten-3, .bg-blue.label-error, .bg-blue.label-success {
+.bg-blue.bg-lighten-3, .bg-blue.label-error, .bg-blue.label-success, .bg-blue.circle-success, .bg-blue.circle-error {
   background-color: #90CAF9 !important; }
 
 .text-blue.text-lighten-3 {
@@ -517,7 +517,7 @@
 .bg-blue.bg-darken-1 {
   background-color: #1E88E5 !important; }
 
-.text-blue.text-darken-1, .text-blue.label-error, .text-blue.label-success {
+.text-blue.text-darken-1, .text-blue.label-error, .text-blue.label-success, .text-blue.circle-success, .text-blue.circle-error {
   color: #1E88E5 !important; }
 
 .bg-blue.bg-darken-2 {
@@ -580,7 +580,7 @@
 .text-light-blue.text-lighten-4 {
   color: #b3e5fc !important; }
 
-.bg-light-blue.bg-lighten-3, .bg-light-blue.label-error, .bg-light-blue.label-success {
+.bg-light-blue.bg-lighten-3, .bg-light-blue.label-error, .bg-light-blue.label-success, .bg-light-blue.circle-success, .bg-light-blue.circle-error {
   background-color: #81d4fa !important; }
 
 .text-light-blue.text-lighten-3 {
@@ -601,7 +601,7 @@
 .bg-light-blue.bg-darken-1 {
   background-color: #039be5 !important; }
 
-.text-light-blue.text-darken-1, .text-light-blue.label-error, .text-light-blue.label-success {
+.text-light-blue.text-darken-1, .text-light-blue.label-error, .text-light-blue.label-success, .text-light-blue.circle-success, .text-light-blue.circle-error {
   color: #039be5 !important; }
 
 .bg-light-blue.bg-darken-2 {
@@ -664,7 +664,7 @@
 .text-cyan.text-lighten-4 {
   color: #b2ebf2 !important; }
 
-.bg-cyan.bg-lighten-3, .bg-cyan.label-error, .bg-cyan.label-success {
+.bg-cyan.bg-lighten-3, .bg-cyan.label-error, .bg-cyan.label-success, .bg-cyan.circle-success, .bg-cyan.circle-error {
   background-color: #80deea !important; }
 
 .text-cyan.text-lighten-3 {
@@ -685,7 +685,7 @@
 .bg-cyan.bg-darken-1 {
   background-color: #00acc1 !important; }
 
-.text-cyan.text-darken-1, .text-cyan.label-error, .text-cyan.label-success {
+.text-cyan.text-darken-1, .text-cyan.label-error, .text-cyan.label-success, .text-cyan.circle-success, .text-cyan.circle-error {
   color: #00acc1 !important; }
 
 .bg-cyan.bg-darken-2 {
@@ -748,7 +748,7 @@
 .text-teal.text-lighten-4 {
   color: #b2dfdb !important; }
 
-.bg-teal.bg-lighten-3, .bg-teal.label-error, .bg-teal.label-success {
+.bg-teal.bg-lighten-3, .bg-teal.label-error, .bg-teal.label-success, .bg-teal.circle-success, .bg-teal.circle-error {
   background-color: #80cbc4 !important; }
 
 .text-teal.text-lighten-3 {
@@ -769,7 +769,7 @@
 .bg-teal.bg-darken-1 {
   background-color: #00897b !important; }
 
-.text-teal.text-darken-1, .text-teal.label-error, .text-teal.label-success {
+.text-teal.text-darken-1, .text-teal.label-error, .text-teal.label-success, .text-teal.circle-success, .text-teal.circle-error {
   color: #00897b !important; }
 
 .bg-teal.bg-darken-2 {
@@ -814,88 +814,88 @@
 .text-teal.text-accent-4 {
   color: #00bfa5 !important; }
 
-.bg-green, .label-success {
+.bg-green, .label-success, .circle-success {
   background-color: #4CAF50 !important; }
 
-.text-green, .label-success {
+.text-green, .label-success, .circle-success {
   color: #4CAF50 !important; }
 
-.bg-green.bg-lighten-5, .bg-lighten-5.label-success {
+.bg-green.bg-lighten-5, .bg-lighten-5.label-success, .bg-lighten-5.circle-success {
   background-color: #E8F5E9 !important; }
 
-.text-green.text-lighten-5, .text-lighten-5.label-success {
+.text-green.text-lighten-5, .text-lighten-5.label-success, .text-lighten-5.circle-success {
   color: #E8F5E9 !important; }
 
-.bg-green.bg-lighten-4, .bg-lighten-4.label-success {
+.bg-green.bg-lighten-4, .bg-lighten-4.label-success, .bg-lighten-4.circle-success {
   background-color: #C8E6C9 !important; }
 
-.text-green.text-lighten-4, .text-lighten-4.label-success {
+.text-green.text-lighten-4, .text-lighten-4.label-success, .text-lighten-4.circle-success {
   color: #C8E6C9 !important; }
 
-.bg-green.bg-lighten-3, .bg-green.label-error, .label-success {
+.bg-green.bg-lighten-3, .bg-green.label-error, .label-success, .circle-success, .bg-green.circle-error {
   background-color: #A5D6A7 !important; }
 
-.text-green.text-lighten-3, .text-lighten-3.label-success {
+.text-green.text-lighten-3, .text-lighten-3.label-success, .text-lighten-3.circle-success {
   color: #A5D6A7 !important; }
 
-.bg-green.bg-lighten-2, .bg-lighten-2.label-success {
+.bg-green.bg-lighten-2, .bg-lighten-2.label-success, .bg-lighten-2.circle-success {
   background-color: #81C784 !important; }
 
-.text-green.text-lighten-2, .text-lighten-2.label-success {
+.text-green.text-lighten-2, .text-lighten-2.label-success, .text-lighten-2.circle-success {
   color: #81C784 !important; }
 
-.bg-green.bg-lighten-1, .bg-lighten-1.label-success {
+.bg-green.bg-lighten-1, .bg-lighten-1.label-success, .bg-lighten-1.circle-success {
   background-color: #66BB6A !important; }
 
-.text-green.text-lighten-1, .text-lighten-1.label-success {
+.text-green.text-lighten-1, .text-lighten-1.label-success, .text-lighten-1.circle-success {
   color: #66BB6A !important; }
 
-.bg-green.bg-darken-1, .bg-darken-1.label-success {
+.bg-green.bg-darken-1, .bg-darken-1.label-success, .bg-darken-1.circle-success {
   background-color: #43A047 !important; }
 
-.text-green.text-darken-1, .text-green.label-error, .label-success {
+.text-green.text-darken-1, .text-green.label-error, .label-success, .circle-success, .text-green.circle-error {
   color: #43A047 !important; }
 
-.bg-green.bg-darken-2, .bg-darken-2.label-success {
+.bg-green.bg-darken-2, .bg-darken-2.label-success, .bg-darken-2.circle-success {
   background-color: #388E3C !important; }
 
-.text-green.text-darken-2, .text-darken-2.label-success {
+.text-green.text-darken-2, .text-darken-2.label-success, .text-darken-2.circle-success {
   color: #388E3C !important; }
 
-.bg-green.bg-darken-3, .bg-darken-3.label-success {
+.bg-green.bg-darken-3, .bg-darken-3.label-success, .bg-darken-3.circle-success {
   background-color: #2E7D32 !important; }
 
-.text-green.text-darken-3, .text-darken-3.label-success {
+.text-green.text-darken-3, .text-darken-3.label-success, .text-darken-3.circle-success {
   color: #2E7D32 !important; }
 
-.bg-green.bg-darken-4, .bg-darken-4.label-success {
+.bg-green.bg-darken-4, .bg-darken-4.label-success, .bg-darken-4.circle-success {
   background-color: #1B5E20 !important; }
 
-.text-green.text-darken-4, .text-darken-4.label-success {
+.text-green.text-darken-4, .text-darken-4.label-success, .text-darken-4.circle-success {
   color: #1B5E20 !important; }
 
-.bg-green.bg-accent-1, .bg-accent-1.label-success {
+.bg-green.bg-accent-1, .bg-accent-1.label-success, .bg-accent-1.circle-success {
   background-color: #B9F6CA !important; }
 
-.text-green.text-accent-1, .text-accent-1.label-success {
+.text-green.text-accent-1, .text-accent-1.label-success, .text-accent-1.circle-success {
   color: #B9F6CA !important; }
 
-.bg-green.bg-accent-2, .bg-accent-2.label-success {
+.bg-green.bg-accent-2, .bg-accent-2.label-success, .bg-accent-2.circle-success {
   background-color: #69F0AE !important; }
 
-.text-green.text-accent-2, .text-accent-2.label-success {
+.text-green.text-accent-2, .text-accent-2.label-success, .text-accent-2.circle-success {
   color: #69F0AE !important; }
 
-.bg-green.bg-accent-3, .bg-accent-3.label-success {
+.bg-green.bg-accent-3, .bg-accent-3.label-success, .bg-accent-3.circle-success {
   background-color: #00E676 !important; }
 
-.text-green.text-accent-3, .text-accent-3.label-success {
+.text-green.text-accent-3, .text-accent-3.label-success, .text-accent-3.circle-success {
   color: #00E676 !important; }
 
-.bg-green.bg-accent-4, .bg-accent-4.label-success {
+.bg-green.bg-accent-4, .bg-accent-4.label-success, .bg-accent-4.circle-success {
   background-color: #00C853 !important; }
 
-.text-green.text-accent-4, .text-accent-4.label-success {
+.text-green.text-accent-4, .text-accent-4.label-success, .text-accent-4.circle-success {
   color: #00C853 !important; }
 
 .bg-light-green {
@@ -916,7 +916,7 @@
 .text-light-green.text-lighten-4 {
   color: #dcedc8 !important; }
 
-.bg-light-green.bg-lighten-3, .bg-light-green.label-error, .bg-light-green.label-success {
+.bg-light-green.bg-lighten-3, .bg-light-green.label-error, .bg-light-green.label-success, .bg-light-green.circle-success, .bg-light-green.circle-error {
   background-color: #c5e1a5 !important; }
 
 .text-light-green.text-lighten-3 {
@@ -937,7 +937,7 @@
 .bg-light-green.bg-darken-1 {
   background-color: #7cb342 !important; }
 
-.text-light-green.text-darken-1, .text-light-green.label-error, .text-light-green.label-success {
+.text-light-green.text-darken-1, .text-light-green.label-error, .text-light-green.label-success, .text-light-green.circle-success, .text-light-green.circle-error {
   color: #7cb342 !important; }
 
 .bg-light-green.bg-darken-2 {
@@ -1000,7 +1000,7 @@
 .text-lime.text-lighten-4 {
   color: #f0f4c3 !important; }
 
-.bg-lime.bg-lighten-3, .bg-lime.label-error, .bg-lime.label-success {
+.bg-lime.bg-lighten-3, .bg-lime.label-error, .bg-lime.label-success, .bg-lime.circle-success, .bg-lime.circle-error {
   background-color: #e6ee9c !important; }
 
 .text-lime.text-lighten-3 {
@@ -1021,7 +1021,7 @@
 .bg-lime.bg-darken-1 {
   background-color: #c0ca33 !important; }
 
-.text-lime.text-darken-1, .text-lime.label-error, .text-lime.label-success {
+.text-lime.text-darken-1, .text-lime.label-error, .text-lime.label-success, .text-lime.circle-success, .text-lime.circle-error {
   color: #c0ca33 !important; }
 
 .bg-lime.bg-darken-2 {
@@ -1084,7 +1084,7 @@
 .text-yellow.text-lighten-4 {
   color: #fff9c4 !important; }
 
-.bg-yellow.bg-lighten-3, .bg-yellow.label-error, .bg-yellow.label-success {
+.bg-yellow.bg-lighten-3, .bg-yellow.label-error, .bg-yellow.label-success, .bg-yellow.circle-success, .bg-yellow.circle-error {
   background-color: #fff59d !important; }
 
 .text-yellow.text-lighten-3 {
@@ -1105,7 +1105,7 @@
 .bg-yellow.bg-darken-1 {
   background-color: #fdd835 !important; }
 
-.text-yellow.text-darken-1, .text-yellow.label-error, .text-yellow.label-success {
+.text-yellow.text-darken-1, .text-yellow.label-error, .text-yellow.label-success, .text-yellow.circle-success, .text-yellow.circle-error {
   color: #fdd835 !important; }
 
 .bg-yellow.bg-darken-2 {
@@ -1168,7 +1168,7 @@
 .text-amber.text-lighten-4 {
   color: #ffecb3 !important; }
 
-.bg-amber.bg-lighten-3, .bg-amber.label-error, .bg-amber.label-success {
+.bg-amber.bg-lighten-3, .bg-amber.label-error, .bg-amber.label-success, .bg-amber.circle-success, .bg-amber.circle-error {
   background-color: #ffe082 !important; }
 
 .text-amber.text-lighten-3 {
@@ -1189,7 +1189,7 @@
 .bg-amber.bg-darken-1 {
   background-color: #ffb300 !important; }
 
-.text-amber.text-darken-1, .text-amber.label-error, .text-amber.label-success {
+.text-amber.text-darken-1, .text-amber.label-error, .text-amber.label-success, .text-amber.circle-success, .text-amber.circle-error {
   color: #ffb300 !important; }
 
 .bg-amber.bg-darken-2 {
@@ -1252,7 +1252,7 @@
 .text-orange.text-lighten-4 {
   color: #ffe0b2 !important; }
 
-.bg-orange.bg-lighten-3, .bg-orange.label-error, .bg-orange.label-success {
+.bg-orange.bg-lighten-3, .bg-orange.label-error, .bg-orange.label-success, .bg-orange.circle-success, .bg-orange.circle-error {
   background-color: #ffcc80 !important; }
 
 .text-orange.text-lighten-3 {
@@ -1273,7 +1273,7 @@
 .bg-orange.bg-darken-1 {
   background-color: #fb8c00 !important; }
 
-.text-orange.text-darken-1, .text-orange.label-error, .text-orange.label-success {
+.text-orange.text-darken-1, .text-orange.label-error, .text-orange.label-success, .text-orange.circle-success, .text-orange.circle-error {
   color: #fb8c00 !important; }
 
 .bg-orange.bg-darken-2 {
@@ -1336,7 +1336,7 @@
 .text-deep-orange.text-lighten-4 {
   color: #ffccbc !important; }
 
-.bg-deep-orange.bg-lighten-3, .bg-deep-orange.label-error, .bg-deep-orange.label-success {
+.bg-deep-orange.bg-lighten-3, .bg-deep-orange.label-error, .bg-deep-orange.label-success, .bg-deep-orange.circle-success, .bg-deep-orange.circle-error {
   background-color: #ffab91 !important; }
 
 .text-deep-orange.text-lighten-3 {
@@ -1357,7 +1357,7 @@
 .bg-deep-orange.bg-darken-1 {
   background-color: #f4511e !important; }
 
-.text-deep-orange.text-darken-1, .text-deep-orange.label-error, .text-deep-orange.label-success {
+.text-deep-orange.text-darken-1, .text-deep-orange.label-error, .text-deep-orange.label-success, .text-deep-orange.circle-success, .text-deep-orange.circle-error {
   color: #f4511e !important; }
 
 .bg-deep-orange.bg-darken-2 {
@@ -1420,7 +1420,7 @@
 .text-brown.text-lighten-4 {
   color: #d7ccc8 !important; }
 
-.bg-brown.bg-lighten-3, .bg-brown.label-error, .bg-brown.label-success {
+.bg-brown.bg-lighten-3, .bg-brown.label-error, .bg-brown.label-success, .bg-brown.circle-success, .bg-brown.circle-error {
   background-color: #bcaaa4 !important; }
 
 .text-brown.text-lighten-3 {
@@ -1441,7 +1441,7 @@
 .bg-brown.bg-darken-1 {
   background-color: #6d4c41 !important; }
 
-.text-brown.text-darken-1, .text-brown.label-error, .text-brown.label-success {
+.text-brown.text-darken-1, .text-brown.label-error, .text-brown.label-success, .text-brown.circle-success, .text-brown.circle-error {
   color: #6d4c41 !important; }
 
 .bg-brown.bg-darken-2 {
@@ -1480,7 +1480,7 @@
 .text-blue-grey.text-lighten-4 {
   color: #cfd8dc !important; }
 
-.bg-blue-grey.bg-lighten-3, .bg-blue-grey.label-error, .bg-blue-grey.label-success {
+.bg-blue-grey.bg-lighten-3, .bg-blue-grey.label-error, .bg-blue-grey.label-success, .bg-blue-grey.circle-success, .bg-blue-grey.circle-error {
   background-color: #b0bec5 !important; }
 
 .text-blue-grey.text-lighten-3 {
@@ -1501,7 +1501,7 @@
 .bg-blue-grey.bg-darken-1 {
   background-color: #546e7a !important; }
 
-.text-blue-grey.text-darken-1, .text-blue-grey.label-error, .text-blue-grey.label-success {
+.text-blue-grey.text-darken-1, .text-blue-grey.label-error, .text-blue-grey.label-success, .text-blue-grey.circle-success, .text-blue-grey.circle-error {
   color: #546e7a !important; }
 
 .bg-blue-grey.bg-darken-2 {
@@ -1540,7 +1540,7 @@
 .text-grey.text-lighten-4 {
   color: #f5f5f5 !important; }
 
-.bg-grey.bg-lighten-3, .bg-grey.label-error, .bg-grey.label-success {
+.bg-grey.bg-lighten-3, .bg-grey.label-error, .bg-grey.label-success, .bg-grey.circle-success, .bg-grey.circle-error {
   background-color: #eeeeee !important; }
 
 .text-grey.text-lighten-3 {
@@ -1561,7 +1561,7 @@
 .bg-grey.bg-darken-1 {
   background-color: #757575 !important; }
 
-.text-grey.text-darken-1, .text-grey.label-error, .text-grey.label-success {
+.text-grey.text-darken-1, .text-grey.label-error, .text-grey.label-success, .text-grey.circle-success, .text-grey.circle-error {
   color: #757575 !important; }
 
 .bg-grey.bg-darken-2 {
@@ -2233,7 +2233,7 @@ small {
 .table tr {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
 
-.primary-text, select, input[type="text"], input[type="number"], .card-container > .card > .card-header {
+.primary-text, select, input[type="text"], input[type="number"], .card-container > .card > .card-header, .circle-info {
   color: white; }
 
 .secondary-text, .card-container > .card > .card-body, .card-body-item > label {
@@ -2626,3 +2626,28 @@ pre {
 
 .bg-accent-color {
   background-color: #F50057 !important; }
+
+.circle-success {
+  border-radius: 0.8em;
+  display: inline-block;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em; }
+
+.circle-error {
+  border-radius: 0.8em;
+  display: inline-block;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em; }
+
+.circle-info {
+  background-color: #F50057;
+  border-radius: 0.8em;
+  display: inline-block;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em; }

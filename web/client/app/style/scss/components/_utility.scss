@@ -56,8 +56,6 @@
   padding:0px 10px 10px 10px;
   margin: 0px 10px 0px 10px;
   border-radius: 5px;
-  // overflow-x: hidden;
-  // overflow: hidden;
 }
 
 .label-error-header{
@@ -245,4 +243,42 @@ pre{
 
 .bg-accent-color{
   background-color:  $accent-color !important
+}
+
+
+.circle-success {
+  @extend .bg-green;
+  @extend .bg-lighten-3;
+  @extend .text-green;
+  @extend .text-darken-1;
+  border-radius: 0.8em;
+  display: inline-block;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em;
+}
+
+.circle-error {
+  @extend .bg-red;
+  @extend .bg-lighten-3;
+  @extend .text-red;
+  @extend .text-darken-1;
+  border-radius: 0.8em;
+  display: inline-block;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em;
+}
+
+.circle-info {
+  background-color: $accent-color;
+  @extend .primary-text;
+  border-radius: 0.8em;
+  display: inline-block;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em;
 }

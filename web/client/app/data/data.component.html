@@ -26,8 +26,9 @@
     <td class="clickable" (click)="removeReqDataRow(req?.key)"><i  class="material-icons md-13">delete</i></td>
     <td>{{req?.key}}</td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.lentype}}</td>
-    <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.maxlen}}</td>
-    <td *ngIf="reqFieldDef" [ngClass]="{'text-accent-color':req.showEditField}">{{req?.value?.length}}</td>
+    <!-- <td *ngIf="reqFieldDef" [ngClass]="{'step': reqFieldDef[req?.key]?.maxlen < req?.value?.length}"><span class="step">{{reqFieldDef[req?.key]?.maxlen}}</span></td> -->
+    <td *ngIf="reqFieldDef" ><span [ngClass]="{'circle-success': reqFieldDef[req?.key]?.maxlen < req?.value?.length}">{{reqFieldDef[req?.key]?.maxlen}}</span></td>
+    <td *ngIf="reqFieldDef" ><span [ngClass]="{'circle-info':req.showEditField, 'circle-error': reqFieldDef[req?.key]?.maxlen < req?.value?.length}">{{req?.value?.length}}</span></td>
     <td *ngIf="reqFieldDef">{{reqFieldDef[req?.key]?.desc}}</td>
     <td *ngIf="!req.showEditField" (click)="req.showEditField=true;" class="pre-ws clickable">"{{req?.value}}"</td>
     <td *ngIf="req.showEditField">  <input focusOnInit  [attr.maxlength]="reqFieldDef[req?.key]?.maxlen" (ngModelChange)="onReqDataFVModelChange(req?.key, $event)" (keyup.enter)="req.showEditField=false" (blur)="req.showEditField=false" class="full-width" type="text" [(ngModel)]='req.value' placeholder="Enter Field Value..Then Hit Enter to update value!" ></td>
@@ -36,9 +37,9 @@
     <td  colspan="2"> <input  (keyup)="validateReqDataEditFno(reqDataEdit.fno)"   type="text" [(ngModel)]='reqDataEdit.fno' placeholder="Enter Field No(e.g f123)" /></td>
     <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.lentype}}</td>
     <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.maxlen}}</td>
-    <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqDataEdit?.fvalue?.length}}</td>
+    <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid" > <span [ngClass]="'circle-info'">{{reqDataEdit?.fvalue?.length}}</span></td>
     <td *ngIf="reqFieldDef && flagObj.isreqDataEditFnoValid">{{reqFieldDef[reqDataEdit?.fno]?.desc}}</td>
-    <td *ngIf="flagObj.isreqDataEditFnoValid"> <input (keyup.enter)="addReqDataEditRow(reqDataEdit)"  class="full-width" type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="Enter Field Value..Then Hit Enter to add new record!" /></td>
+    <td *ngIf="flagObj.isreqDataEditFnoValid"> <input [attr.maxlength]="reqFieldDef[reqDataEdit?.fno]?.maxlen" (keyup.enter)="addReqDataEditRow(reqDataEdit)"  class="full-width" type="text" [(ngModel)]='reqDataEdit.fvalue' placeholder="Enter Field Value..Then Hit Enter to add new record!" /></td>
   </tr>
 </table>
 <div class="right">
