@@ -1,37 +1,38 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { DataComponent } from './data/data.component';
-import { ConfigComponent } from './config/config.component';
-import { FieldComponent } from './field/field.component';
-import { LogComponent } from './log/log.component';
-import { HelpComponent } from './help/help.component';
-import { FocusOnInit, ScrollIntoView } from './data/data.directive';
-import { DataService } from './data/data.service';
-import { LogService } from './data/log.service';
-import { WebSocketService } from './log/socket.service';
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var app_routing_module_1 = require("./app-routing.module");
+var app_component_1 = require("./app.component");
+var data_component_1 = require("./data/data.component");
+var config_component_1 = require("./config/config.component");
+var field_component_1 = require("./field/field.component");
+var log_component_1 = require("./log/log.component");
+var help_component_1 = require("./help/help.component");
+var data_directive_1 = require("./data/data.directive");
+var data_service_1 = require("./data/data.service");
+var log_service_1 = require("./data/log.service");
+var socket_service_1 = require("./log/socket.service");
 var AppModule = (function () {
     function AppModule() {
     }
     return AppModule;
 }());
 AppModule = __decorate([
-    NgModule({
-        imports: [BrowserModule, FormsModule, HttpModule, AppRoutingModule],
-        declarations: [AppComponent, DataComponent, ConfigComponent, FieldComponent, LogComponent, HelpComponent, FocusOnInit, ScrollIntoView],
-        providers: [DataService, LogService, WebSocketService],
+    core_1.NgModule({
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule],
+        declarations: [app_component_1.AppComponent, data_component_1.DataComponent, config_component_1.ConfigComponent, field_component_1.FieldComponent, log_component_1.LogComponent, help_component_1.HelpComponent, data_directive_1.FocusOnInit, data_directive_1.ScrollIntoView],
+        providers: [data_service_1.DataService, log_service_1.LogService, socket_service_1.WebSocketService],
         //providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
-        bootstrap: [AppComponent]
+        bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);
-export { AppModule };
+exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map
