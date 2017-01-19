@@ -5,5 +5,5 @@ web-based UI <br/>
 front-end in angular2 <br/>
 back-end in node.js <br/>
 
-![Alt text](https://rawgithub.com/potherca/StackOverflow/gh-pages/question.13808020.include-an-svg-hosted-on-github-in-markdown/controllers_brief.svg)
-<img src="https://rawgithub.com/potherca/StackOverflow/gh-pages/question.13808020.include-an-svg-hosted-on-github-in-markdown/controllers_brief.svg">
+![Alt text](Architecture image1)
+<img src="https://github.com/krvikash35/iso8583_tcp/tree/master/web/server/public/image/iso8583_arch.png">
